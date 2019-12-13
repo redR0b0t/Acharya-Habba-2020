@@ -1,6 +1,6 @@
 # habba2020
 
-Habba app for 2020
+habba 2020
 
 ## Getting Started
 
