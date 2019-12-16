@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:habba2020/pages/volunteer_landing_page.dart';
 import 'package:habba2020/splash_screen.dart';
 
-void main() => runApp(MyApp());
-
+void main() {
+  runApp(MyApp());
+}
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Habba 2020',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
         image: Image.asset('assets/splash.gif'),
         backgroundColor: Colors.black,
         photoSize: 300,
-        navigateAfterSeconds: MyHomePage(title: "SDs,dl,",),
+        navigateAfterSeconds: VolunteerLandingPage(),
       ),
     );
   }
