@@ -13,7 +13,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
   TextEditingController _nameController,
       _phoneNumberController,
       _whatsappNumberController,
-      _usnController;
+      _auidController;
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
@@ -30,7 +30,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
         "Production Team ( Photography, Videography, editing, content creation and content writing)"
   ];
 
-  String college, department, year;
+  String college, department, year, work;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
     _nameController = TextEditingController();
     _phoneNumberController = TextEditingController();
     _whatsappNumberController = TextEditingController();
-    _usnController = TextEditingController();
+    _auidController = TextEditingController();
   }
 
   @override
@@ -113,7 +113,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                               height: 20,
                             ),
                             TextFormField(
-                              controller: _nameController,
+                              controller: _auidController,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -257,6 +257,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: collegeList,
       onItemSelected: (String selectedItem) {
+        college = selectedItem;
         //widget.user.Institution = selectedItem;
       },
       itemBuilder:
@@ -270,7 +271,6 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
           color: Colors.deepOrange,
           onPressed: () {
             onItemTapped();
-            college = item;
             //_registerUser();
           },
           child: Text(
@@ -297,7 +297,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: departmentList,
       onItemSelected: (String selectedItem) {
-        //widget.user.Institution = selectedItem;
+        department = selectedItem;
       },
       itemBuilder:
           (BuildContext context, String item, OnItemTapped onItemTapped) {
@@ -310,7 +310,6 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
           color: Colors.deepOrange,
           onPressed: () {
             onItemTapped();
-            department = item;
             //_registerUser();
           },
           child: Text(
@@ -337,7 +336,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: yearList,
       onItemSelected: (String selectedItem) {
-        //widget.user.Institution = selectedItem;
+        year = selectedItem;
       },
       itemBuilder:
           (BuildContext context, String item, OnItemTapped onItemTapped) {
@@ -350,7 +349,6 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
           color: Colors.deepOrange,
           onPressed: () {
             onItemTapped();
-            year = item;
             //_registerUser();
           },
           child: Text(
@@ -377,7 +375,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: workList,
       onItemSelected: (String selectedItem) {
-        //widget.user.Institution = selectedItem;
+        work = selectedItem;
       },
       itemBuilder:
           (BuildContext context, String item, OnItemTapped onItemTapped) {
@@ -390,7 +388,6 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
           color: Colors.deepOrange,
           onPressed: () {
             onItemTapped();
-            year = item;
             //_registerUser();
           },
           child: Text(
