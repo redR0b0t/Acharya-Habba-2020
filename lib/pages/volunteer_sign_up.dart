@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:habba2020/utils/style_guide.dart';
 import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
+import 'package:habba2020/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:habba2020/pages/home.dart';
 
 class VolunteerSignUp extends StatefulWidget {
   @override
@@ -10,10 +13,13 @@ class VolunteerSignUp extends StatefulWidget {
 }
 
 class _VolunteerSignUpState extends State<VolunteerSignUp> {
+  var _user=UserModel();
+
   TextEditingController _nameController,
       _phoneNumberController,
       _whatsappNumberController,
-      _auidController;
+      _auidController,
+      _mailController;
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
@@ -39,6 +45,28 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
     _phoneNumberController = TextEditingController();
     _whatsappNumberController = TextEditingController();
     _auidController = TextEditingController();
+    _mailController = TextEditingController();
+  }
+  Future _registerUser() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+     // print('Name : ${this._user.Name} Phone : ${_user.PhoneNumber}');
+      var documentReference = Firestore.instance
+          .collection('users')
+          .document(this._user.Id);
+
+
+      Firestore.instance.runTransaction((transaction) async {
+        await transaction.set(
+          documentReference,
+
+          this._user.getMap()
+
+          ,
+        );
+      });
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title:'Welcome')));
+    }
   }
 
   @override
@@ -106,7 +134,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                                 return null;
                               },
                               onSaved: (val) {
-                                //this._user.Name = val.toUpperCase();
+                                this._user.Name = val.toUpperCase();
                               },
                             ),
                             SizedBox(
@@ -133,14 +161,14 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                                 return null;
                               },
                               onSaved: (val) {
-                                //this._user.Name = val.toUpperCase();
+                                this._user.Id = val.toUpperCase();
                               },
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             TextFormField(
-                              controller: _nameController,
+                              controller: _mailController,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -153,14 +181,13 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                               validator: (String value) {
                                 if (value.isEmpty) {
                                   return 'Enter Your Email';
-                                } else if (value.length > 16) {
-                                  return 'Name should be less than 15 words';
                                 }
+                                else{}
 
                                 return null;
                               },
                               onSaved: (val) {
-                                //this._user.Name = val.toUpperCase();
+                                this._user.Mail = val;
                               },
                             ),
                             SizedBox(
@@ -182,6 +209,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                                 }
                                 return null;
                               },
+                              onSaved: (val) {
+                                this._user.WhatsApp = val.toUpperCase();
+                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -201,6 +231,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                                   return '';
                                 }
                                 return null;
+                              },
+                              onSaved: (val) {
+                                this._user.PhoneNumber = val.toUpperCase();
                               },
                             ),
                             SizedBox(
@@ -224,7 +257,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                               color: Colors.deepPurple,
                               onPressed: () {
                                 // continueTap();
-                                //_registerUser();
+                                _registerUser();
                               },
                               child: Text(
                                 'Continue',

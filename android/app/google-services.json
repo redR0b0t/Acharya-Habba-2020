@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "580019390411",
+    "firebase_url": "https://habba2020-ef2cb.firebaseio.com",
+    "project_id": "habba2020-ef2cb",
+    "storage_bucket": "habba2020-ef2cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580019390411:android:8024bd69d20e03aa9e184e",
+        "android_client_info": {
+          "package_name": "com.qxcoding.habba2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580019390411-nqgo0qjhvajjf1uthj318i9rjjej4lst.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuVlh8hfAIQT3La9RYNjh824CmDKMLbtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580019390411-nqgo0qjhvajjf1uthj318i9rjjej4lst.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
