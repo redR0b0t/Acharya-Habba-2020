@@ -6,7 +6,7 @@ import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../main.dart';
+import 'package:habba20/pages/home.dart';
 
 class VolunteerSignUp extends StatefulWidget {
   @override
