@@ -1,11 +1,12 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:habba20/models/user_model.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
-import 'package:habba20/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:habba20/pages/home.dart';
+
+import '../main.dart';
 
 class VolunteerSignUp extends StatefulWidget {
   @override
@@ -50,6 +51,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
   Future _registerUser() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      _user.Type = 0;
      // print('Name : ${this._user.Name} Phone : ${_user.PhoneNumber}');
       var documentReference = Firestore.instance
           .collection('users')

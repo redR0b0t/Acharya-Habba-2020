@@ -1,7 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:habba20/pages/delayed_animation.dart';
-import 'package:habba20/pages/volunteer_sign_up.dart';
+import 'delayed_animation.dart';
+import 'volunteer_sign_up.dart';
 
 class VolunteerLandingPage extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
     return Scaffold(
         backgroundColor: Color(0xFF8185E2),
         body: Center(
-          child: Column(
+          child: ListView(
             children: <Widget>[
               AvatarGlow(
                 endRadius: 90,
@@ -61,6 +61,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
                       fontWeight: FontWeight.bold,
                       fontSize: 35.0,
                       color: color),
+                  textAlign: TextAlign.center,
                 ),
                 delay: delayedAmount + 1000,
               ),
@@ -71,6 +72,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
                       fontWeight: FontWeight.bold,
                       fontSize: 35.0,
                       color: color),
+                  textAlign: TextAlign.center,
                 ),
                 delay: delayedAmount + 2000,
               ),
