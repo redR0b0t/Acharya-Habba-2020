@@ -1,6 +1,6 @@
-# habba2020
+# habba20
 
-habba 2020
+app for habba app registration and info
 
 ## Getting Started
 

@@ -1,4 +1,4 @@
-package com.qxcoding.habba2020;
+package ait.habba20;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:habba2020/pages/volunteer_landing_page.dart';
-import 'package:habba2020/splash_screen.dart';
+import 'package:habba20/pages/volunteer_landing_page.dart';
+import 'package:habba20/splash_screen.dart';
 
 void main() {
   runApp(MyApp());

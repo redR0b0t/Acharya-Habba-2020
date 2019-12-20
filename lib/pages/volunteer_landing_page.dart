@@ -1,7 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:habba2020/pages/delayed_animation.dart';
-import 'package:habba2020/pages/volunteer_sign_up.dart';
+import 'package:habba20/pages/delayed_animation.dart';
+import 'package:habba20/pages/volunteer_sign_up.dart';
 
 class VolunteerLandingPage extends StatefulWidget {
   @override
