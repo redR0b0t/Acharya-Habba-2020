@@ -173,7 +173,15 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                                 if (value.isEmpty) {
                                   return 'Enter Your Email';
                                 }
-                                else{}
+                                else if(value.contains("@acharya.ac.in")){
+                                  //this._user.Type=1;
+
+                                }
+                                else{
+                                  //this._user.Type=2;
+                                  return "Only @acharya ID are allowed";
+                                }
+
 
                                 return null;
                               },
