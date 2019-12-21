@@ -37,7 +37,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
         "Production Team ( Photography, Videography, editing, content creation and content writing)"
   ];
 
-  String college, department, year, work;
+
 
   @override
   void initState() {
@@ -292,7 +292,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: collegeList,
       onItemSelected: (String selectedItem) {
-        college = selectedItem;
+        this._user.College = selectedItem;
         //widget.user.Institution = selectedItem;
       },
       itemBuilder:
@@ -332,7 +332,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: departmentList,
       onItemSelected: (String selectedItem) {
-        department = selectedItem;
+        this._user.Branch = selectedItem;
       },
       itemBuilder:
           (BuildContext context, String item, OnItemTapped onItemTapped) {
@@ -371,7 +371,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: yearList,
       onItemSelected: (String selectedItem) {
-        year = selectedItem;
+        this._user.Year = selectedItem;
       },
       itemBuilder:
           (BuildContext context, String item, OnItemTapped onItemTapped) {
@@ -410,7 +410,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       initiallySelectedItemIndex: 0,
       itemsList: workList,
       onItemSelected: (String selectedItem) {
-        work = selectedItem;
+        this._user.Work = selectedItem;
       },
       itemBuilder:
           (BuildContext context, String item, OnItemTapped onItemTapped) {
