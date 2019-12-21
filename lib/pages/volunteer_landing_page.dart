@@ -43,7 +43,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
                 duration: Duration(seconds: 2),
                 glowColor: Colors.white24,
                 repeat: true,
-                repeatPauseDuration: Duration(seconds: 2),
+                repeatPauseDuration: Duration(seconds: 1),
                 startDelay: Duration(seconds: 1),
                 child: Material(
                     elevation: 8.0,
@@ -136,24 +136,27 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
         );
   }
 
-  Widget get _animatedButtonUI => Container(
-        height: 60,
-        width: 270,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
-          color: Colors.white,
-        ),
-        child: Center(
-          child: Text(
-            'Sign Up',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF8185E2),
-            ),
+  Widget get _animatedButtonUI => Padding(
+    padding: EdgeInsets.symmetric(horizontal: 30),
+    child:Container(
+      height: 60,
+      width: 270,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(100.0),
+        color: Colors.white,
+      ),
+      child: Center(
+        child: Text(
+          'Sign Up',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF8185E2),
           ),
         ),
-      );
+      ),
+    ),
+  );
 
   void _onTapDown(TapDownDetails details) {
     Navigator.push(context, MaterialPageRoute(builder: (context)=> VolunteerSignUp()));

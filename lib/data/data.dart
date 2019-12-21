@@ -1,4 +1,5 @@
 List<String> collegeList = [
+  "Choose your college",
   "ACHARYA INSTITUTE OF TECHNOLOGY",
   "ACHARYA & BM REDDY COLLEGE OF PHARMACY",
   "ACHARYA SCHOOL OF MANAGEMENT",
@@ -16,13 +17,13 @@ List<String> collegeList = [
   "ACHARYA INSTITUTE OF ENGLISH & FOREIGN LANGUAGE"
 ];
 
-
 List<String> departmentList = [
+  "Choose your department",
   "Aeronautical Engineering",
   "Automobile Engineering",
   "Bio Technology Engineering",
   "Civil Engineering",
-  "Computer Science and Engineering",
+  "Computer Science and Engineering ",
   "Electrical and Electronics Engineering",
   "Electronics and Communication Engineering",
   "Information Science and Engineering",
@@ -35,7 +36,6 @@ List<String> departmentList = [
   "M.Tech in Digital Communication and Engineering",
   "M.Tech in Bio Technology",
   "M.Tech in Machine Design",
-
   "Pharm D Doctor of Pharmacy",
   "Pharm D Post Baccalaureate PharmD",
   "M Pharm Industrial Pharmacy",
@@ -47,18 +47,13 @@ List<String> departmentList = [
   "M Pharm Pharmacognosy",
   "M Pharm Drug Regulatory Affairs",
   "D Pharm Diploma in Pharmacy",
-
   "Post Graduate Diploma in Management",
-
   "Diploma in Elementary Education",
   "Diploma in Elementary Education",
-
   "BACHELOR OF ARCHITECTURE",
-
   "BA LLB",
   "BBA LLB",
   "LLB",
-
   "Bachelor Of Business Administration",
   "Bachelor Of Business Administration in Aviation",
   "Bachelor Of Computer Application",
@@ -76,19 +71,15 @@ List<String> departmentList = [
   "Master Of Arts in Economics",
   "Master Of Arts in Journalism and Mass Communication",
   "Master Of Social Work",
-
   "Diploma in General Nursing and MidWife",
-
   "Basic BSc Nursing",
   "Post Basic BSc Nursing",
   "Msc Nursing",
-
   "Painting",
   "Graphics Design",
   "Animation and Multimedia Design",
   "Interior and Spatial Design",
   "Product Design",
-
   "BSc in Anesthesia Technology",
   "B.Sc Operation Theater Technology",
   "BSc in Respiratory Care Technology",
@@ -99,9 +90,7 @@ List<String> departmentList = [
   "BSc in Medical Lab Technology",
   "Bachelor in Hospital Administration",
   "Bachelor in Public Health",
-
   "Bachelor of Physiotherapy",
-
   "Diploma in Aeronautical Engineering",
   "Diploma in Apparel Designing and Fabrication Technology",
   "Diploma in Architecture",
@@ -115,18 +104,17 @@ List<String> departmentList = [
   "Diploma in Mechanical Engineering",
   "Diploma in Mechatronics Engineering",
   "Diploma in Mining Engineering",
-
   "PCMB",
   "PCMC",
   "CEBA",
-
   "Basic Certificate Programme",
   "Diploma Programme",
   "Advance Certificate",
 ];
 
-List<String> yearList = ["1", "2", "3", "4"];
+List<String> yearList = ["Choose your year", "1", "2", "3", "4", "5", "6"];
 List<String> workList = [
+  "Area of interest",
   "Organizing and coordination",
   "Digital design(animation,poster making,etc)",
   "Design and decoration",
