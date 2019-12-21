@@ -5,7 +5,7 @@ import 'package:habba20/utils/style_guide.dart';
 import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:habba20/data/data.dart';
 import 'package:habba20/pages/home.dart';
 
 class VolunteerSignUp extends StatefulWidget {
@@ -25,17 +25,6 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   bool checked = false;
-
-  List<String> collegeList = ["graduat", "AIt"];
-  List<String> departmentList = ["Ise", "Cse"];
-  List<String> yearList = ["1", "2"];
-  List<String> workList = [
-    "Organizing and coordination",
-        "Digital design(animation,poster making,etc)",
-        "Design and decoration",
-        "Marketing and Sponsorship",
-        "Production Team ( Photography, Videography, editing, content creation and content writing)"
-  ];
 
 
 
