@@ -24,7 +24,7 @@ class SuccessCard extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                'Transaction Successfull',
+                'Registration Successfull',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,

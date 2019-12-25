@@ -57,6 +57,10 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
           this._user.getMap(),
         );
       });
+    /*  documentReference.snapshots().listen((DocumentSnapshot event) {
+        // here you could e.g. check if the transaction on your reference was succesful
+      });
+*/
       setState(() {
         state = 2;
       });
@@ -83,15 +87,19 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
         }
       case 1:
         {
-          return Center(
+          return Container(
+              padding: const EdgeInsets.fromLTRB(0,80.0,0,0),
+              child:Center(
             child: Loading(),
-          );
+          ));
         }
       case 2:
         {
-          return Center(
-            child: SuccessCard(),
-          );
+          return Container(
+              padding: const EdgeInsets.fromLTRB(0,80.0,0,0),
+              child:Center(
+                child: SuccessCard(),
+              ));
         }
       case 3:
         {
@@ -152,8 +160,8 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                       validator: (String value) {
                         if (value.isEmpty) {
                           return 'Enter Your Name';
-                        } else if (value.length > 16) {
-                          return 'Name should be less than 15 words';
+                        } else if (value.length > 31) {
+                          return 'Name should be less than 30 words';
                         }
 
                         return null;
