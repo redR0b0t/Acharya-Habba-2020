@@ -61,10 +61,11 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
         // here you could e.g. check if the transaction on your reference was succesful
       });
 */
-      setState(() {
+     /* setState(() {
         state = 2;
       });
-      //Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title:'Welcome')));
+      */
+     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title:'Event lists')));
     }
   }
 
