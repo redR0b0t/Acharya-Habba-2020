@@ -10,6 +10,7 @@ import 'package:selection_menu/selection_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habba20/data/data.dart';
 import 'package:habba20/pages/home.dart';
+import 'package:habba20/pages/home_page.dart';
 
 class VolunteerSignUp extends StatefulWidget {
   @override
@@ -65,7 +66,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
         state = 2;
       });
       */
-     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title:'Event lists')));
+     Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePage()));// MyHomePage(title:'Event lists')));
     }
   }
 

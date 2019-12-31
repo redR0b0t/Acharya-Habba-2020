@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:habba20/pages/home.dart';
 import 'pages/volunteer_landing_page.dart';
 import 'splash_screen.dart';
+import 'package:habba20/pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         image: Image.asset('assets/splash.gif'),
         backgroundColor: Colors.black,
         photoSize: 300,
-        navigateAfterSeconds: VolunteerLandingPage()   ,//MyHomePage(title: "Events list",)
+        navigateAfterSeconds:  VolunteerLandingPage() //HomePage()//MyHomePage(title: "Events list",)
       ),
     );
   }
