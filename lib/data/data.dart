@@ -17,6 +17,8 @@ List<String> collegeList = [
   "ACHARYA INSTITUTE OF ENGLISH & FOREIGN LANGUAGE"
 ];
 
+List<String> aplCatagoryList = ["Choose your role", "Batsman", "Bowler", "All-Rounder"];
+
 List<String> departmentList = [
   "Choose your department",
   "Aeronautical Engineering",

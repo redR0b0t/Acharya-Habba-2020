@@ -1,5 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:habba20/pages/apl_sign_up.dart';
 import 'delayed_animation.dart';
 import 'volunteer_sign_up.dart';
 
@@ -43,7 +44,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
                 duration: Duration(seconds: 2),
                 glowColor: Colors.white24,
                 repeat: true,
-                repeatPauseDuration: Duration(seconds: 1),
+                repeatPauseDuration: Duration(milliseconds: 25),
                 startDelay: Duration(seconds: 1),
                 child: Material(
                     elevation: 8.0,
@@ -83,7 +84,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: DelayedAnimation(
                   child: Text(
-                    "Welcome to the volunteer registration of habba \n2020",
+                    "Welcome to the Volunteer and Apl Registration of Habba \n2020",
                     style: TextStyle(fontSize: 25.0, color: color),
                     textAlign: TextAlign.center,
                   ),
@@ -91,8 +92,21 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
                 ),
               ),
               SizedBox(
-                height: 100.0,
+                height: 30.0,
               ),
+
+              DelayedAnimation(
+                child: GestureDetector(
+                  onTapDown: _onTapApl,
+                  onTapUp: _onTapUp,
+                  child: Transform.scale(
+                    scale: _scale,
+                    child: aplBtn,
+                  ),
+                ),
+                delay: delayedAmount + 4000,
+              ),
+              SizedBox(height: 25,),
               DelayedAnimation(
                 child: GestureDetector(
                   onTapDown: _onTapDown,
@@ -136,6 +150,27 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
         );
   }
 
+  Widget get aplBtn => Padding(
+    padding: EdgeInsets.symmetric(horizontal: 30),
+    child:Container(
+      height: 60,
+      width: 270,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(100.0),
+        color: Colors.white,
+      ),
+      child: Center(
+        child: Text(
+          'APL',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF8185E2),
+          ),
+        ),
+      ),
+    ),
+  );
   Widget get _animatedButtonUI => Padding(
     padding: EdgeInsets.symmetric(horizontal: 30),
     child:Container(
@@ -147,7 +182,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
       ),
       child: Center(
         child: Text(
-          'Sign Up',
+          'Volunteer',
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
@@ -158,6 +193,10 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
     ),
   );
 
+  void _onTapApl(TapDownDetails details) {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> AplSignUp()));
+    _controller.forward();
+  }
   void _onTapDown(TapDownDetails details) {
     Navigator.push(context, MaterialPageRoute(builder: (context)=> VolunteerSignUp()));
     _controller.forward();
