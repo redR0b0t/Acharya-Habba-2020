@@ -81,6 +81,7 @@ class _AplSignUpState extends State<AplSignUp> {
         );
       });
 
+
       setState(() {
         state = 2;
       });
