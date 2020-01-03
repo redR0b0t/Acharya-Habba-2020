@@ -28,7 +28,7 @@ dependencies:
   flutter_spinkit: "^2.1.0"
   xlive_switch: ^1.0.5
   intl:
-
+  provider:
 
 dev_dependencies:
   flutter_test:
