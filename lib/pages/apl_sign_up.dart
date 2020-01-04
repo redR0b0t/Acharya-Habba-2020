@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/models/user_model.dart';
 import 'package:habba20/utils/date_time_helper.dart';
@@ -6,6 +9,7 @@ import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/failure_card.dart';
 import 'package:habba20/widgets/loading.dart';
 import 'package:habba20/widgets/success_card.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,6 +42,8 @@ class _AplSignUpState extends State<AplSignUp> {
   bool _autoValidate = false;
   bool checked = false;
   int state = 0;
+  File _image;
+  static final FirebaseStorage _storage = FirebaseStorage.instance;
 
   DatetimeHelper datetimeHelper;
 
@@ -50,7 +56,7 @@ class _AplSignUpState extends State<AplSignUp> {
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(DateTime.now().year - 80),
-        lastDate: DateTime(DateTime.now().year+1));
+        lastDate: DateTime(DateTime.now().year + 1));
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
@@ -68,7 +74,41 @@ class _AplSignUpState extends State<AplSignUp> {
   }
 
   Future _registerUser() async {
-    this._user.img=imgURL;
+
+    int tym = DateTime.now().millisecondsSinceEpoch;
+    setState(() {
+      state =1;
+    });
+    try {
+      if (_image != null) {
+
+        StorageTaskSnapshot task = await _storage
+            .ref()
+            .child(_user.WhatsApp.toString() + '.jpg')
+            .putFile(_image)
+            .onComplete;
+        _user.img = await task.ref.getDownloadURL();
+        print("Iimage >>> >${_user.img}");
+      }
+      await Firestore.instance
+          .collection('apl')
+          .document(_user.Id)
+          .setData(_user.getMap());
+      setState(() {
+        state = 2;
+      });
+    } catch (err) {
+      print("Errrrr ${err}");
+      setState(() {
+        state = 3;
+      });
+    }
+
+/*
+
+
+
+    this._user.img = imgURL;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       _user.Type = 0;
@@ -85,11 +125,10 @@ class _AplSignUpState extends State<AplSignUp> {
         );
       });
 
-
       setState(() {
         state = 2;
       });
-    }
+    }*/
   }
 
   @override
@@ -112,6 +151,7 @@ class _AplSignUpState extends State<AplSignUp> {
       case 1:
         {
           return Container(
+            height: MediaQuery.of(context).size.height,
               padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
               child: Center(
                 child: Loading(),
@@ -127,14 +167,17 @@ class _AplSignUpState extends State<AplSignUp> {
         }
       case 3:
         {
-          return Center(
-            child: FailureCard(),
-          );
+          return Container(
+              padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
+              child: Center(
+                child: FailureCard(),
+              ));
         }
     }
   }
 
   Widget form() {
+    DpEdit dp = DpEdit();
     return Form(
         key: _formKey,
         autovalidate: _autoValidate,
@@ -144,29 +187,30 @@ class _AplSignUpState extends State<AplSignUp> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 10),
-                ProfilePicture(
-                  name: "Upload",
-                  imagePath: imgURL,
-                  size: 80,
-                ),
-                FloatingActionButton(
-                      backgroundColor: Colors.black87,
-                      child: Icon(Icons.edit),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DpEdit(
-                                  name: 'Upload',
-                                  image:imgURL,
-                                )));
-                      },
+                SizedBox(height: 30),
+                Stack(
+                  children: <Widget>[
+                    _image == null
+                        ? ProfilePicture(
+                      name: "Acharya",
+                      imagePath: "",
+                      size: 70,
+                    )
+                        : CircleAvatar(
+                      radius: 70,
+                      backgroundImage: FileImage(_image),
                     ),
-
-
-
-
+                    Positioned(
+                      height: 40,
+                      width: 40,
+                      bottom: 1,
+                      right: 1,
+                      child: FloatingActionButton(
+                          child: Icon(Icons.edit), onPressed: showImagePicker),
+                    )
+                  ],
+                ),
+                SizedBox(height: 10,),
                 Text(
                   "APL 2020",
                   style: TextStyle(fontSize: 30),
@@ -309,7 +353,7 @@ class _AplSignUpState extends State<AplSignUp> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Date",
+                        "Date of Birth",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -318,8 +362,8 @@ class _AplSignUpState extends State<AplSignUp> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                       onPressed: () => _selectDate(context),
-                      child:
-                          Text('${date}' ,style: TextStyle(fontSize: 17, color: Colors.white) ),
+                      child: Text('${date}',
+                          style: TextStyle(fontSize: 17, color: Colors.white)),
                     ),
                     SizedBox(
                       height: 20,
@@ -455,6 +499,9 @@ class _AplSignUpState extends State<AplSignUp> {
               ]),
         ));
   }
+
+
+
 
   void _changeDesignation(bool value) {
     setState(() {
@@ -610,4 +657,70 @@ class _AplSignUpState extends State<AplSignUp> {
       },
     );
   }
+
+
+  /// IMage picker >>>>>>
+
+  void showImagePicker() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Color(0xFF737373),
+            height: 180,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FloatingActionButton(
+                    child: Icon(Icons.image),
+                    onPressed: getImageFromGallery,
+                  ),
+                  FloatingActionButton(
+                      child: Icon(Icons.camera), onPressed: getImageFromCamera)
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future getImageFromGallery() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 60);
+    setState(() {
+      _image = image;
+    });
+    Navigator.of(context).pop();
+  }
+
+  Future getImageFromCamera() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 60);
+    setState(() {
+      _image = image;
+    });
+    Navigator.of(context).pop();
+  }
+
+  Future<bool> updateProfileImage(File _img) async {
+    String ts=DateTime.now().millisecondsSinceEpoch.toString();
+    String dURL;
+    StorageTaskSnapshot task = await _storage
+        .ref()
+        .child(ts + '.jpg')
+        .putFile(_img)
+        .onComplete;
+    dURL= await task.ref.getDownloadURL();
+    imgURL=dURL;
+
+    return true;
+  }
+
+
 }

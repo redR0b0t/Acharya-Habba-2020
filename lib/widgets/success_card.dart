@@ -3,45 +3,56 @@ import 'package:flutter/material.dart';
 class SuccessCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      // height: MediaQuery.of(context).size.height * 0.6,
       child: Card(
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         elevation: 12,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 40,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 35),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                height: 250,
-                child: Icon(Icons.check_circle,color: Colors.green, size: 150,),
+              Icon(
+                Icons.check_circle,
+                size: 80,
+                color: Colors.green,
               ),
               SizedBox(
-                height: 10,
+                height: 30,
               ),
               Text(
-                'Registration Successfull',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                ),
+                'Recharge Successful',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 30,
               ),
               SizedBox(
-                height: 30,
+                height: 15,
               ),
               RaisedButton(
-                child: Text('Go Back', style: TextStyle(color: Colors.white),),
-                color: Colors.red,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                color: Colors.deepPurple,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: Center(
+                  child: Text(
+                    'Go Back',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               )
             ],
           ),
