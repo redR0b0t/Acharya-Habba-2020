@@ -262,7 +262,7 @@ class _AplSignUpState extends State<AplSignUp> {
                           labelText: 'Whatsapp Number',
                           hintText: 'Enter Your Phone Number'),
                       validator: (val) {
-                        if (_phoneNumberController.text.isEmpty) {
+                        if (_whatsappNumberController.text.isEmpty) {
                           return '';
                         }
                         return null;
