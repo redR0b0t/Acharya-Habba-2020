@@ -12,6 +12,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habba20/data/data.dart';
 import 'package:habba20/pages/home.dart';
 import 'package:xlive_switch/xlive_switch.dart';
+import 'package:habba20/data/data.dart';
+import 'package:habba20/widgets/profile_picture.dart';
+import 'package:habba20/widgets/dp_edit.dart';
 
 class AplSignUp extends StatefulWidget {
   @override
@@ -65,6 +68,7 @@ class _AplSignUpState extends State<AplSignUp> {
   }
 
   Future _registerUser() async {
+    this._user.img=imgURL;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       _user.Type = 0;
@@ -140,22 +144,29 @@ class _AplSignUpState extends State<AplSignUp> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                AvatarGlow(
-                  endRadius: 90,
-                  duration: Duration(seconds: 2),
-                  glowColor: Colors.deepOrange,
-                  repeat: true,
-                  repeatPauseDuration: Duration(milliseconds: 15),
-                  startDelay: Duration(seconds: 1),
-                  child: Material(
-                      elevation: 8.0,
-                      shape: CircleBorder(),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[100],
-                        child: Image.asset("assets/xpaw.png"),
-                        radius: 50.0,
-                      )),
+                SizedBox(height: 10),
+                ProfilePicture(
+                  name: "Upload",
+                  imagePath: imgURL,
+                  size: 80,
                 ),
+                FloatingActionButton(
+                      backgroundColor: Colors.black87,
+                      child: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DpEdit(
+                                  name: 'Upload',
+                                  image:imgURL,
+                                )));
+                      },
+                    ),
+
+
+
+
                 Text(
                   "APL 2020",
                   style: TextStyle(fontSize: 30),

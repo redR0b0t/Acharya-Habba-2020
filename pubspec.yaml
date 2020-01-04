@@ -29,6 +29,11 @@ dependencies:
   xlive_switch: ^1.0.5
   intl:
   provider:
+  image_picker:
+  flushbar:
+  firebase_storage:
+  cached_network_image:
+
 
 dev_dependencies:
   flutter_test:

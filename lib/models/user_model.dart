@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   String Id;
+  String img;
   String Name;
   String Mail;
   String PhoneNumber;
@@ -20,6 +21,7 @@ class UserModel {
 
   UserModel(
       {this.Id = '',
+        this.img='',
       this.Name = '',
       this.Mail = '',
       this.PhoneNumber = '',
@@ -65,7 +67,8 @@ class UserModel {
       'branch': Branch,
       'year': Year,
       'work': Work,
-      'type': Type
+      'type': Type,
+      'img':img,
     };
   }
 }

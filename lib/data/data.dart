@@ -1,3 +1,5 @@
+
+String imgURL='';
 List<String> collegeList = [
   "Choose your college",
   "ACHARYA INSTITUTE OF TECHNOLOGY",
