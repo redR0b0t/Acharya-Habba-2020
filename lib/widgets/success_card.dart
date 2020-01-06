@@ -25,7 +25,7 @@ class SuccessCard extends StatelessWidget {
                 height: 30,
               ),
               Text(
-                'Recharge Successful',
+                'data submission Successful',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 textAlign: TextAlign.center,
               ),

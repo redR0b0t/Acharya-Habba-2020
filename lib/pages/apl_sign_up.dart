@@ -74,6 +74,12 @@ class _AplSignUpState extends State<AplSignUp> {
   }
 
   Future _registerUser() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      _user.Type = 0;
+      setState(() {
+        state = 1;
+      });
 
     int tym = DateTime.now().millisecondsSinceEpoch;
     setState(() {
@@ -84,7 +90,7 @@ class _AplSignUpState extends State<AplSignUp> {
 
         StorageTaskSnapshot task = await _storage
             .ref()
-            .child(_user.WhatsApp.toString() + '.jpg')
+            .child(this._user.WhatsApp.toString() + '.jpg')
             .putFile(_image)
             .onComplete;
         _user.img = await task.ref.getDownloadURL();
@@ -92,8 +98,8 @@ class _AplSignUpState extends State<AplSignUp> {
       }
       await Firestore.instance
           .collection('apl')
-          .document(_user.Id)
-          .setData(_user.getMap());
+          .document(this._user.Id)
+          .setData(this._user.getMap());
       setState(() {
         state = 2;
       });
@@ -104,31 +110,32 @@ class _AplSignUpState extends State<AplSignUp> {
       });
     }
 
-/*
 
 
 
-    this._user.img = imgURL;
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      _user.Type = 0;
-      setState(() {
-        state = 1;
-      });
-      var documentReference =
-          Firestore.instance.collection('apl').document(this._user.Id);
 
-      Firestore.instance.runTransaction((transaction) async {
-        await transaction.set(
-          documentReference,
-          this._user.getMap(),
-        );
-      });
-
-      setState(() {
-        state = 2;
-      });
-    }*/
+//    this._user.img = imgURL;
+//      if (_formKey.currentState.validate()) {
+//        _formKey.currentState.save();
+//        _user.Type = 0;
+//        setState(() {
+//          state = 1;
+//        });
+//
+//      var documentReference =
+//          Firestore.instance.collection('apl').document(this._user.Id);
+//
+//      Firestore.instance.runTransaction((transaction) async {
+//        await transaction.set(
+//          documentReference,
+//          this._user.getMap(),
+//        );
+//      });
+//
+//      setState(() {
+//        state = 2;
+//      });
+    }
   }
 
   @override
