@@ -13,6 +13,7 @@ class UserModel {
   String Branch;
   String Year;
   String Work;
+  String dob;
 
   ///type specifies account type
   /// 0----> Volunteer
@@ -31,7 +32,8 @@ class UserModel {
       this.Branch = "",
       this.Year = "",
       this.Work = "",
-      this.Type = 1});
+      this.Type = 1,
+      this.dob=''});
 
   /* factory UserModel.fromFirestore(DocumentSnapshot data) {
     return UserModel(
@@ -54,6 +56,8 @@ class UserModel {
     this.Sex = doc.data['sex'];
     this.College = doc.data['college'];
     this.Type = doc.data['type'];
+    this.img=doc.data['img'];
+    this.dob=doc.data['dob'];
   }
 
   Map<String, dynamic> getMap() {
@@ -69,6 +73,7 @@ class UserModel {
       'work': Work,
       'type': Type,
       'img':img,
+      'dob':dob,
     };
   }
 }

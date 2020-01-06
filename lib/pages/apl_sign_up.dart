@@ -80,8 +80,8 @@ class _AplSignUpState extends State<AplSignUp> {
       setState(() {
         state = 1;
       });
-
-    int tym = DateTime.now().millisecondsSinceEpoch;
+      this._user.dob=date;
+    //int tym = DateTime.now().millisecondsSinceEpoch;
     setState(() {
       state =1;
     });
