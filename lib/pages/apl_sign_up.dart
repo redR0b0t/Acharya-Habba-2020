@@ -1,24 +1,24 @@
 import 'dart:io';
-
-import 'package:avatar_glow/avatar_glow.dart';
+import 'dart:ui';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/models/user_model.dart';
+import 'package:habba20/services/db_services.dart';
 import 'package:habba20/utils/date_time_helper.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/failure_card.dart';
 import 'package:habba20/widgets/loading.dart';
 import 'package:habba20/widgets/success_card.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habba20/data/data.dart';
-import 'package:habba20/pages/home.dart';
 import 'package:xlive_switch/xlive_switch.dart';
-import 'package:habba20/data/data.dart';
 import 'package:habba20/widgets/profile_picture.dart';
-import 'package:habba20/widgets/dp_edit.dart';
+
+import 'apl_pdf.dart';
 
 class AplSignUp extends StatefulWidget {
   @override
@@ -26,14 +26,15 @@ class AplSignUp extends StatefulWidget {
 }
 
 class _AplSignUpState extends State<AplSignUp> {
+
   var _user = UserModel();
+  AplPdf aplPdf;
   int tym;
   bool _sexBool = true;
   bool _designationBool = true;
   String sex = "Male", desig = "Faculty";
 
   TextEditingController _nameController,
-      _phoneNumberController,
       _whatsappNumberController,
       _auidController,
       _mailController;
@@ -67,74 +68,31 @@ class _AplSignUpState extends State<AplSignUp> {
   void initState() {
     super.initState();
     _nameController = TextEditingController();
-    _phoneNumberController = TextEditingController();
     _whatsappNumberController = TextEditingController();
     _auidController = TextEditingController();
     _mailController = TextEditingController();
   }
 
   Future _registerUser() async {
+    _user.Sex = sex;
+    _user.Desig = desig;
+
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      _user.Type = 0;
       setState(() {
         state = 1;
       });
 
-    int tym = DateTime.now().millisecondsSinceEpoch;
-    setState(() {
-      state =1;
-    });
-    try {
-      if (_image != null) {
-
-        StorageTaskSnapshot task = await _storage
-            .ref()
-            .child(this._user.WhatsApp.toString() + '.jpg')
-            .putFile(_image)
-            .onComplete;
-        _user.img = await task.ref.getDownloadURL();
-        print("Iimage >>> >${_user.img}");
+      if (await Provider.of<DatabaseService>(context)
+          .regsiterApl(_user, _image)) {
+        setState(() {
+          state = 2;
+        });
+      } else {
+        setState(() {
+          state = 3;
+        });
       }
-      await Firestore.instance
-          .collection('apl')
-          .document(this._user.Id)
-          .setData(this._user.getMap());
-      setState(() {
-        state = 2;
-      });
-    } catch (err) {
-      print("Errrrr ${err}");
-      setState(() {
-        state = 3;
-      });
-    }
-
-
-
-
-
-//    this._user.img = imgURL;
-//      if (_formKey.currentState.validate()) {
-//        _formKey.currentState.save();
-//        _user.Type = 0;
-//        setState(() {
-//          state = 1;
-//        });
-//
-//      var documentReference =
-//          Firestore.instance.collection('apl').document(this._user.Id);
-//
-//      Firestore.instance.runTransaction((transaction) async {
-//        await transaction.set(
-//          documentReference,
-//          this._user.getMap(),
-//        );
-//      });
-//
-//      setState(() {
-//        state = 2;
-//      });
     }
   }
 
@@ -158,7 +116,7 @@ class _AplSignUpState extends State<AplSignUp> {
       case 1:
         {
           return Container(
-            height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height,
               padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
               child: Center(
                 child: Loading(),
@@ -184,7 +142,6 @@ class _AplSignUpState extends State<AplSignUp> {
   }
 
   Widget form() {
-    DpEdit dp = DpEdit();
     return Form(
         key: _formKey,
         autovalidate: _autoValidate,
@@ -199,14 +156,14 @@ class _AplSignUpState extends State<AplSignUp> {
                   children: <Widget>[
                     _image == null
                         ? ProfilePicture(
-                      name: "Acharya",
-                      imagePath: "",
-                      size: 70,
-                    )
+                            name: "Acharya",
+                            imagePath: "",
+                            size: 70,
+                          )
                         : CircleAvatar(
-                      radius: 70,
-                      backgroundImage: FileImage(_image),
-                    ),
+                            radius: 70,
+                            backgroundImage: FileImage(_image),
+                          ),
                     Positioned(
                       height: 40,
                       width: 40,
@@ -217,7 +174,9 @@ class _AplSignUpState extends State<AplSignUp> {
                     )
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   "APL 2020",
                   style: TextStyle(fontSize: 30),
@@ -321,8 +280,8 @@ class _AplSignUpState extends State<AplSignUp> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(30))),
                           prefixIcon: Icon(Icons.phone),
-                          labelText: 'Whatsapp Number',
-                          hintText: 'Enter Your Phone Number'),
+                          labelText: 'Phone Number',
+                          hintText: 'Enter Your Phone Number '),
                       validator: (val) {
                         if (_whatsappNumberController.text.isEmpty) {
                           return '';
@@ -336,27 +295,6 @@ class _AplSignUpState extends State<AplSignUp> {
                     SizedBox(
                       height: 20,
                     ),
-                    /*TextFormField(
-                      controller: _phoneNumberController,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
-                          prefixIcon: Icon(Icons.phone),
-                          labelText: 'Alternate Number',
-                          hintText: 'Enter Your Phone Number'),
-                      validator: (val) {
-                        if (_phoneNumberController.text.isEmpty) {
-                          return '';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        this._user.PhoneNumber = val.toUpperCase();
-                      },
-                    ),*/
-
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -506,9 +444,6 @@ class _AplSignUpState extends State<AplSignUp> {
               ]),
         ));
   }
-
-
-
 
   void _changeDesignation(bool value) {
     setState(() {
@@ -665,7 +600,6 @@ class _AplSignUpState extends State<AplSignUp> {
     );
   }
 
-
   /// IMage picker >>>>>>
 
   void showImagePicker() {
@@ -714,20 +648,4 @@ class _AplSignUpState extends State<AplSignUp> {
     });
     Navigator.of(context).pop();
   }
-
-  Future<bool> updateProfileImage(File _img) async {
-    String ts=DateTime.now().millisecondsSinceEpoch.toString();
-    String dURL;
-    StorageTaskSnapshot task = await _storage
-        .ref()
-        .child(ts + '.jpg')
-        .putFile(_img)
-        .onComplete;
-    dURL= await task.ref.getDownloadURL();
-    imgURL=dURL;
-
-    return true;
-  }
-
-
 }

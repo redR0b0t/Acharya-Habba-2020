@@ -7,12 +7,14 @@ class UserModel {
   String Mail;
   String PhoneNumber;
   String WhatsApp;
-  int Sex;
+  String Sex;
+  String Desig;
   int Type;
   String College;
   String Branch;
   String Year;
   String Work;
+  String Date;
 
   ///type specifies account type
   /// 0----> Volunteer
@@ -26,14 +28,15 @@ class UserModel {
       this.Mail = '',
       this.PhoneNumber = '',
       this.WhatsApp,
-      this.Sex = 1,
+      this.Sex = "",
+        this.Desig = "",
       this.College = '',
       this.Branch = "",
       this.Year = "",
       this.Work = "",
       this.Type = 1});
 
-  /* factory UserModel.fromFirestore(DocumentSnapshot data) {
+  factory UserModel.fromFirestore(DocumentSnapshot data) {
     return UserModel(
         Id: data.documentID,
 
@@ -45,15 +48,17 @@ class UserModel {
     );
 
   }
-*/
+
   void setData(DocumentSnapshot doc) {
     this.Name = doc.data['name'];
     this.PhoneNumber = doc.data['phone'];
     this.Id = doc.documentID;
     this.Mail = doc.data['mail'];
     this.Sex = doc.data['sex'];
+    this.Desig = doc.data['desig'];
     this.College = doc.data['college'];
     this.Type = doc.data['type'];
+    this.Date = doc.data['date'];
   }
 
   Map<String, dynamic> getMap() {
@@ -63,12 +68,14 @@ class UserModel {
       'mail': Mail,
       'wapp': WhatsApp,
       'sex': Sex,
+      'desig' : Desig,
       'college': College,
       'branch': Branch,
       'year': Year,
       'work': Work,
       'type': Type,
       'img':img,
+      'date': Date
     };
   }
 }

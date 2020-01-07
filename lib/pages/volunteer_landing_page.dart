@@ -116,7 +116,7 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
                     child: _animatedButtonUI,
                   ),
                 ),
-                delay: delayedAmount + 4000,
+                delay: delayedAmount + 5000,
               ),
               SizedBox(
                 height: 50.0,

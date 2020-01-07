@@ -28,11 +28,13 @@ dependencies:
   flutter_spinkit: "^2.1.0"
   xlive_switch: ^1.0.5
   intl:
-  provider:
+  provider: ^3.1.0+1
   image_picker:
   flushbar:
   firebase_storage:
   cached_network_image:
+  pdf:
+  flutter_email_sender: ^2.2.2
 
 
 dev_dependencies:

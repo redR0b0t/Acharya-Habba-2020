@@ -28,7 +28,6 @@ class _DpEditState extends State<DpEdit> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     state = 0;
   }
