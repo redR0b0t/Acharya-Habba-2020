@@ -44,7 +44,6 @@ class _AplSignUpState extends State<AplSignUp> {
   bool checked = false;
   int state = 0;
   File _image;
-  static final FirebaseStorage _storage = FirebaseStorage.instance;
 
   DatetimeHelper datetimeHelper;
 
