@@ -118,12 +118,26 @@ List<String> departmentList = [
 
 List<String> yearList = ["Choose your year", "1", "2", "3", "4", "5", "6"];
 List<String> workList = [
-  "Area of interest",
-  "Organizing and coordination",
-  "Digital design(animation,poster making,etc)",
-  "Design and decoration",
+ "Area of interest",
+  "Art",
+  "Content Writing",
+  "Video Editing",
+  "Creative Thinking",
+  "Web Development",
+  "App Development",
+  "Graffiti",
+  "Photogeaphy",
+  "Videography",
+  "Emcee",
+  "Poster Making",
+  "Photo Editing",
+  "Digital Editing",
+  "Digital Marketing",
   "Marketing and Sponsorship",
-  "Production Team ( Photography, Videography, editing, content creation and content writing)"
+  "Logo Design",
+  "Brouchure Design",
+  "Poster Design",
+  "Animation"
 ];
 
 String college, department, year, work;
