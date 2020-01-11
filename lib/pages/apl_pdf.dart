@@ -4,15 +4,37 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:habba20/models/user_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
-
-class AplPdf{
-  UserModel user;
+import 'package:flutter/material.dart'as mat;
+import 'package:habba20/widgets/success_card.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
+class AplPdf extends mat.StatelessWidget{
+  var user=UserModel();
   AplPdf({this.user});
-  Future<void> main() async {
+  mat.Widget build(mat.BuildContext context){
+    //return SuccessCard();
+    return mat.Scaffold(
+
+    body: mat.FlatButton(
+      //title: mat.Text("save"),
+      child: mat.Text("save"),
+      onPressed: ()=>save(user),
+    ),
+    );
+  }
+
+  Future save(UserModel user) async {
     final Document pdf = Document();
+    final font = await rootBundle.load("assets/fonts/OpenSans-Regular.ttf");
+    final ttf = Font.ttf(font);
+    final Theme theme = Theme.withFont(
+      base: ttf,
+
+    );
 
 
     pdf.addPage(Page(
+        theme: theme,
         pageFormat: PdfPageFormat.a4,
         build: (context) {
           return Column(children: <Widget>[
@@ -21,16 +43,16 @@ class AplPdf{
             Row(
               children: <Widget>[
                 Column(children: <Widget>[
-                  Text("Name : ${user.Name}"),
-                  Text("Email : ${user.Mail}"),
-                  Text("Gender : ${user.Sex}"),
-                  Text("Date of Birth : ${user.Sex}"),
-                  Text("Designation : ${user.Desig}"),
-                  Text("USN/ EID : ${user.Id}"),
-                  Text("College : ${user.College}"),
-                  Text("Department: ${user.Branch}"),
-                  Text("Mobile : ${user.WhatsApp}"),
-                  Text("Catagory: ${user.Work}"),
+                  Text("Name : ${user.Name}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("Email : ${user.Mail}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("Gender : ${user.Sex}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("Date of Birth : ${user.Sex}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("Designation : ${user.Desig}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("USN/ EID : ${user.Id}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("College : ${user.College}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("Department: ${user.Branch}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("Mobile : ${user.WhatsApp}",style: TextStyle(font: ttf, fontSize: 40)),
+                  Text("Catagory: ${user.Work}",style: TextStyle(font: ttf, fontSize: 40)),
 
                 ]),
                 Container(
@@ -51,23 +73,28 @@ class AplPdf{
               ],
             ),
             SizedBox(height: 10,),
-            Text("Signature"),
+            Text("Signature",style: TextStyle(font: ttf, fontSize: 40)),
 
           ]
           ); // Center
         })); // Page
-    print("Saviing pdf");
-    final File file = File('example.pdf');
-    file.writeAsBytesSync(pdf.save());
+    print("Saving pdf");
+    print("sending to ${user.Mail}");
+    final String dir = (await getApplicationDocumentsDirectory()).path;
+    print(dir);
+    final String path = '$dir/apl_pdf.pdf';
+    final File file = File(path);
+    await file.writeAsBytes(pdf.save());
     print("PDf Saved");
+    print("sending to ${user.Mail}");
     final Email email = Email(
       body: 'Hello we welcome you for regsitraion for apl',
       subject: 'APL Registration',
-      recipients: ['${user.Mail}'],
+      recipients: [user.Mail],
      // cc: ['cc@example.com'],
       //bcc: ['bcc@example.com'],
       //attachmentPath: '/path/to/attachment.zip',
-      isHTML: false,
+     // isHTML: false,
     );
     print("EMail Sending start");
     await FlutterEmailSender.send(email);

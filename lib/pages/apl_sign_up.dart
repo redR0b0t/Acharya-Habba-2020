@@ -17,8 +17,8 @@ import 'package:selection_menu/selection_menu.dart';
 import 'package:habba20/data/data.dart';
 import 'package:xlive_switch/xlive_switch.dart';
 import 'package:habba20/widgets/profile_picture.dart';
-
-import 'apl_pdf.dart';
+import 'package:habba20/pages/save_pdf.dart';
+import 'package:habba20/pages/apl_pdf.dart';
 
 class AplSignUp extends StatefulWidget {
   @override
@@ -84,7 +84,15 @@ class _AplSignUpState extends State<AplSignUp> {
 
       if (await Provider.of<DatabaseService>(context)
           .regsiterApl(_user, _image)) {
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    Pdfsave(user: _user)));//AplPdf(user: _user)));
+        //aplPdf.save(_user);
         setState(() {
+
           state = 2;
         });
       } else {

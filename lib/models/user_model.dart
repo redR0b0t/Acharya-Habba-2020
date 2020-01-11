@@ -34,7 +34,8 @@ class UserModel {
       this.Branch = "",
       this.Year = "",
       this.Work = "",
-      this.Type = 1});
+      this.Type = 1,
+      this.Date=""});
 
   factory UserModel.fromFirestore(DocumentSnapshot data) {
     return UserModel(
