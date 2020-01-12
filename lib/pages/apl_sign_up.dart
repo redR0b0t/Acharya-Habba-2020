@@ -131,13 +131,38 @@ class _AplSignUpState extends State<AplSignUp> {
         }
       case 2:
         {
-          return Container(
-              padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
+          return Column(
+            children:<Widget>[
+            Container(
+              padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
               child: Center(
                 child: SuccessCard(
                   title: "Choose the application through which you want to share the pdf",
                 ),
-              ));
+              )),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 56, vertical: 2),
+                child: RaisedButton(
+                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                color: Colors.deepPurple,
+                onPressed: () {
+                  generatePDF(_user, _image);
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: Center(
+                  child: Text(
+                    'Save PDF',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ))
+            ]
+          );
         }
       case 3:
         {
