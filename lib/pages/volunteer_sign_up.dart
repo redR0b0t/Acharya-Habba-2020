@@ -9,7 +9,6 @@ import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habba20/data/data.dart';
-import 'package:habba20/pages/home.dart';
 import 'package:habba20/pages/home_page.dart';
 
 class VolunteerSignUp extends StatefulWidget {
