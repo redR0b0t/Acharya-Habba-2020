@@ -197,8 +197,8 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
   UserModel _user = UserModel();
 
   void _onTapApl(TapDownDetails details) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> Pdfsave(user: _user)));
-   // Navigator.push(context, MaterialPageRoute(builder: (context)=> AplSignUp()));
+   // Navigator.push(context, MaterialPageRoute(builder: (context)=> Pdfsave(user: _user)));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> AplSignUp()));
     _controller.forward();
   }
   void _onTapDown(TapDownDetails details) {

@@ -35,6 +35,7 @@ dependencies:
   cached_network_image:
   pdf:
   flutter_email_sender: ^2.2.2
+  printing:
 
 
 dev_dependencies:

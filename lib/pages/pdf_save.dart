@@ -6,18 +6,23 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:habba20/models/user_model.dart';
+import 'package:printing/printing.dart';
 
 class Pdfsave extends mat.StatelessWidget {
   var user = UserModel();
   double pfont = 12;
+  File img;
 
-  Pdfsave({this.user});
+  Pdfsave({this.user, this.img});
 
   @override
   mat.Widget build(mat.BuildContext context) {
     generatePDF() async {
       final Document pdf = Document();
-
+      PdfImage pimg = await pdfImageFromImageProvider(
+        pdf: pdf.document,
+        image: mat.FileImage(img),
+      );
       final font = await rootBundle.load("assets/fonts/open-sans.ttf");
       final ttf = Font.ttf(font);
 //      final fontBold = await rootBundle.load("assets/open-sans-bold.ttf");
@@ -77,29 +82,24 @@ class Pdfsave extends mat.StatelessWidget {
                         Text("Mobile : ${user.WhatsApp}",
                             style: TextStyle(font: ttf, fontSize: pfont)),
                         SizedBox(height: 25),
-                        Text("Catagory: ${user.Work}",
+                        Text("Category: ${user.Work}",
                             style: TextStyle(font: ttf, fontSize: pfont)),
                       ]),
                   Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                     // crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        /*  Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-
-                        image: DecorationImage(
-                            image: PdfImage( pdf.document,
-                              //   image: decodeImageFromList(FileImage(_image).readAsBytesSync()).data.buffer.asUint8List(),
-                              width: 80,
-                              height: 80,)
-                        ),
-
-
-                      )
-                  )*/
-                        Text("Signature",
-                            style: TextStyle(font: ttf, fontSize: pfont)),
+                        Container(
+                            height: 100,
+                            width: 140,
+                            padding: EdgeInsets.fromLTRB(155.0, 30.0, 15.0, 900.0),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(image: pimg),
+                            )),
+                        SizedBox(height: 250),
+                        Center(
+                          child: Text("Signature           ",
+                              style: TextStyle(font: ttf, fontSize: pfont)),
+                        )
                       ])
                 ],
               ),
@@ -170,16 +170,15 @@ class Pdfsave extends mat.StatelessWidget {
                       fontSize: 25,
                       fontFamily: 'Helvetica',
                       color: mat.Colors.white)),
-              mat.SizedBox(
-                height: 25
-              ),
+              mat.SizedBox(height: 25),
               mat.Text("Take print out of the form ",
                   style: mat.TextStyle(
                       fontSize: 22,
                       fontFamily: 'Helvetica',
                       color: mat.Colors.white)),
-              mat.SizedBox(height: 50,),
-
+              mat.SizedBox(
+                height: 50,
+              ),
               mat.RaisedButton(
                 padding: mat.EdgeInsets.symmetric(horizontal: 60, vertical: 15),
 
