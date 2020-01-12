@@ -84,7 +84,7 @@ class _AplSignUpState extends State<AplSignUp> {
 
       if (await Provider.of<DatabaseService>(context)
           .regsiterApl(_user, _image)) {
-        await generatePDF(_user, _image);
+
 //        Navigator.push(
 //            context,
 //            MaterialPageRoute(
@@ -94,6 +94,7 @@ class _AplSignUpState extends State<AplSignUp> {
         setState(() {
           state = 2;
         });
+        generatePDF(_user, _image);
       } else {
         setState(() {
           state = 3;
@@ -134,7 +135,7 @@ class _AplSignUpState extends State<AplSignUp> {
               padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
               child: Center(
                 child: SuccessCard(
-                  title: "Apl Registration Successful",
+                  title: "Choose the application through which you want to share the pdf",
                 ),
               ));
         }
