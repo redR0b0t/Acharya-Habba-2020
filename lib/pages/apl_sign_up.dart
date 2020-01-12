@@ -17,7 +17,7 @@ import 'package:selection_menu/selection_menu.dart';
 import 'package:habba20/data/data.dart';
 import 'package:xlive_switch/xlive_switch.dart';
 import 'package:habba20/widgets/profile_picture.dart';
-import 'package:habba20/pages/save_pdf.dart';
+import 'package:habba20/pages/pdf_save.dart';
 import 'package:habba20/pages/apl_pdf.dart';
 
 class AplSignUp extends StatefulWidget {
@@ -26,7 +26,6 @@ class AplSignUp extends StatefulWidget {
 }
 
 class _AplSignUpState extends State<AplSignUp> {
-
   var _user = UserModel();
   AplPdf aplPdf;
   int tym;
@@ -84,17 +83,15 @@ class _AplSignUpState extends State<AplSignUp> {
 
       if (await Provider.of<DatabaseService>(context)
           .regsiterApl(_user, _image)) {
-
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    Pdfsave(user: _user)));//AplPdf(user: _user)));
+                    Pdfsave(user: _user))); //AplPdf(user: _user)));
         //aplPdf.save(_user);
-        setState(() {
-
+       /* setState(() {
           state = 2;
-        });
+        });*/
       } else {
         setState(() {
           state = 3;
@@ -134,7 +131,9 @@ class _AplSignUpState extends State<AplSignUp> {
           return Container(
               padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
               child: Center(
-                child: SuccessCard(),
+                child: SuccessCard(
+                  title: "Apl Registration Successful",
+                ),
               ));
         }
       case 3:
@@ -158,36 +157,42 @@ class _AplSignUpState extends State<AplSignUp> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 30),
-                Stack(
-                  children: <Widget>[
-                    _image == null
-                        ? ProfilePicture(
-                            name: "Acharya",
-                            imagePath: "",
-                            size: 70,
-                          )
-                        : CircleAvatar(
-                            radius: 70,
-                            backgroundImage: FileImage(_image),
-                          ),
-                    Positioned(
-                      height: 40,
-                      width: 40,
-                      bottom: 1,
-                      right: 1,
-                      child: FloatingActionButton(
-                          child: Icon(Icons.edit), onPressed: showImagePicker),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 60),
                 Text(
                   "APL 2020",
                   style: TextStyle(fontSize: 30),
                 ),
+                SizedBox(
+                  height: 30,
+                ),
+                _image == null
+                    ? RaisedButton(
+                        color: Colors.deepOrange,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30))),
+                        onPressed: showImagePicker,
+                        child: Text('Upload Profile Picture',
+                            style:
+                                TextStyle(fontSize: 17, color: Colors.white)),
+                      )
+                    : Stack(
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: 70,
+                            backgroundImage: FileImage(_image),
+                          ),
+                          Positioned(
+                            height: 40,
+                            width: 40,
+                            bottom: 1,
+                            right: 1,
+                            child: FloatingActionButton(
+                                child: Icon(Icons.edit),
+                                onPressed: showImagePicker),
+                          )
+                        ],
+                      ),
                 SizedBox(
                   height: 20,
                 ),
@@ -391,17 +396,24 @@ class _AplSignUpState extends State<AplSignUp> {
                     SizedBox(
                       height: 10,
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Department",
-                        style: TextStyle(fontSize: 20),
+                    Visibility(
+                      visible: !_designationBool,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Department",
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 5,
                     ),
-                    departmentSelector(),
+                    Visibility(
+                      visible: !_designationBool,
+                      child:                     departmentSelector(),
+
+                    ),
                     Divider(
                       thickness: 1.5,
                     ),

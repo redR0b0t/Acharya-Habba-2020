@@ -1,6 +1,8 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:habba20/models/user_model.dart';
 import 'package:habba20/pages/apl_sign_up.dart';
+import 'package:habba20/pages/pdf_save.dart';
 import 'delayed_animation.dart';
 import 'volunteer_sign_up.dart';
 
@@ -192,9 +194,11 @@ class _VolunteerLandingPageState extends State<VolunteerLandingPage>
       ),
     ),
   );
+  UserModel _user = UserModel();
 
   void _onTapApl(TapDownDetails details) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> AplSignUp()));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> Pdfsave(user: _user)));
+   // Navigator.push(context, MaterialPageRoute(builder: (context)=> AplSignUp()));
     _controller.forward();
   }
   void _onTapDown(TapDownDetails details) {

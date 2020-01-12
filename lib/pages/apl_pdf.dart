@@ -44,14 +44,23 @@ class AplPdf extends mat.StatelessWidget{
               children: <Widget>[
                 Column(children: <Widget>[
                   Text("Name : ${user.Name}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("Email : ${user.Mail}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("Gender : ${user.Sex}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("Date of Birth : ${user.Sex}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("Designation : ${user.Desig}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("USN/ EID : ${user.Id}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("College : ${user.College}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("Department: ${user.Branch}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("Mobile : ${user.WhatsApp}",style: TextStyle(font: ttf, fontSize: 40)),
+                  SizedBox(height: 25),
                   Text("Catagory: ${user.Work}",style: TextStyle(font: ttf, fontSize: 40)),
 
                 ]),

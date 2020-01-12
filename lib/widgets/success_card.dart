@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SuccessCard extends StatelessWidget {
+  String title;
+  SuccessCard({this.title = ''});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +27,7 @@ class SuccessCard extends StatelessWidget {
                 height: 30,
               ),
               Text(
-                'data submission Successful',
+                ' ${title} ',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 textAlign: TextAlign.center,
               ),

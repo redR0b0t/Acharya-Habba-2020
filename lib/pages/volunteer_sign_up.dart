@@ -100,7 +100,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
           return Container(
               padding: const EdgeInsets.fromLTRB(0,80.0,0,0),
               child:Center(
-                child: SuccessCard(),
+                child: SuccessCard(title: "Volunteer Registration Successful",),
               ));
         }
       case 3:
