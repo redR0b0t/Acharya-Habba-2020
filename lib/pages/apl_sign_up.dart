@@ -27,7 +27,9 @@ class AplSignUp extends StatefulWidget {
 }
 
 class _AplSignUpState extends State<AplSignUp> {
+
   var _user = UserModel();
+  List<String> collegeBranchList = ['Choose your Branch'];
   AplPdf aplPdf;
   int tym;
   bool _sexBool = true;
@@ -84,7 +86,6 @@ class _AplSignUpState extends State<AplSignUp> {
 
       if (await Provider.of<DatabaseService>(context)
           .regsiterApl(_user, _image)) {
-
 //        Navigator.push(
 //            context,
 //            MaterialPageRoute(
@@ -131,38 +132,37 @@ class _AplSignUpState extends State<AplSignUp> {
         }
       case 2:
         {
-          return Column(
-            children:<Widget>[
+          return Column(children: <Widget>[
             Container(
-              padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
-              child: Center(
-                child: SuccessCard(
-                  title: "Choose the application through which you want to share the pdf",
-                ),
-              )),
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 56, vertical: 2),
-                child: RaisedButton(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                color: Colors.deepPurple,
-                onPressed: () {
-                  generatePDF(_user, _image);
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
                 child: Center(
-                  child: Text(
-                    'Save PDF',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  child: SuccessCard(
+                    title:
+                        "Share through email to save pdf and take print out of the same.",
+                  ),
+                )),
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 56, vertical: 2),
+                child: RaisedButton(
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  color: Colors.deepPurple,
+                  onPressed: () {
+                    generatePDF(_user, _image);
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  child: Center(
+                    child: Text(
+                      'Save PDF',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
-              ))
-            ]
-          );
+                ))
+          ]);
         }
       case 3:
         {
@@ -199,7 +199,7 @@ class _AplSignUpState extends State<AplSignUp> {
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
-                        onPressed: showImagePicker,
+                        onPressed: getImageFromCamera,
                         child: Text('Upload Profile Picture',
                             style:
                                 TextStyle(fontSize: 17, color: Colors.white)),
@@ -217,7 +217,7 @@ class _AplSignUpState extends State<AplSignUp> {
                             right: 1,
                             child: FloatingActionButton(
                                 child: Icon(Icons.edit),
-                                onPressed: showImagePicker),
+                                onPressed: getImageFromCamera),
                           )
                         ],
                       ),
@@ -244,7 +244,6 @@ class _AplSignUpState extends State<AplSignUp> {
                         } else if (value.length > 31) {
                           return 'Name should be less than 30 words';
                         }
-
                         return null;
                       },
                       onSaved: (val) {
@@ -439,8 +438,7 @@ class _AplSignUpState extends State<AplSignUp> {
                     ),
                     Visibility(
                       visible: !_designationBool,
-                      child:                     departmentSelector(),
-
+                      child: departmentSelector(),
                     ),
                     Divider(
                       thickness: 1.5,
@@ -530,6 +528,7 @@ class _AplSignUpState extends State<AplSignUp> {
       itemsList: collegeList,
       onItemSelected: (String selectedItem) {
         this._user.College = selectedItem;
+        collegeBranchList = mapToList(branchMap(), selectedItem);
         //widget.user.Institution = selectedItem;
       },
       itemBuilder:
@@ -545,6 +544,7 @@ class _AplSignUpState extends State<AplSignUp> {
             color: Colors.deepOrange,
             onPressed: () {
               onItemTapped();
+              setState(() {});
               //_registerUser();
             },
             child: Text(
@@ -572,7 +572,7 @@ class _AplSignUpState extends State<AplSignUp> {
       ),
       showSelectedItemAsTrigger: true,
       initiallySelectedItemIndex: 0,
-      itemsList: departmentList,
+      itemsList: collegeBranchList,
       onItemSelected: (String selectedItem) {
         this._user.Branch = selectedItem;
       },
@@ -589,6 +589,7 @@ class _AplSignUpState extends State<AplSignUp> {
             color: Colors.deepOrange,
             onPressed: () {
               onItemTapped();
+              setState(() {});
               //_registerUser();
             },
             child: Text(
@@ -693,6 +694,10 @@ class _AplSignUpState extends State<AplSignUp> {
     setState(() {
       _image = image;
     });
-    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
+  }
+
+  List<String> mapToList(Map data, String index) {
+    return data[index];
   }
 }
