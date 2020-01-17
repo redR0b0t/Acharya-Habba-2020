@@ -32,9 +32,8 @@ class _AplSignUpState extends State<AplSignUp> {
   List<String> collegeBranchList = ['Choose your Branch'];
   AplPdf aplPdf;
   int tym;
-  bool _sexBool = true;
   bool _designationBool = true;
-  String sex = "Male", desig = "Faculty";
+  String  desig = "Faculty";
 
   TextEditingController _nameController,
       _whatsappNumberController,
@@ -75,7 +74,6 @@ class _AplSignUpState extends State<AplSignUp> {
   }
 
   Future _registerUser() async {
-    _user.Sex = sex;
     _user.Desig = desig;
 
     if (_formKey.currentState.validate()) {
@@ -379,30 +377,6 @@ class _AplSignUpState extends State<AplSignUp> {
                         )
                       ],
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Sex",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        XlivSwitch(
-                          /// sex
-                          value: _sexBool,
-                          onChanged: _changeSex,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "${sex}",
-                          style: TextStyle(fontSize: 18),
-                        )
-                      ],
-                    ),
                     Divider(
                       thickness: 1.5,
                     ),
@@ -497,17 +471,6 @@ class _AplSignUpState extends State<AplSignUp> {
         desig = "Faculty";
       } else {
         desig = "Student";
-      }
-    });
-  }
-
-  void _changeSex(bool value) {
-    setState(() {
-      _sexBool = value;
-      if (value == true) {
-        sex = "Male";
-      } else {
-        sex = "Female";
       }
     });
   }
