@@ -7,7 +7,6 @@ class UserModel {
   String Mail;
   String PhoneNumber;
   String WhatsApp;
-  String Sex;
   String Desig;
   int Type;
   String College;
@@ -15,6 +14,7 @@ class UserModel {
   String Year;
   String Work;
   String Date;
+  String Sex;
 
   ///type specifies account type
   /// 0----> Volunteer
@@ -28,13 +28,13 @@ class UserModel {
       this.Mail = '',
       this.PhoneNumber = '',
       this.WhatsApp,
-      this.Sex = "",
         this.Desig = "",
       this.College = 'Acharya Institute of technology',
       this.Branch = "nil",
       this.Year = "",
       this.Work = "",
       this.Type = 1,
+        this.Sex='Male',
       this.Date=""});
 
   factory UserModel.fromFirestore(DocumentSnapshot data) {
@@ -44,7 +44,6 @@ class UserModel {
         Name: data['name'] ?? 'name',
         Mail: data['mail'],
         PhoneNumber: data['phone'] ?? 'phone',
-        Sex: data['sex'] ?? 'sex',
         College: data['college'] ?? 'college'
     );
 
@@ -55,7 +54,6 @@ class UserModel {
     this.PhoneNumber = doc.data['phone'];
     this.Id = doc.documentID;
     this.Mail = doc.data['mail'];
-    this.Sex = doc.data['sex'];
     this.Desig = doc.data['desig'];
     this.College = doc.data['college'];
     this.Type = doc.data['type'];
@@ -68,7 +66,6 @@ class UserModel {
       'phone': PhoneNumber,
       'mail': Mail,
       'wapp': WhatsApp,
-      'sex': Sex,
       'desig' : Desig,
       'college': College,
       'branch': Branch,

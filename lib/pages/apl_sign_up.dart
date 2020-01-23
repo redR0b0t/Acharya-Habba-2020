@@ -30,12 +30,13 @@ class AplSignUp extends StatefulWidget {
 }
 
 class _AplSignUpState extends State<AplSignUp> {
+
   var _user = UserModel();
+  List<String> collegeBranchList = ['Choose your Branch'];
   AplPdf aplPdf;
   int tym;
-  bool _sexBool = true;
   bool _designationBool = true;
-  String sex = "Male", desig = "Faculty";
+  String  desig = "Faculty";
 
   TextEditingController _nameController,
       _whatsappNumberController,
@@ -78,7 +79,6 @@ class _AplSignUpState extends State<AplSignUp> {
   }
 
   Future _registerUser() async {
-    _user.Sex = sex;
     _user.Desig = desig;
 
     if (_formKey.currentState.validate()) {
@@ -137,8 +137,7 @@ class _AplSignUpState extends State<AplSignUp> {
         }
       case 2:
         {
-          return Column(
-            children:<Widget>[
+          return Column(children: <Widget>[
             Container(
               padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
               child: Center(
@@ -224,7 +223,7 @@ class _AplSignUpState extends State<AplSignUp> {
                             right: 1,
                             child: FloatingActionButton(
                                 child: Icon(Icons.edit),
-                                onPressed: showImagePicker),
+                                onPressed: getImageFromCamera),
                           )
                         ],
                       ),
@@ -252,7 +251,6 @@ class _AplSignUpState extends State<AplSignUp> {
                         } else if (value.length > 31) {
                           return 'Name should be less than 30 words';
                         }
-
                         return null;
                       },
                       onSaved: (val) {
@@ -392,30 +390,6 @@ class _AplSignUpState extends State<AplSignUp> {
                         )
                       ],
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Sex",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        XlivSwitch(
-                          /// sex
-                          value: _sexBool,
-                          onChanged: _changeSex,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "${sex}",
-                          style: TextStyle(fontSize: 18),
-                        )
-                      ],
-                    ),
                     Divider(
                       thickness: 1.5,
                     ),
@@ -451,8 +425,7 @@ class _AplSignUpState extends State<AplSignUp> {
                     ),
                     Visibility(
                       visible: !_designationBool,
-                      child:                     departmentSelector(),
-
+                      child: departmentSelector(),
                     ),
                     Divider(
                       thickness: 1.5,
@@ -515,17 +488,6 @@ class _AplSignUpState extends State<AplSignUp> {
     });
   }
 
-  void _changeSex(bool value) {
-    setState(() {
-      _sexBool = value;
-      if (value == true) {
-        sex = "Male";
-      } else {
-        sex = "Female";
-      }
-    });
-  }
-
   Widget collegeSelector() {
     return SelectionMenu<String>(
       menuSizeConfiguration: MenuSizeConfiguration(
@@ -542,6 +504,7 @@ class _AplSignUpState extends State<AplSignUp> {
       itemsList: collegeList,
       onItemSelected: (String selectedItem) {
         this._user.College = selectedItem;
+        collegeBranchList = mapToList(branchMap(), selectedItem);
         //widget.user.Institution = selectedItem;
       },
       itemBuilder:
@@ -557,6 +520,7 @@ class _AplSignUpState extends State<AplSignUp> {
             color: Colors.deepOrange,
             onPressed: () {
               onItemTapped();
+              setState(() {});
               //_registerUser();
             },
             child: Text(
@@ -584,7 +548,7 @@ class _AplSignUpState extends State<AplSignUp> {
       ),
       showSelectedItemAsTrigger: true,
       initiallySelectedItemIndex: 0,
-      itemsList: departmentList,
+      itemsList: collegeBranchList,
       onItemSelected: (String selectedItem) {
         this._user.Branch = selectedItem;
       },
@@ -601,6 +565,7 @@ class _AplSignUpState extends State<AplSignUp> {
             color: Colors.deepOrange,
             onPressed: () {
               onItemTapped();
+              setState(() {});
               //_registerUser();
             },
             child: Text(
@@ -705,6 +670,10 @@ class _AplSignUpState extends State<AplSignUp> {
     setState(() {
       _image = image;
     });
-    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
+  }
+
+  List<String> mapToList(Map data, String index) {
+    return data[index];
   }
 }

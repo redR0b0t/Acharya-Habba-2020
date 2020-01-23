@@ -21,7 +21,7 @@ class VolunteerSignUp extends StatefulWidget {
 
 class _VolunteerSignUpState extends State<VolunteerSignUp> {
   var _user = UserModel();
-
+List<String> collegeBranchList = ['Choose your Branch'];
   TextEditingController _nameController,
       _phoneNumberController,
       _whatsappNumberController,
@@ -382,6 +382,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
   }
 
   Widget collegeSelector() {
+
     return SelectionMenu<String>(
       menuSizeConfiguration: MenuSizeConfiguration(
         maxHeightFraction: 0.75,
@@ -397,6 +398,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       itemsList: collegeList,
       onItemSelected: (String selectedItem) {
         this._user.College = selectedItem;
+        collegeBranchList = mapToList(branchMap(), selectedItem);
         //widget.user.Institution = selectedItem;
       },
       itemBuilder:
@@ -412,6 +414,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
             color: Colors.deepOrange,
             onPressed: () {
               onItemTapped();
+              setState(() {
+
+              });
               //_registerUser();
             },
             child: Text(
@@ -439,7 +444,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
       ),
       showSelectedItemAsTrigger: true,
       initiallySelectedItemIndex: 0,
-      itemsList: departmentList,
+      itemsList: collegeBranchList,
       onItemSelected: (String selectedItem) {
         this._user.Branch = selectedItem;
       },
@@ -551,5 +556,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
         );
       },
     );
+  }
+
+  List<String> mapToList(Map data, String index){
+    return data[index];
   }
 }
