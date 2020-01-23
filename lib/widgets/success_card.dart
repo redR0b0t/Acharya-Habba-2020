@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habba20/services/google_sigin_in.dart';
 
 class SuccessCard extends StatelessWidget {
   String title;
@@ -41,13 +42,14 @@ class SuccessCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 color: Colors.deepPurple,
                 onPressed: () {
+                  signOutGoogle();
                   Navigator.of(context).pop();
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Center(
                   child: Text(
-                    'Try again',
+                    'Log out',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

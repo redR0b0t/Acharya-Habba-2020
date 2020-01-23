@@ -36,6 +36,11 @@ dependencies:
   pdf:
   flutter_email_sender: ^2.2.2
   printing:
+  mysql1:
+  http:
+  html:
+  firebase_auth:
+  google_sign_in:
 
 
 dev_dependencies:
@@ -61,6 +66,7 @@ flutter:
   assets:
     - assets/splash.gif
     - assets/xpaw.png
+    - assets/google_logo.png
 
   fonts:
     - family: OpenSans

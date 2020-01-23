@@ -10,6 +10,9 @@ import 'package:selection_menu/selection_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habba20/data/data.dart';
 import 'package:habba20/pages/home_page.dart';
+import 'package:habba20/services/google_sigin_in.dart';
+import 'package:habba20/services/mysql_service.dart';
+
 
 class VolunteerSignUp extends StatefulWidget {
   @override
@@ -33,11 +36,11 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
+    _nameController = TextEditingController(text: name);
     _phoneNumberController = TextEditingController();
     _whatsappNumberController = TextEditingController();
     _auidController = TextEditingController();
-    _mailController = TextEditingController();
+    _mailController = TextEditingController(text: email);
   }
 
   Future _registerUser() async {
@@ -57,6 +60,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
           this._user.getMap(),
         );
       });
+      post_vol(_user);
     /*  documentReference.snapshots().listen((DocumentSnapshot event) {
         // here you could e.g. check if the transaction on your reference was succesful
       });
@@ -203,6 +207,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                     ),
                     TextFormField(
                       controller: _mailController,
+                      enabled: false,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(

@@ -20,6 +20,9 @@ import 'package:habba20/widgets/profile_picture.dart';
 import 'package:habba20/pages/pdf_save.dart';
 import 'package:habba20/pages/apl_pdf.dart';
 import 'package:habba20/widgets/generate pdf.dart';
+import 'package:mysql1/mysql1.dart' as sql;
+import 'package:habba20/services/mysql_service.dart';
+import 'package:habba20/services/google_sigin_in.dart';
 
 class AplSignUp extends StatefulWidget {
   @override
@@ -38,7 +41,7 @@ class _AplSignUpState extends State<AplSignUp> {
       _whatsappNumberController,
       _auidController,
       _mailController;
-
+  //sql.MySqlConnection _conn;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   bool checked = false;
@@ -64,12 +67,14 @@ class _AplSignUpState extends State<AplSignUp> {
   }
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
-    _nameController = TextEditingController();
+    //_conn = await sql.MySqlConnection.connect(settings);
+    _nameController = TextEditingController(text:name);
     _whatsappNumberController = TextEditingController();
     _auidController = TextEditingController();
-    _mailController = TextEditingController();
+    _mailController = TextEditingController(text: email);
+
   }
 
   Future _registerUser() async {
@@ -84,7 +89,8 @@ class _AplSignUpState extends State<AplSignUp> {
 
       if (await Provider.of<DatabaseService>(context)
           .regsiterApl(_user, _image)) {
-
+          post_apl(_user);
+//          await save_mysql(_conn, _user);
 //        Navigator.push(
 //            context,
 //            MaterialPageRoute(
@@ -94,7 +100,7 @@ class _AplSignUpState extends State<AplSignUp> {
         setState(() {
           state = 2;
         });
-        generatePDF(_user, _image);
+        //generatePDF(_user, _image);
       } else {
         setState(() {
           state = 3;
@@ -137,30 +143,31 @@ class _AplSignUpState extends State<AplSignUp> {
               padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
               child: Center(
                 child: SuccessCard(
-                  title: "Choose the application through which you want to share the pdf",
+                  title: "The application is mailed to ${_user.Mail} check the spam section",
                 ),
               )),
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 56, vertical: 2),
-                child: RaisedButton(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                color: Colors.deepPurple,
-                onPressed: () {
-                  generatePDF(_user, _image);
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                child: Center(
-                  child: Text(
-                    'Save PDF',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ))
+//              Container(
+//                  padding: EdgeInsets.symmetric(horizontal: 56, vertical: 2),
+//                child: RaisedButton(
+//                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+//                color: Colors.deepPurple,
+//                onPressed: () {
+//                  //generatePDF(_user, _image);
+//                  //post_apl(_user);
+//                },
+//                shape: RoundedRectangleBorder(
+//                    borderRadius: BorderRadius.all(Radius.circular(30))),
+//                child: Center(
+//                  child: Text(
+//                    'Save PDF',
+//                    style: TextStyle(
+//                      fontSize: 20.0,
+//                      fontWeight: FontWeight.bold,
+//                      color: Colors.white,
+//                    ),
+//                  ),
+//                ),
+//              ))
             ]
           );
         }
@@ -200,7 +207,7 @@ class _AplSignUpState extends State<AplSignUp> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
                         onPressed: showImagePicker,
-                        child: Text('Upload Profile Picture',
+                        child: Text('Take your photo',
                             style:
                                 TextStyle(fontSize: 17, color: Colors.white)),
                       )
@@ -230,6 +237,7 @@ class _AplSignUpState extends State<AplSignUp> {
                     TextFormField(
                       controller: _nameController,
                       keyboardType: TextInputType.text,
+
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius:
@@ -269,7 +277,7 @@ class _AplSignUpState extends State<AplSignUp> {
                         if (value.isEmpty) {
                           return 'Enter Your Auid';
                         } else if (value.length != 12) {
-                          return 'Auid should be  of 12 words';
+                          return 'Auid should be  of 12 characters';
                         }
 
                         return null;
@@ -291,7 +299,11 @@ class _AplSignUpState extends State<AplSignUp> {
                         prefixIcon: Icon(Icons.person),
                         labelText: 'Email',
                         hintText: 'Enter Your Email',
+                        enabled: false,
+
                       ),
+                      enabled: false,
+                      readOnly: true,
                       validator: (String value) {
                         if (value.isEmpty) {
                           return 'Enter Your Email';
@@ -300,7 +312,7 @@ class _AplSignUpState extends State<AplSignUp> {
 
                         } else {
                           //this._user.Type=2;
-                          return "Only @acharya ID are allowed";
+                         // return "Only @acharya ID are allowed";
                         }
 
                         return null;
@@ -665,10 +677,10 @@ class _AplSignUpState extends State<AplSignUp> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  FloatingActionButton(
-                    child: Icon(Icons.image),
-                    onPressed: getImageFromGallery,
-                  ),
+//                  FloatingActionButton(
+//                    child: Icon(Icons.image),
+//                    onPressed: getImageFromGallery,
+//                  ),
                   FloatingActionButton(
                       child: Icon(Icons.camera), onPressed: getImageFromCamera)
                 ],

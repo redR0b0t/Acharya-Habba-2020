@@ -6,6 +6,7 @@ import 'pages/volunteer_landing_page.dart';
 import 'services/db_services.dart';
 import 'splash_screen.dart';
 import 'package:habba20/pages/home_page.dart';
+import 'package:habba20/pages/login_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
                 image: Image.asset('assets/splash.gif'),
                 backgroundColor: Colors.black,
                 photoSize: 300,
-                navigateAfterSeconds:  VolunteerLandingPage() //HomePage()//MyHomePage(title: "Events list",)
+                navigateAfterSeconds:  LoginPage() //HomePage()//MyHomePage(title: "Events list",)
             ),
           );
         },
