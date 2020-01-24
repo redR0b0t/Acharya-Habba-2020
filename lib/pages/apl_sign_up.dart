@@ -86,10 +86,10 @@ class _AplSignUpState extends State<AplSignUp> {
       setState(() {
         state = 1;
       });
-
+      _user.Date=selectedDate.toString();
       if (await Provider.of<DatabaseService>(context)
           .regsiterApl(_user, _image)) {
-          post_apl(_user);
+          post_apl(_user,_image);
 //          await save_mysql(_conn, _user);
 //        Navigator.push(
 //            context,
@@ -152,7 +152,7 @@ class _AplSignUpState extends State<AplSignUp> {
 //                color: Colors.deepPurple,
 //                onPressed: () {
 //                  //generatePDF(_user, _image);
-//                  //post_apl(_user);
+//                  post_apl(_user,_image);
 //                },
 //                shape: RoundedRectangleBorder(
 //                    borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -276,6 +276,9 @@ class _AplSignUpState extends State<AplSignUp> {
                           return 'Enter Your Auid';
                         } else if (value.length != 12) {
                           return 'Auid should be  of 12 characters';
+                        }
+                        else if(value.contains('ait') && value.replaceAll("\\D", "").length==5){
+                          return "invalid format";
                         }
 
                         return null;

@@ -65,11 +65,11 @@ List<String> collegeBranchList = ['Choose your Branch'];
         // here you could e.g. check if the transaction on your reference was succesful
       });
 */
-     /* setState(() {
+      setState(() {
         state = 2;
       });
-      */
-     Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePage()));// MyHomePage(title:'Event lists')));
+
+    // Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePage()));// MyHomePage(title:'Event lists')));
     }
   }
 
@@ -194,6 +194,9 @@ List<String> collegeBranchList = ['Choose your Branch'];
                           return 'Enter Your Auid';
                         } else if (value.length != 12) {
                           return 'Auid should be  of 12 words';
+                        }
+                        else if(value.contains('ait') && value.replaceAll("\\D", "").length==5){
+                          return "invalid format";
                         }
 
                         return null;

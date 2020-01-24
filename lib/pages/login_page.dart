@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habba20/services/google_sigin_in.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:habba20/pages/volunteer_landing_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -34,15 +34,26 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return VolunteerLandingPage();
-              },
-            ),
-          );
-        });
-      },
+          if (email.contains("@acharya.ac.in")) {
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) {
+                      return VolunteerLandingPage();
+                    }));
+          }
+          else
+            Fluttertoast.showToast(
+                msg: "This is Center Short Toast",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+        }
+          );},
+
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
       borderSide: BorderSide(color: Colors.grey),

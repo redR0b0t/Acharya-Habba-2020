@@ -41,6 +41,7 @@ dependencies:
   html:
   firebase_auth:
   google_sign_in:
+  fluttertoast:
 
 
 dev_dependencies:
