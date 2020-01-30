@@ -49,7 +49,7 @@ class SuccessCard extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Center(
                   child: Text(
-                    'Log out',
+                    'Go Back',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

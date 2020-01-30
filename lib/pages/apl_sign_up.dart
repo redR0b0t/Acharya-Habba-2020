@@ -23,6 +23,7 @@ import 'package:habba20/widgets/generate pdf.dart';
 import 'package:mysql1/mysql1.dart' as sql;
 import 'package:habba20/services/mysql_service.dart';
 import 'package:habba20/services/google_sigin_in.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AplSignUp extends StatefulWidget {
   @override
@@ -30,18 +31,18 @@ class AplSignUp extends StatefulWidget {
 }
 
 class _AplSignUpState extends State<AplSignUp> {
-
   var _user = UserModel();
   List<String> collegeBranchList = ['Choose your Branch'];
   AplPdf aplPdf;
   int tym;
   bool _designationBool = true;
-  String  desig = "Faculty";
+  String desig = "Faculty";
 
   TextEditingController _nameController,
       _whatsappNumberController,
       _auidController,
       _mailController;
+
   //sql.MySqlConnection _conn;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
@@ -64,32 +65,54 @@ class _AplSignUpState extends State<AplSignUp> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        print("selected date=${selectedDate.toIso8601String()}");
       });
+
   }
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     //_conn = await sql.MySqlConnection.connect(settings);
-    _nameController = TextEditingController(text:name);
+    _nameController = TextEditingController(text: name);
     _whatsappNumberController = TextEditingController();
     _auidController = TextEditingController();
     _mailController = TextEditingController(text: email);
-
   }
 
   Future _registerUser() async {
     _user.Desig = desig;
 
+
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      if (_user.Work == '' ||
+          _image == null ||
+          _user.College == ''
+        //  _user.Branch == '' ||
+        //  _user.Year == ''
+          ) {
+        Fluttertoast.showToast(
+            msg: "Fill the complete form",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        return;
+      }
       setState(() {
         state = 1;
       });
-      _user.Date=selectedDate.toString();
+
+
+      _user.Date = selectedDate.toIso8601String();
+      print(_user.Date);
+
       if (await Provider.of<DatabaseService>(context)
           .regsiterApl(_user, _image)) {
-          post_apl(_user,_image);
+        post_apl2(_user);
 //          await save_mysql(_conn, _user);
 //        Navigator.push(
 //            context,
@@ -139,12 +162,13 @@ class _AplSignUpState extends State<AplSignUp> {
         {
           return Column(children: <Widget>[
             Container(
-              padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
-              child: Center(
-                child: SuccessCard(
-                  title: "The application is mailed to ${_user.Mail} check the spam section",
-                ),
-              )),
+                padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
+                child: Center(
+                  child: SuccessCard(
+                    title:
+                        "The application is mailed to ${_user.Mail} check the spam section",
+                  ),
+                )),
 //              Container(
 //                  padding: EdgeInsets.symmetric(horizontal: 56, vertical: 2),
 //                child: RaisedButton(
@@ -167,8 +191,7 @@ class _AplSignUpState extends State<AplSignUp> {
 //                  ),
 //                ),
 //              ))
-            ]
-          );
+          ]);
         }
       case 3:
         {
@@ -236,7 +259,6 @@ class _AplSignUpState extends State<AplSignUp> {
                     TextFormField(
                       controller: _nameController,
                       keyboardType: TextInputType.text,
-
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius:
@@ -274,13 +296,19 @@ class _AplSignUpState extends State<AplSignUp> {
                       validator: (String value) {
                         if (value.isEmpty) {
                           return 'Enter Your Auid';
-                        } else if (value.length != 12) {
-                          return 'Auid should be  of 12 characters';
-                        }
-                        else if(value.contains('ait') && value.replaceAll("\\D", "").length==5){
+                        } else if (value.length != 12 && value.length != 8) {
+                          return 'Auid length is invalid';
+                        } else if (!((value.contains('ai') ||
+                            value.contains("AI")))) {
+                          return "Invalid format";
+                        } else if (!(value.contains(new RegExp(r'[0-9]'), 5) ||
+                            value.contains(new RegExp(r'[0-9]'), 6))) {
                           return "invalid format";
                         }
 
+//                        else if(!(value.replaceAll("\\D", "").length==5 || value.replaceAll("\\D", "").length==6)){
+//                          return "Invalid format num ${value.replaceAll("\\D", "").length}";
+//                        }
                         return null;
                       },
                       onSaved: (val) {
@@ -300,11 +328,10 @@ class _AplSignUpState extends State<AplSignUp> {
                         prefixIcon: Icon(Icons.person),
                         labelText: 'Email',
                         hintText: 'Enter Your Email',
-                        enabled: false,
-
+                        //enabled: false,
                       ),
-                      enabled: false,
-                      readOnly: true,
+                      //enabled: false,
+                      //readOnly: true,
                       validator: (String value) {
                         if (value.isEmpty) {
                           return 'Enter Your Email';
@@ -313,7 +340,7 @@ class _AplSignUpState extends State<AplSignUp> {
 
                         } else {
                           //this._user.Type=2;
-                         // return "Only @acharya ID are allowed";
+                           return "Only @acharya ID are allowed";
                         }
 
                         return null;
@@ -439,7 +466,7 @@ class _AplSignUpState extends State<AplSignUp> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Catagory",
+                        "Category",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),

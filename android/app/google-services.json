@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "853328090345-muvglotcn466hdsngsf135opvboo76gv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ait.habba20",
+            "certificate_hash": "f7c86b7aecb544ee86373748b0194e5d9c59e3bc"
+          }
+        },
+        {
           "client_id": "853328090345-arfkhnldukiobjgl7ac9f95p8dme259h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

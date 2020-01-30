@@ -52,6 +52,22 @@ void signOutGoogle() async {
   print("User Sign Out");
 }
 
+Future<String> getEmailFromGoogleAuth() async {
+  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAuthentication googleSignInAuthentication =
+  await googleSignInAccount.authentication;
+
+  final AuthCredential credential = GoogleAuthProvider.getCredential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
+
+  final AuthResult authResult = await _auth.signInWithCredential(credential);
+  final FirebaseUser user = authResult.user;
+  name=user.displayName;
+  email=user.email;
+  return user.email;
+}
 
 
 

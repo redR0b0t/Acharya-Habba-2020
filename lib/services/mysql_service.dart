@@ -44,7 +44,7 @@ void post_apl2(UserModel user) async {
         'url': user.img,
         'cat':user.Work,
         'gender':user.Sex,
-        'dob':user.Date,
+        'dob':user.Date.toString(),
         'desig': user.Desig,
 
       }
@@ -86,7 +86,7 @@ void post_apl(UserModel user,File imageFile) async {
 //        ..isDismissible = false
 //        ..show(context);
   var res = await req.send();
-  post_apl2(user);
+  //post_apl2(user);
   print('\t\t\t' + res.statusCode.toString());
   res.stream.transform(utf8.decoder).listen((value) {
 //    if (value != null) {
@@ -109,6 +109,28 @@ void post_vol(UserModel user) async {
     'gender': user.Sex,
     'dob': user.Date,
     'desig': user.Desig,
+    'interest':user.Work,
   });
   print(result.body);
 }
+
+//
+//void post_vol(UserModel user) async {
+//  var result = await http.post("http://acharyahabba.in//habba2020/vol2020/vol_reg_back.php", body: {
+//    'name': user.Name,
+//    'usn': user.Id,
+//    'email': user.Mail,
+//    'w_number': user.WhatsApp,
+//    'department': user.Branch,
+//    'institute': user.College,
+//    'year': user.Year,
+//
+//    'gender': user.Sex,
+//    'dob': user.Date,
+//    'desig': user.Desig,
+//    'c_number':user.PhoneNumber,
+//    'contribution': user.Work,
+//    'about':'',
+//  });
+//  print(result.body);
+//}

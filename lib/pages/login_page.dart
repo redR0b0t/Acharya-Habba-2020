@@ -32,26 +32,56 @@ class _LoginPageState extends State<LoginPage> {
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
-      onPressed: () {
-        signInWithGoogle().whenComplete(() {
-          if (email.contains("@acharya.ac.in")) {
-            Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) {
-                      return VolunteerLandingPage();
-                    }));
-          }
-          else
+      onPressed: () async {
+        try {
+          signOutGoogle();
+          String email = await getEmailFromGoogleAuth();
+          if (email.toLowerCase().contains('acharya.ac.in')) {
+            signOutGoogle();
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return VolunteerLandingPage();
+            }));
+          } else {
             Fluttertoast.showToast(
-                msg: "This is Center Short Toast",
+                msg: "Select Acharya Email ID",
                 toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIos: 1,
                 backgroundColor: Colors.red,
                 textColor: Colors.white,
                 fontSize: 16.0);
+            signOutGoogle();
+          }
+        } catch (e) {
+          Fluttertoast.showToast(msg: 'Signin Failed $e');
+          throw e;
         }
-          );},
+      },
+
+
+//      onPressed: () {
+//        signInWithGoogle().whenComplete(() {
+//          if (email.contains("@acharya.ac.in")) {
+//            Navigator.of(context).push(
+//                MaterialPageRoute(
+//                    builder: (context) {
+//                      return VolunteerLandingPage();
+//                    }));
+//          }
+//          else {
+//            Fluttertoast.showToast(
+//                msg: "Select Acharya Email ID",
+//                toastLength: Toast.LENGTH_LONG,
+//                gravity: ToastGravity.BOTTOM,
+//                timeInSecForIos: 1,
+//                backgroundColor: Colors.red,
+//                textColor: Colors.white,
+//                fontSize: 16.0);
+//          }
+//          signOutGoogle();
+//        }
+//
+//          );},
 
 
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

@@ -12,7 +12,7 @@ import 'package:habba20/data/data.dart';
 import 'package:habba20/pages/home_page.dart';
 import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/services/mysql_service.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class VolunteerSignUp extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class VolunteerSignUp extends StatefulWidget {
 
 class _VolunteerSignUpState extends State<VolunteerSignUp> {
   var _user = UserModel();
-List<String> collegeBranchList = ['Choose your Branch'];
+  List<String> collegeBranchList = ['Choose your Branch'];
   TextEditingController _nameController,
       _phoneNumberController,
       _whatsappNumberController,
@@ -47,6 +47,22 @@ List<String> collegeBranchList = ['Choose your Branch'];
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       _user.Type = 0;
+      if (_user.Work == '' ||
+          //_image == null ||
+          _user.College == '' ||
+          _user.Branch == '' ||
+          _user.Year == '') {
+        Fluttertoast.showToast(
+            msg: "Fill the complete form",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        return;
+      }
+
       setState(() {
         state = 1;
       });
@@ -61,7 +77,7 @@ List<String> collegeBranchList = ['Choose your Branch'];
         );
       });
       post_vol(_user);
-    /*  documentReference.snapshots().listen((DocumentSnapshot event) {
+      /*  documentReference.snapshots().listen((DocumentSnapshot event) {
         // here you could e.g. check if the transaction on your reference was succesful
       });
 */
@@ -69,7 +85,7 @@ List<String> collegeBranchList = ['Choose your Branch'];
         state = 2;
       });
 
-    // Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePage()));// MyHomePage(title:'Event lists')));
+      // Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePage()));// MyHomePage(title:'Event lists')));
     }
   }
 
@@ -93,17 +109,19 @@ List<String> collegeBranchList = ['Choose your Branch'];
       case 1:
         {
           return Container(
-              padding: const EdgeInsets.fromLTRB(0,80.0,0,0),
-              child:Center(
-            child: Loading(),
-          ));
+              padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
+              child: Center(
+                child: Loading(),
+              ));
         }
       case 2:
         {
           return Container(
-              padding: const EdgeInsets.fromLTRB(0,80.0,0,0),
-              child:Center(
-                child: SuccessCard(title: "Volunteer Registration Successful",),
+              padding: const EdgeInsets.fromLTRB(0, 80.0, 0, 0),
+              child: Center(
+                child: SuccessCard(
+                  title: "Volunteer Registration Successful",
+                ),
               ));
         }
       case 3:
@@ -192,13 +210,15 @@ List<String> collegeBranchList = ['Choose your Branch'];
                       validator: (String value) {
                         if (value.isEmpty) {
                           return 'Enter Your Auid';
-                        } else if (value.length != 12) {
-                          return 'Auid should be  of 12 words';
-                        }
-                        else if(value.contains('ait') && value.replaceAll("\\D", "").length==5){
+                        } else if (value.length != 12 && value.length != 8) {
+                          return 'Auid length is invalid';
+                        } else if (!((value.contains('ai') ||
+                            value.contains("AI")))) {
+                          return "Invalid format";
+                        } else if (!(value.contains(new RegExp(r'[0-9]'), 5) ||
+                            value.contains(new RegExp(r'[0-9]'), 6))) {
                           return "invalid format";
                         }
-
                         return null;
                       },
                       onSaved: (val) {
@@ -251,7 +271,7 @@ List<String> collegeBranchList = ['Choose your Branch'];
                           labelText: 'Whatsapp Number',
                           hintText: 'Enter Your Phone Number'),
                       validator: (val) {
-                        if (_phoneNumberController.text.isEmpty) {
+                        if (_whatsappNumberController.text.isEmpty) {
                           return '';
                         }
                         return null;
@@ -275,7 +295,7 @@ List<String> collegeBranchList = ['Choose your Branch'];
                           hintText: 'Enter Your Phone Number'),
                       validator: (val) {
                         if (_phoneNumberController.text.isEmpty) {
-                          return '';
+                          return null;
                         }
                         return null;
                       },
@@ -343,7 +363,7 @@ List<String> collegeBranchList = ['Choose your Branch'];
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Area of work",
+                        "Area of Interest",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -385,7 +405,6 @@ List<String> collegeBranchList = ['Choose your Branch'];
   }
 
   Widget collegeSelector() {
-
     return SelectionMenu<String>(
       menuSizeConfiguration: MenuSizeConfiguration(
         maxHeightFraction: 0.75,
@@ -417,9 +436,7 @@ List<String> collegeBranchList = ['Choose your Branch'];
             color: Colors.deepOrange,
             onPressed: () {
               onItemTapped();
-              setState(() {
-
-              });
+              setState(() {});
               //_registerUser();
             },
             child: Text(
@@ -561,7 +578,7 @@ List<String> collegeBranchList = ['Choose your Branch'];
     );
   }
 
-  List<String> mapToList(Map data, String index){
+  List<String> mapToList(Map data, String index) {
     return data[index];
   }
 }
