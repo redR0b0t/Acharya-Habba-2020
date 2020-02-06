@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:habba20/pages/drawer_screen/navigation.dart';
 import 'package:habba20/pages/home.dart';
 import 'package:provider/provider.dart';
 import 'pages/volunteer_landing_page.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
                 image: Image.asset('assets/splash.gif'),
                 backgroundColor: Colors.black,
                 photoSize: 300,
-                navigateAfterSeconds:  LoginPage() //HomePage()//MyHomePage(title: "Events list",)
+                navigateAfterSeconds:  Navigation() //HomePage()//MyHomePage(title: "Events list",)
             ),
           );
         },
