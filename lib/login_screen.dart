@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen>
         children: <Widget>[
           SingleChildScrollView(
               child: Padding(
-                  padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 60.0),
+                  padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 25.0),
                   child: Column(
                     children: <Widget>[
                       Image.asset(
@@ -90,7 +90,10 @@ class _LoginScreenState extends State<LoginScreen>
                         //swidth: ScreenUtil().setWidth(550),
                         height: ScreenUtil().setHeight(550),
                       ),
+
+                      /// FORM>>>>>
                       _buildForm(),
+
                       SizedBox(
                         height: ScreenUtil().setHeight(35),
                       ),
@@ -165,10 +168,25 @@ class _LoginScreenState extends State<LoginScreen>
                         onPressed: () {
                           AuthStoreActions.guestLogin.call(true);
                         },
-                        child: Text("Continue as guests",style: TextStyle(fontSize: 18, color: Colors.blue ),),
+                        child: Text(
+                          "Continue as guests",
+                          style: TextStyle(fontSize: 18, color: Colors.blue),
+                        ),
                       ),
                       SizedBox(
-                        height: ScreenUtil().setHeight(40),
+                        height: ScreenUtil().setHeight(20),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Connect with us',
+                            style: TextStyle(fontSize: 15, color: Colors.red),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(20),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -222,23 +240,6 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                         height: ScreenUtil().setHeight(30),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'New User? ',
-                            style: TextStyle(fontFamily: 'Poppins-Medium'),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Text('SignUp',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins-Bold',
-                                  color: Color(0xFF5d74e3),
-                                )),
-                          )
-                        ],
-                      )
                     ],
                   ))),
         ],
