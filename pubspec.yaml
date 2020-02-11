@@ -42,8 +42,14 @@ dependencies:
   firebase_auth:
   google_sign_in:
   fluttertoast:
-
-
+  shared_preferences:
+  font_awesome_flutter:
+  url_launcher: ^5.4.1
+  flutter_flux:
+  http_parser:
+  carousel_slider:
+  flutter_swiper: ^1.1.6
+  flutter_screenutil: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +75,7 @@ flutter:
     - assets/splash.gif
     - assets/xpaw.png
     - assets/google_logo.png
+    - assets/logo.png
 
   fonts:
     - family: OpenSans

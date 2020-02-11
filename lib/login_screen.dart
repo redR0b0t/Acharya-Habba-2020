@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-//import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:flutter_flux/flutter_flux.dart';
-import 'auth_store.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:habba20/utils/style_guide.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import 'auth_store.dart';
+import 'widgets/social_icon.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -73,6 +75,180 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 750, height: 1334);
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          SingleChildScrollView(
+              child: Padding(
+                  padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 60.0),
+                  child: Column(
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/logo.png',
+                        //swidth: ScreenUtil().setWidth(550),
+                        height: ScreenUtil().setHeight(550),
+                      ),
+                      _buildForm(),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(35),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          InkWell(
+                            child: Container(
+                                width: ScreenUtil().setWidth(300),
+                                height: ScreenUtil().setHeight(100),
+                                decoration: BoxDecoration(
+                                  gradient: redGradient,
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xFF6078ea).withOpacity(.3),
+                                      offset: Offset(0.0, 8.0),
+                                      blurRadius: 8.0,
+                                    )
+                                  ],
+                                ),
+                                child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                        onTap: () {},
+                                        child: Center(
+                                            child: Text('Register',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'Poppins-Bold',
+                                                    fontSize: 18.0,
+                                                    letterSpacing: 1.0)))))),
+                          ),
+                          InkWell(
+                            child: Container(
+                                width: ScreenUtil().setWidth(300),
+                                height: ScreenUtil().setHeight(100),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Color(0xFF17ead9),
+                                    Color(0xFF6078ea)
+                                  ]),
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xFF6078ea).withOpacity(.3),
+                                      offset: Offset(0.0, 8.0),
+                                      blurRadius: 8.0,
+                                    )
+                                  ],
+                                ),
+                                child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                        onTap: () {},
+                                        child: Center(
+                                            child: Text('SIGNIN',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'Poppins-Bold',
+                                                    fontSize: 18.0,
+                                                    letterSpacing: 1.0)))))),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(40),
+                      ),
+                      OutlineButton(
+                        borderSide: BorderSide(color: Colors.blue, width: 2),
+                        shape: StadiumBorder(),
+                        onPressed: () {
+                          AuthStoreActions.guestLogin.call(true);
+                        },
+                        child: Text("Continue as guests",style: TextStyle(fontSize: 18, color: Colors.blue ),),
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(40),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SocialIcon(
+                            colors: [
+                              Color(0xFFff4f38),
+                              Color(0xFFff355d),
+                            ],
+                            icondata: FontAwesomeIcons.instagram,
+                            onPressed: () async {
+                              await launch(
+                                  'https://www.instagram.com/habba2020/');
+                            },
+                          ),
+                          SocialIcon(
+                            colors: [
+                              Color(0xFFffDD00),
+                              Color(0xFBffB034),
+                            ],
+                            icondata: FontAwesomeIcons.snapchat,
+                            onPressed: () async {
+                              await launch(
+                                  'https://www.snapchat.com/add/acharya_habba');
+                            },
+                          ),
+                          SocialIcon(
+                            colors: [
+                              Color(0xFF102397),
+                              Color(0xFF187adf),
+                              Color(0xFF00eaf8),
+                            ],
+                            icondata: FontAwesomeIcons.facebook,
+                            onPressed: () async {
+                              await launch(
+                                  'https://www.facebook.com/acharya.ac.in/');
+                            },
+                          ),
+                          SocialIcon(
+                            colors: [
+                              Color(0xFF17ead9),
+                              Color(0xFF6078ea),
+                            ],
+                            icondata: FontAwesomeIcons.twitter,
+                            onPressed: () async {
+                              await launch('https://twitter.com/acharyahabba');
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(30),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'New User? ',
+                            style: TextStyle(fontFamily: 'Poppins-Medium'),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Text('SignUp',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins-Bold',
+                                  color: Color(0xFF5d74e3),
+                                )),
+                          )
+                        ],
+                      )
+                    ],
+                  ))),
+        ],
+      ),
+    );
+  }
+
+  /*@override
+  Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 750, height: 1334);
     return Stack(
       children: <Widget>[
         Container(
@@ -85,6 +261,8 @@ class _LoginScreenState extends State<LoginScreen>
         new Scaffold(
           backgroundColor: Colors.transparent,
           key: _scaffoldKey,
+          resizeToAvoidBottomInset: true,
+
           body: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (overscroll) {
               overscroll.disallowGlow();
@@ -145,7 +323,7 @@ class _LoginScreenState extends State<LoginScreen>
                         children: <Widget>[
                           new ConstrainedBox(
                             constraints: const BoxConstraints.expand(),
-                            child: _buildSignIn(context),
+                            child: _buildForm(),
                           ),
 //                          new ConstrainedBox(
 //                            constraints: const BoxConstraints.expand(),
@@ -163,7 +341,7 @@ class _LoginScreenState extends State<LoginScreen>
       ],
     );
   }
-
+*/
   @override
   void dispose() {
     myFocusNodePassword.dispose();
@@ -202,8 +380,6 @@ class _LoginScreenState extends State<LoginScreen>
     ));
   }
 
-
-
   Widget _buildSignIn(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 23.0),
@@ -218,14 +394,13 @@ class _LoginScreenState extends State<LoginScreen>
                   elevation: 2.0,
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(56.0),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Container(
                     width: 300.0,
                     decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       image: DecorationImage(
-
                           alignment: Alignment(-.2, 0),
                           image: AssetImage('assets/imgs/pat.jpg'),
                           fit: BoxFit.cover),
@@ -263,7 +438,7 @@ class _LoginScreenState extends State<LoginScreen>
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
+                                      BorderRadius.all(Radius.circular(30))),
                               icon: Icon(
                                 FontAwesomeIcons.envelope,
                                 color: Colors.black,
@@ -285,20 +460,19 @@ class _LoginScreenState extends State<LoginScreen>
                         Padding(
                           padding: EdgeInsets.only(
                               top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
-
                           child: TextField(
                             focusNode: myFocusNodePhoneNumber,
                             controller: signupPhoneNumberController,
                             keyboardType: TextInputType.phone,
-                            style: TextStyle(
-                                fontSize: 16.0, color: Colors.black),
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.black),
                             decoration: InputDecoration(
                               errorText: _phoneNumberValidate
                                   ? 'Invalid Phonenumber!'
                                   : null,
                               border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
+                                      BorderRadius.all(Radius.circular(30))),
                               icon: Icon(
                                 FontAwesomeIcons.phone,
                                 color: Colors.black,
@@ -439,14 +613,10 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-
-
   void _onSignInButtonPress() {
     _pageController.animateToPage(0,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
-
-
 
   void _toggleLogin() {
     setState(() {
@@ -464,6 +634,72 @@ class _LoginScreenState extends State<LoginScreen>
     setState(() {
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
+  }
+
+  Widget _buildForm() {
+    return Container(
+        width: double.infinity,
+        height: ScreenUtil().setHeight(500),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              offset: Offset(0.0, 15.0),
+              blurRadius: 15.0,
+            ),
+            BoxShadow(
+              color: Colors.black12,
+              offset: Offset(0.0, -10.0),
+              blurRadius: 10.0,
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Login',
+                  style: TextStyle(
+                    fontSize: ScreenUtil().setSp(45),
+                    fontFamily: 'Poppins-Bold',
+                    letterSpacing: .6,
+                  )),
+              SizedBox(
+                height: ScreenUtil().setHeight(30),
+              ),
+              Text('Username',
+                  style: TextStyle(
+                    fontFamily: 'Poppins-Medium',
+                    fontSize: ScreenUtil().setSp(26),
+                  )),
+              TextField(
+                decoration: InputDecoration(
+                    hintText: 'username',
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(30),
+              ),
+              Text('Password',
+                  style: TextStyle(
+                    fontFamily: 'Poppins-Medium',
+                    fontSize: ScreenUtil().setSp(26),
+                  )),
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                    hintText: 'password',
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(35),
+              )
+            ],
+          ),
+        ));
   }
 
   Widget _buildCollegeRadios(BuildContext context) {
@@ -633,18 +869,17 @@ class _LoginScreenState extends State<LoginScreen>
       GoogleSignInAccount account = await _googleSignIn.signIn();
 
       Navigator.pop(context);
-      if(_collegeName == _aitStudent && !account.email.endsWith('acharya.ac.in')){
+      if (_collegeName == _aitStudent &&
+          !account.email.endsWith('acharya.ac.in')) {
         Fluttertoast.showToast(
-                msg: "Select Acharya Email ID",
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-
-      else {
+            msg: "Select Acharya Email ID",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
         loginEmailController.text = account.email;
       }
     } catch (error) {
