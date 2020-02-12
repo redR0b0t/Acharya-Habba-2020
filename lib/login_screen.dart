@@ -105,7 +105,12 @@ class _LoginScreenState extends State<LoginScreen>
                                 width: ScreenUtil().setWidth(300),
                                 height: ScreenUtil().setHeight(100),
                                 decoration: BoxDecoration(
-                                  gradient: redGradient,
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFff4f38),
+                                      Color(0xFFff355d),
+                                    ]
+                                  ),
                                   borderRadius: BorderRadius.circular(30.0),
                                   boxShadow: [
                                     BoxShadow(
@@ -150,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen>
                                     child: InkWell(
                                         onTap: () {},
                                         child: Center(
-                                            child: Text('SIGNIN',
+                                            child: Text('Signin',
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontFamily: 'Poppins-Bold',
@@ -643,7 +648,7 @@ class _LoginScreenState extends State<LoginScreen>
         height: ScreenUtil().setHeight(500),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(15.0),
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
@@ -662,36 +667,49 @@ class _LoginScreenState extends State<LoginScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Login',
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Login',
                   style: TextStyle(
                     fontSize: ScreenUtil().setSp(45),
                     fontFamily: 'Poppins-Bold',
+                    fontWeight: FontWeight.bold,
                     letterSpacing: .6,
-                  )),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               SizedBox(
                 height: ScreenUtil().setHeight(30),
               ),
-              Text('Username',
-                  style: TextStyle(
-                    fontFamily: 'Poppins-Medium',
-                    fontSize: ScreenUtil().setSp(26),
-                  )),
               TextField(
                 decoration: InputDecoration(
+                    border: new OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(30.0),
+                      ),
+                    ),
+                    filled: true,
                     hintText: 'username',
+                    prefixIcon: Icon(
+                      FontAwesomeIcons.solidEnvelope,
+                    ),
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
               ),
               SizedBox(
-                height: ScreenUtil().setHeight(30),
+                height: ScreenUtil().setHeight(40),
               ),
-              Text('Password',
-                  style: TextStyle(
-                    fontFamily: 'Poppins-Medium',
-                    fontSize: ScreenUtil().setSp(26),
-                  )),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
+                    border: new OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(30.0),
+                      ),
+                    ),
+                    filled: true,
+                    prefixIcon: Icon(FontAwesomeIcons.lock),
                     hintText: 'password',
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
               ),
