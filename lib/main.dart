@@ -7,7 +7,7 @@ import 'pages/volunteer_landing_page.dart';
 import 'services/db_services.dart';
 import 'splash_screen.dart';
 import 'package:habba20/pages/home_page.dart';
-import 'package:habba20/pages/login_page.dart';
+import 'package:habba20/user_registration/login_screen.dart';
 import 'user_registration/login_screen.dart';
 
 void main() {
