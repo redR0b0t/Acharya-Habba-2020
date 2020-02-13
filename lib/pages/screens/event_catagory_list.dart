@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:habba20/models/event_cat_model.dart';
@@ -30,18 +31,31 @@ class _EventCatagoryListState extends State<EventCatagoryList> {
             SizedBox(height: 20,),
             Container(
               height: MediaQuery.of(context).size.height * .6,
-              child: Swiper(
-                pagination: SwiperPagination(
-                  builder: SwiperPagination.fraction
-                ),
-               // controller: Scontroller,
-                viewportFraction: 0.85,
-                scale: 0.3,
-                itemBuilder: (BuildContext context, int index) {
-                  return EventCatagoryCard(eventCat: EventCatMap[EventCatagory.Sports],);
+              child: StreamBuilder(
+                stream: Firestore.instance
+                  .collection('category')
+                  .snapshots(),
+                builder: (context, snap){
+                   return snap.hasData? snap.data.documents.length !=0 ?Swiper(
+                    pagination: SwiperPagination(
+                        builder: SwiperPagination.fraction
+                    ),
+                    itemCount: snap.data.documents.length,
+                    // controller: Scontroller,
+                    viewportFraction: 0.85,
+                    scale: 0.3,
+                    itemBuilder: (BuildContext context, int index) {
+                      DocumentSnapshot docSnap = snap.data.documents[index];
+
+                      return EventCatagoryCard(name:docSnap['name'] , img:docSnap['img'] ,);
+                    },
+                    //control: new SwiperControl(),
+                  ): Center(
+                    child: CircularProgressIndicator(),
+                  ): Center(
+                    child: CircularProgressIndicator(),
+                  );
                 },
-                itemCount: 3,
-                //control: new SwiperControl(),
               ),
             )
           ],

@@ -1,17 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:habba20/models/event_cat_model.dart';
-import 'package:habba20/models/event_model.dart';
 import 'package:habba20/pages/screens/event_list.dart';
 import 'package:habba20/utils/app_theme.dart';
 
 class EventCatagoryCard extends StatelessWidget {
-   //EventCatagory cat;
-   EventCatModel eventCat;
+  //EventCatagory cat;
+
+  String name;
+  String img;
 
   //CallbackAction call;
 
-  EventCatagoryCard({this.eventCat});
-String image = "assets/catagory/cyborg.png";
+  EventCatagoryCard({this.name = '', this.img = ''});
+
+  String image = "assets/catagory/cyborg.png";
+
   @override
   Widget build(BuildContext context) {
     final textStyle = new TextStyle(
@@ -22,52 +25,110 @@ String image = "assets/catagory/cyborg.png";
     return new Container(
       margin: const EdgeInsets.only(right: 10.0, left: 10.0, top: 8),
       // width: 150.0,
+      //height: MediaQuery.of(context).size.height,
       decoration: new BoxDecoration(
-          //color: color,
-          shape: BoxShape.rectangle,
-          borderRadius: new BorderRadius.circular(10.0),
-          boxShadow: <BoxShadow>[
-            new BoxShadow(
-                color: Colors.black38,
-                blurRadius: 2.0,
-                spreadRadius: 1.0,
-                offset: new Offset(0.0, 1.0)),
-          ],
-          //gradient:
+        //color: color,
+        shape: BoxShape.rectangle,
+        borderRadius: new BorderRadius.circular(10.0),
+        boxShadow: <BoxShadow>[
+          new BoxShadow(
+              color: Colors.black38,
+              blurRadius: 2.0,
+              spreadRadius: 1.0,
+              offset: new Offset(0.0, 1.0)),
+        ],
+        //gradient:
       ),
       child: InkWell(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> EventList(eventCat: eventCat,)));
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EventList(
+                        name: name,
+                        img: img,
+                      )));
         },
-        child: Stack(
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  bottomRight: Radius.circular(10.0),
-                  bottomLeft: Radius.circular(10)),
-              child: background(),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 10.0, // has the effect of softening the shadow
+                spreadRadius: 0.0, // has the effect of extending the shadow
+                offset: Offset(
+                  0.0, // horizontal, move right 10
+                  5.0, // vertical, move down 10
+                ),
+              )
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.circular(10.0),
+                bottomRight: Radius.circular(10.0),
+                bottomLeft: Radius.circular(10)),
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.black,
+                ),
+                Center(
+                    child: oldbg(context)//background(),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black87,
+                        Colors.black54,
+                        Colors.transparent
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                  ),
+                ),
+                new Container(
+                  alignment: Alignment.center,
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  child: new Text(
+                    name.replaceAll('\\n', '\n').trim(),
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                  ),
+                )
+              ],
             ),
-            new Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              child: new Text(
-                eventCat.Name.replaceAll('\\n', '\n').trim(),
-                style: AppTheme.title,
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );
   }
 
   Widget background() {
-    return Image.asset(
-      '${eventCat.BackgroundUrl}',
-      fit: BoxFit.fill,
-      colorBlendMode: BlendMode.darken,
+    return CachedNetworkImage(
+      imageUrl: img,
+      fit: BoxFit.contain,
+    );
+  }
+
+  Widget oldbg(BuildContext context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: CachedNetworkImage(
+        imageUrl: img,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:habba20/pages/screens/about_habba.dart';
 import 'package:habba20/pages/screens/event_catagory_list.dart';
+import 'package:habba20/pages/screens/insta_screen.dart';
+import 'package:habba20/pages/screens/timeline.dart';
 import 'package:habba20/pages/screens/welcome.dart';
 import 'package:habba20/utils/app_theme.dart';
 import 'drawerUserController.dart';
@@ -43,14 +46,14 @@ class _NavigationState extends State<Navigation> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("Are you sure you want to Sign Out?\n"),
+              Text("Are you sure you want to  leave ?\n"),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   GestureDetector(
                     child: Text(
-                      "Cancel",
+                      "No",
                       style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.w700),
                     ),
@@ -61,7 +64,7 @@ class _NavigationState extends State<Navigation> {
                   SizedBox(width: 25.0),
                   GestureDetector(
                     child: Text(
-                      "Sign Out",
+                      "Yeah",
                       style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.w700),
                     ),
@@ -118,49 +121,20 @@ class _NavigationState extends State<Navigation> {
         setState(() {
           screenView = EventCatagoryList();
         });
-      } else if (drawerIndex == DrawerIndex.Rewardz) {
+      }
+      else if (drawerIndex == DrawerIndex.Timeline) {
         setState(() {
-          //screenView = FestHomeScreen();
-          drawerIndex = DrawerIndex.HOME;
+          screenView = Timeline();
         });
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Rewardz"),
-              content: Text("Coming Soon"),
-            );
-          },
-        );
-      } else if (drawerIndex == DrawerIndex.About) {
+      }else if (drawerIndex == DrawerIndex.Instagram
+      ) {
         setState(() {
-          //screenView = FestHomeScreen();
-          drawerIndex = DrawerIndex.HOME;
+          screenView = InstaScreen();
+        });}
+      else if (drawerIndex == DrawerIndex.About) {
+        setState(() {
+          screenView = AboutHabba();
         });
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("About Orion"),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                      "Orion has emerged as TIET's own Science and Technology Festival, an amalgamation of scientific thinking and innovation. It has been built with an aim to enhance the technical culture and to empower the technological spirit in the campus.\n\nOrion is a symbol of competitive spirit, achievement and pride. In this journey, you will find different ways to solve several industrial challenges, and encounter unique competition along with some motivating orations, state of the art technology and breathtaking performances."),
-                  GestureDetector(
-                    child: Text(
-                      "\nVisit ORION Website",
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    onTap: () {
-                      //_launchUrlWebsite();
-                    },
-                  )
-                ],
-              ),
-            );
-          },
-        );
       } else {
         //do in your way......
       }

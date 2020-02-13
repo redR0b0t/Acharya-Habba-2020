@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habba20/utils/app_theme.dart';
 
 
@@ -33,22 +34,27 @@ class _MyDrawerState extends State<MyDrawer> {
       DrawerList(
         index: DrawerIndex.HOME,
         labelName: 'Home',
-        icon: new Icon(Icons.home),
+        icon: new Icon(FontAwesomeIcons.home),
       ),
       DrawerList(
         index: DrawerIndex.EventList,
         labelName: 'Event Catagories',
-        icon: new Icon(Icons.event_available),
+        icon: new Icon(FontAwesomeIcons.connectdevelop),
       ),
       DrawerList(
-        index: DrawerIndex.Rewardz,
-        labelName: 'Rewardz',
-        icon: new Icon(Icons.card_giftcard),
+        index: DrawerIndex.Timeline,
+        labelName: 'Timeline',
+        icon: new Icon(Icons.timeline),
+      ),
+      DrawerList(
+        index: DrawerIndex.Instagram,
+        labelName: 'Instagram',
+        icon: new Icon(FontAwesomeIcons.instagram),
       ),
       DrawerList(
         index: DrawerIndex.About,
-        labelName: 'About Orion',
-        icon: new Icon(Icons.info_outline),
+        labelName: 'About Habba',
+        icon: new Icon(FontAwesomeIcons.infoCircle),
       ),
     ];
   }
@@ -182,7 +188,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   color: Colors.green,
                 ),
                 title: new Text(
-                  "Shivam Goyal",
+                  "Developers",
                   style: new TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
@@ -190,12 +196,6 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                   textAlign: TextAlign.left,
                 ),
-                subtitle: Text('Developer',
-                    style: new TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      color: AppTheme.darkText,
-                    )),
                 onTap: () {
                  // _launchUrlDeveloper();
                 },
@@ -320,10 +320,10 @@ class _MyDrawerState extends State<MyDrawer> {
 enum DrawerIndex {
   HOME,
   EventList,
-  Rewardz,
+  Timeline,
+  Instagram,
   Share,
   About,
-  Testing,
 }
 
 class DrawerList {

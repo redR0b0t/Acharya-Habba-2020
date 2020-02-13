@@ -1,13 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/models/event_cat_model.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/event_card.dart';
 
 class EventList extends StatefulWidget {
- EventCatModel eventCat;
 
- EventList({this.eventCat});
+  String name;
+  String img;
+  //CallbackAction call;
 
+  EventList({this.name='',  this.img = ''});
   @override
   _EventListState createState() => _EventListState();
 }
@@ -25,12 +28,12 @@ class _EventListState extends State<EventList> {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
-                  title: Text("${widget.eventCat.Name}",
+                  title: Text("${widget.name}",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
                       )),
-                  background: Image.asset(widget.eventCat.BackgroundUrl)),
+                  background: CachedNetworkImage(imageUrl: widget.img,)),
             ),
           ];
         },

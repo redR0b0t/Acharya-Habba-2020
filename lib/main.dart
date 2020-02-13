@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:habba20/pages/home.dart';
 import 'package:provider/provider.dart';
+import 'pages/drawer_screen/navigation.dart';
 import 'pages/volunteer_landing_page.dart';
 import 'services/db_services.dart';
 import 'splash_screen.dart';
 import 'package:habba20/pages/home_page.dart';
 import 'package:habba20/pages/login_page.dart';
-import 'login_screen.dart';
+import 'user_registration/login_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
                 image: Image.asset('assets/splash.gif'),
                 backgroundColor: Colors.black,
                 photoSize: 300,
-                navigateAfterSeconds:  LoginScreen() //HomePage()//MyHomePage(title: "Events list",)
+                navigateAfterSeconds: LoginScreen() //HomePage()//MyHomePage(title: "Events list",)
             ),
           );
         },
