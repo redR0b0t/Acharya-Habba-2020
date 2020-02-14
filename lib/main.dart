@@ -9,6 +9,9 @@ import 'splash_screen.dart';
 import 'package:habba20/pages/home_page.dart';
 import 'package:habba20/user_registration/login_screen.dart';
 import 'user_registration/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:habba20/pages/drawer_screen/navigation.dart';
+import 'user_registration/root_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,12 +37,18 @@ class MyApp extends StatelessWidget {
                 image: Image.asset('assets/splash.gif'),
                 backgroundColor: Colors.black,
                 photoSize: 300,
-                navigateAfterSeconds: LoginScreen() //HomePage()//MyHomePage(title: "Events list",)
+                navigateAfterSeconds: RootScreen()
+//                   ? Navigation()
+//                    : LoginScreen() //HomePage()//MyHomePage(title: "Events list",)
             ),
           );
         },
       ),
     );
   }
+  Future getCurrentUser() async {
+    FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+    print("User: ${_user ?? "None"}");
+    return _user;}
 }
 

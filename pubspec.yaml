@@ -52,6 +52,7 @@ dependencies:
   flutter_screenutil: ^1.0.2
   timeline_list: ^0.0.5
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

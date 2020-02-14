@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_flux/flutter_flux.dart';
@@ -12,8 +13,9 @@ import 'package:habba20/widgets/social_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:habba20/models/user_main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:habba20/pages/drawer_screen/navigation.dart';
 import '../auth_store.dart';
+import 'package:habba20/services/google_sigin_in.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -76,6 +78,8 @@ class _LoginScreenState extends State<LoginScreen>
       _passwordMatchesValidate = false,
       _loginEmailValidate = false;
   UserModel _user=new UserModel();
+  GoogleSignInAccount account;
+
 
   @override
   Widget build(BuildContext context) {
@@ -711,6 +715,7 @@ class _LoginScreenState extends State<LoginScreen>
               TextField(
                 controller: loginPhoneController,
                 //obscureText: true,
+                keyboardType:TextInputType.phone ,
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -802,6 +807,7 @@ class _LoginScreenState extends State<LoginScreen>
     //showInSnackBar('Logging you in!');
     this._user.Mail = loginEmailController.text;
     this._user.WhatsApp = loginPhoneController.text;
+    if(this._user.Mail=='' || this._user.WhatsApp=='')return;
     if(_user.type==2)
       this._user.College = loginCollegeNameController.text;
     var documentReference =
@@ -816,6 +822,9 @@ class _LoginScreenState extends State<LoginScreen>
       );
     });
     print("data saved to firebase");
+    FirebaseUser fUser=await regUser(account);
+    print("firebase user=$fUser");
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> Navigation()));
 
 
 //      if (res['success']) {
@@ -829,86 +838,6 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
 
-  void  _handleSignup() async {
-    setState(() {
-      _passwordMatchesValidate = false;
-      _emailValidate = false;
-      _passwordMinValidate = false;
-      _nameValidate = false;
-      _collegeNameValidate = false;
-      _phoneNumberValidate = false;
-    });
-    Completer<Map> signupCompleter = Completer<Map>();
-    String email = signupEmailController.text;
-    String password = signupPasswordController.text;
-    String confirmPassword = signupConfirmPasswordController.text;
-    String name = signupNameController.text;
-    String collegeName = loginCollegeNameController.text;
-    String phoneNumber = signupPhoneNumberController.text;
-
-    bool flag = false;
-
-    if (name.trim() == '') {
-      setState(() {
-        _nameValidate = true;
-      });
-      flag = true;
-    }
-    if (!RegExp(
-        r'^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$')
-        .hasMatch(email)) {
-      setState(() {
-        _emailValidate = true;
-      });
-      flag = true;
-    }
-    if (_collegeName != _aitStudent && collegeName.trim() == '') {
-      setState(() {
-        _collegeNameValidate = true;
-      });
-      flag = true;
-    }
-    if (phoneNumber.trim().length != 10) {
-      setState(() {
-        _phoneNumberValidate = true;
-      });
-    }
-    if (password.trim().length < 5) {
-      setState(() {
-        _passwordMinValidate = true;
-      });
-      flag = true;
-    }
-    if (password != confirmPassword) {
-      setState(() {
-        _passwordMatchesValidate = true;
-      });
-      flag = true;
-    }
-
-    if (flag == false) {
-      AuthStoreActions.signup.call(UserSignpModel(
-          completer: signupCompleter,
-          email: email,
-          password: password,
-          name: name,
-          collegeName: _collegeName == _aitStudent ? 'ay_cert' : collegeName,
-          phoneNumber: phoneNumber));
-      showInSnackBar('Signing you up!');
-      setState(() {
-        isLoading = true;
-      });
-      Map res = await signupCompleter.future;
-      setState(() {
-        isLoading = false;
-      });
-      if (res['success']) {
-        AuthStoreActions.changeAuth.call(true);
-      } else {
-        showInSnackBar('[${res['error']['code']}]: ${res['error']['message']}');
-      }
-    }
-  }
 
   void _onEmailPress() async {
     signupEmailController.clear();
@@ -921,7 +850,9 @@ class _LoginScreenState extends State<LoginScreen>
               child: CircularProgressIndicator(),
             );
           });
-      GoogleSignInAccount account = await _googleSignIn.signIn();
+      account = await _googleSignIn.signIn();
+      //GoogleSignInAccount account=await signInWithGoogle();
+
 
       Navigator.pop(context);
       if (_collegeName == _aitStudent &&
@@ -937,6 +868,7 @@ class _LoginScreenState extends State<LoginScreen>
       } else {
         loginEmailController.text = account.email;
         _user.Name=account.displayName;
+        _user.img=account.photoUrl;
         if(_collegeName== _aitStudent) {
           _user.type = 1;
           _user.College=_aitStudent;

@@ -5,7 +5,7 @@ class UserModel {
   String Mail;
   int type;
   String WhatsApp;
-
+  String img;
   String College;
 
 
@@ -20,7 +20,7 @@ class UserModel {
         this.Mail = '',
         this.type=0,
         this.WhatsApp='',
-
+        this.img='',
         this.College = 'Acharya Institute of technology',
       });
 
@@ -31,7 +31,8 @@ class UserModel {
         Name: data['name'] ?? 'name',
         Mail: data['mail'],
         type: data['type'],
-        College: data['college'] ?? 'college'
+        College: data['college'] ?? 'college',
+        img: data['img'] ?? 'img'
     );
 
   }
@@ -52,7 +53,7 @@ class UserModel {
       'wapp': WhatsApp,
 
       'college': College,
-
+      'img': img,
       'type': type,
 
     };

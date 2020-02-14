@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:habba20/user_registration/login_screen.dart';
 import 'package:habba20/utils/app_theme.dart';
+import 'package:habba20/services/google_sigin_in.dart';
+import 'package:habba20/pages/drawer_screen/navigation.dart';
 
 
 class MyDrawer extends StatefulWidget {
@@ -175,8 +178,9 @@ class _MyDrawerState extends State<MyDrawer> {
                   color: Colors.red,
                 ),
                 onTap: () {
-                  //signOutGoogle();
-                  Navigator.of(context).pop();
+                  signOutGoogle();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                  //Navigator.of(context).pop();
                 },
               ),
               SizedBox(
