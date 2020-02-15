@@ -72,11 +72,10 @@ class EventCard extends StatelessWidget {
   Widget background() {
     return image==null?
     Image.asset(
-      '${t_image}',
+      '${image}',
       fit: BoxFit.fill,
       colorBlendMode: BlendMode.darken,
     ):
     Image.network(image);
   }
-
 }
