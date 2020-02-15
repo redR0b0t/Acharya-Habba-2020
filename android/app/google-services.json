@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "853328090345-ideurenjndvq0f0niactjchohujjrbo3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ait.habba20",
+            "certificate_hash": "9378b7763eeca5723c0ca0cab2d8f4d65277e1c8"
+          }
+        },
+        {
           "client_id": "853328090345-muvglotcn466hdsngsf135opvboo76gv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -30,6 +38,42 @@
             "certificate_hash": "7694d48223513d692db8c0f4ce3a9c55d9500896"
           }
         },
+        {
+          "client_id": "853328090345-sju5me6f316n5dlqkbd548sjfdluq986.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwQNTkep_oKfQb8jNMUTI7mHgyIQVzlJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853328090345-sju5me6f316n5dlqkbd548sjfdluq986.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "853328090345-j9tabq7bd6kvgblvjik6gnkb42tc2qjd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ait.habba20"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853328090345:android:1629f3a7ed99b611574c78",
+        "android_client_info": {
+          "package_name": "com.elixir.habba_admin"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "853328090345-sju5me6f316n5dlqkbd548sjfdluq986.apps.googleusercontent.com",
           "client_type": 3

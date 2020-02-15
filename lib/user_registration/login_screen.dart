@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,14 +7,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:habba20/utils/style_guide.dart';
+import 'package:habba20/models/user_main.dart';
+import 'package:habba20/pages/drawer_screen/navigation.dart';
+import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/widgets/social_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:habba20/models/user_main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:habba20/pages/drawer_screen/navigation.dart';
+
 import '../auth_store.dart';
-import 'package:habba20/services/google_sigin_in.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -29,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen>
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   AuthStore store;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  int cHeight=600;
+  int cHeight = 600;
   final FocusNode myFocusNodeEmailLogin = FocusNode();
   final FocusNode myFocusNodePasswordLogin = FocusNode();
 
@@ -48,11 +46,11 @@ class _LoginScreenState extends State<LoginScreen>
 
   TextEditingController signupEmailController = new TextEditingController();
   TextEditingController signupPhoneNumberController =
-  new TextEditingController();
+      new TextEditingController();
   TextEditingController signupNameController = new TextEditingController();
   TextEditingController signupPasswordController = new TextEditingController();
   TextEditingController signupConfirmPasswordController =
-  new TextEditingController();
+      new TextEditingController();
   TextEditingController loginCollegeNameController = TextEditingController();
   TextEditingController loginPhoneController = TextEditingController();
 
@@ -77,9 +75,8 @@ class _LoginScreenState extends State<LoginScreen>
       _passwordMinValidate = false,
       _passwordMatchesValidate = false,
       _loginEmailValidate = false;
-  UserModel _user=new UserModel();
+  UserModel _user = new UserModel();
   GoogleSignInAccount account;
-
 
   @override
   Widget build(BuildContext context) {
@@ -113,12 +110,10 @@ class _LoginScreenState extends State<LoginScreen>
                                 width: ScreenUtil().setWidth(300),
                                 height: ScreenUtil().setHeight(100),
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFFff4f38),
-                                        Color(0xFFff355d),
-                                      ]
-                                  ),
+                                  gradient: LinearGradient(colors: [
+                                    Color(0xFFff4f38),
+                                    Color(0xFFff355d),
+                                  ]),
                                   borderRadius: BorderRadius.circular(30.0),
                                   boxShadow: [
                                     BoxShadow(
@@ -161,10 +156,9 @@ class _LoginScreenState extends State<LoginScreen>
                                 child: Material(
                                     color: Colors.transparent,
                                     child: InkWell(
-                                        onTap:_handleLogin,
+                                        onTap: _handleLogin,
                                         child: Center(
                                             child: Text('Signin',
-
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontFamily: 'Poppins-Bold',
@@ -213,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen>
                             icondata: FontAwesomeIcons.instagram,
                             onPressed: () async {
                               await launch(
-                                  'https://www.instagram.com/habba2020/');
+                                  'https://www.instagram.com/acharyahabba');
                             },
                           ),
                           SocialIcon(
@@ -236,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen>
                             icondata: FontAwesomeIcons.facebook,
                             onPressed: () async {
                               await launch(
-                                  'https://www.facebook.com/acharya.ac.in/');
+                                  'https://www.facebook.com/habbaacharya');
                             },
                           ),
                           SocialIcon(
@@ -448,11 +442,11 @@ class _LoginScreenState extends State<LoginScreen>
                             readOnly: true,
                             keyboardType: TextInputType.emailAddress,
                             style:
-                            TextStyle(fontSize: 16.0, color: Colors.black),
+                                TextStyle(fontSize: 16.0, color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
+                                      BorderRadius.all(Radius.circular(30))),
                               icon: Icon(
                                 FontAwesomeIcons.envelope,
                                 color: Colors.black,
@@ -479,14 +473,14 @@ class _LoginScreenState extends State<LoginScreen>
                             controller: signupPhoneNumberController,
                             keyboardType: TextInputType.phone,
                             style:
-                            TextStyle(fontSize: 16.0, color: Colors.black),
+                                TextStyle(fontSize: 16.0, color: Colors.black),
                             decoration: InputDecoration(
                               errorText: _phoneNumberValidate
                                   ? 'Invalid Phonenumber!'
                                   : null,
                               border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
+                                      BorderRadius.all(Radius.circular(30))),
                               icon: Icon(
                                 FontAwesomeIcons.phone,
                                 color: Colors.black,
@@ -695,7 +689,7 @@ class _LoginScreenState extends State<LoginScreen>
               TextField(
                 controller: loginEmailController,
                 onTap: _onEmailPress,
-                readOnly: true,  //_collegeName==_aitStudent,
+                readOnly: true, //_collegeName==_aitStudent,
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -715,7 +709,7 @@ class _LoginScreenState extends State<LoginScreen>
               TextField(
                 controller: loginPhoneController,
                 //obscureText: true,
-                keyboardType:TextInputType.phone ,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
@@ -729,12 +723,10 @@ class _LoginScreenState extends State<LoginScreen>
               ),
               SizedBox(
                 height: ScreenUtil().setHeight(35),
-
               ),
-
               Visibility(
-                visible: _collegeName==_otherStudent,
-                child:  TextField(
+                visible: _collegeName == _otherStudent,
+                child: TextField(
                   controller: loginCollegeNameController,
                   //obscureText: true,
                   decoration: InputDecoration(
@@ -748,11 +740,9 @@ class _LoginScreenState extends State<LoginScreen>
                       hintText: 'College Name',
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
                 ),
-
               ),
               SizedBox(
                 height: ScreenUtil().setHeight(5),
-
               )
             ],
           ),
@@ -770,12 +760,11 @@ class _LoginScreenState extends State<LoginScreen>
             groupValue: _collegeName,
             onChanged: (String val) {
               setState(() {
-                cHeight=600;
+                cHeight = 600;
                 _collegeName = val;
                 loginEmailController.clear();
               });
-              loginCollegeNameController.value =
-                  TextEditingValue(text: '');
+              loginCollegeNameController.value = TextEditingValue(text: '');
             },
           ),
           Text('AIT'),
@@ -785,11 +774,10 @@ class _LoginScreenState extends State<LoginScreen>
             groupValue: _collegeName,
             onChanged: (String val) {
               setState(() {
-                cHeight=800;
+                cHeight = 800;
                 _collegeName = val;
                 loginEmailController.clear();
               });
-
             },
           ),
           Text('Other'),
@@ -807,13 +795,10 @@ class _LoginScreenState extends State<LoginScreen>
     //showInSnackBar('Logging you in!');
     this._user.Mail = loginEmailController.text;
     this._user.WhatsApp = loginPhoneController.text;
-    if(this._user.Mail=='' || this._user.WhatsApp=='')return;
-    if(_user.type==2)
-      this._user.College = loginCollegeNameController.text;
+    if (this._user.Mail == '' || this._user.WhatsApp == '') return;
+    if (_user.type == 2) this._user.College = loginCollegeNameController.text;
     var documentReference =
-    Firestore.instance
-        .collection('users')
-        .document(_user.Mail);
+        Firestore.instance.collection('users').document(_user.Mail);
 
     Firestore.instance.runTransaction((transaction) async {
       await transaction.set(
@@ -822,10 +807,10 @@ class _LoginScreenState extends State<LoginScreen>
       );
     });
     print("data saved to firebase");
-    FirebaseUser fUser=await regUser(account);
+    FirebaseUser fUser = await regUser(account);
     print("firebase user=$fUser");
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> Navigation()));
-
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Navigation()));
 
 //      if (res['success']) {
 //        AuthStoreActions.changeAuth.call(true);
@@ -836,8 +821,6 @@ class _LoginScreenState extends State<LoginScreen>
 //      }
 //    }
   }
-
-
 
   void _onEmailPress() async {
     signupEmailController.clear();
@@ -853,7 +836,6 @@ class _LoginScreenState extends State<LoginScreen>
       account = await _googleSignIn.signIn();
       //GoogleSignInAccount account=await signInWithGoogle();
 
-
       Navigator.pop(context);
       if (_collegeName == _aitStudent &&
           !account.email.endsWith('acharya.ac.in')) {
@@ -867,14 +849,13 @@ class _LoginScreenState extends State<LoginScreen>
             fontSize: 16.0);
       } else {
         loginEmailController.text = account.email;
-        _user.Name=account.displayName;
-        _user.img=account.photoUrl;
-        if(_collegeName== _aitStudent) {
+        _user.Name = account.displayName;
+        _user.img = account.photoUrl;
+        if (_collegeName == _aitStudent) {
           _user.type = 1;
-          _user.College=_aitStudent;
-
-        }
-        else _user.type=2;
+          _user.College = _aitStudent;
+        } else
+          _user.type = 2;
       }
     } catch (error) {
       print(error);

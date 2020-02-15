@@ -51,7 +51,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_screenutil: ^1.0.2
   timeline_list: ^0.0.5
-
+  bubble_tab_indicator:
 
 dev_dependencies:
   flutter_test:
