@@ -1,19 +1,44 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/event.dart';
 import 'package:habba20/utils/app_theme.dart';
+import 'package:habba20/pages/screens/event.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class EventCard extends StatelessWidget {
-  String title;
+  DocumentSnapshot docSnap;
   Gradient gradient;
-  String image;
 
   //CallbackAction call;
 
-  EventCard({this.title, this.gradient, this.image});
+  EventCard({this.docSnap});
 
   String t_image = "assets/catagory/cyborg.png";
 
+  Future _regUser() async{
+
+    FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+    print("User: ${_user ?? "None"}");
+    String eid=_user.email;
+
+
+
+    var documentReference = Firestore.instance
+        .collection('users')
+        .document(eid);
+
+
+    Firestore.instance.runTransaction((transaction) async {
+      await transaction.update(documentReference, {
+
+        'events_reg': docSnap.documentID
+
+      });
+
+
+  });
+        }
   @override
   Widget build(BuildContext context) {
     final textStyle = new TextStyle(
@@ -42,8 +67,10 @@ class EventCard extends StatelessWidget {
           gradient: gradient),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Event(image: image, title: title,)));
+          _regUser();
+
+//          Navigator.push(context, MaterialPageRoute(
+//              builder: (context) => Event(docSnap: docSnap,)));
         },
         child: Stack(
           children: <Widget>[
@@ -58,10 +85,36 @@ class EventCard extends StatelessWidget {
             new Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              child: new Text(
-                title.trim(),
-                style: AppTheme.title,
-              ),
+
+              child: new Text(docSnap['name']),
+//              Card(
+//                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+//                elevation: 15,
+//                shape:
+//                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+//                child: Padding(
+//                  padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+//                  child: RaisedButton(
+//                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+//                    elevation: 25,
+//                    shape: RoundedRectangleBorder(
+//                        borderRadius: BorderRadius.all(Radius.circular(30))),
+//                    //color: AppTheme.primaryBtnColor,
+//                    color: Colors.red,
+//                    onPressed: () {
+//                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Event(docSnap: docSnap,)));
+//                      // continueTap();
+//                      //  _registerUser();
+//                    },
+//                    child: Text(
+//                      'Reset',
+//                      style: TextStyle(
+//                          color: Colors.white, fontWeight: FontWeight.bold),
+//                    ),
+//
+//                  ),
+//                ),
+//              ),
             )
           ],
         ),
@@ -70,12 +123,12 @@ class EventCard extends StatelessWidget {
   }
 
   Widget background() {
-    return image==null?
+    return docSnap['image']==null?
     Image.asset(
-      '${image}',
+      '${docSnap['image']}',
       fit: BoxFit.fill,
       colorBlendMode: BlendMode.darken,
     ):
-    Image.network(image);
+    Image.network(docSnap['image']);
   }
 }

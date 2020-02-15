@@ -200,9 +200,7 @@ class _TimelineState extends State<Timeline>
                     itemBuilder: (context, index) {
                       DocumentSnapshot docSnap = snap.data.documents[index];
                       return EventCard(
-                        image: docSnap['img'],
-                        title: docSnap['name'],
-
+                        docSnap: docSnap,
                       );
                     });
               }
@@ -252,8 +250,7 @@ class _TimelineState extends State<Timeline>
                   itemBuilder: (context, index) {
                     DocumentSnapshot docSnap = snap.data.documents[index];
                     return EventCard(
-                      image: docSnap['img'],
-                      title: docSnap['name'],
+                      docSnap:docSnap
 
                     );
                   });
