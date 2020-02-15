@@ -6,11 +6,14 @@ import 'package:habba20/utils/app_theme.dart';
 class EventCard extends StatelessWidget {
   String title;
   Gradient gradient;
+  String image;
 
   //CallbackAction call;
 
-  EventCard({this.title, this.gradient});
-  String image = "assets/catagory/cyborg.png";
+  EventCard({this.title, this.gradient, this.image});
+
+  String t_image = "assets/catagory/cyborg.png";
+
   @override
   Widget build(BuildContext context) {
     final textStyle = new TextStyle(
@@ -19,7 +22,10 @@ class EventCard extends StatelessWidget {
       fontSize: 18.0,
     );
     return new Container(
-      height: MediaQuery.of(context).size.height*.2,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * .2,
       margin: const EdgeInsets.only(right: 10.0, left: 10.0, top: 15),
       // width: 150.0,
       decoration: new BoxDecoration(
@@ -35,8 +41,9 @@ class EventCard extends StatelessWidget {
           ],
           gradient: gradient),
       child: InkWell(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> Event(image: image, title: title,)));
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => Event(image: image, title: title,)));
         },
         child: Stack(
           children: <Widget>[
@@ -52,7 +59,7 @@ class EventCard extends StatelessWidget {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: new Text(
-                title.replaceAll('\\n', '\n').trim(),
+                title.trim(),
                 style: AppTheme.title,
               ),
             )
@@ -63,11 +70,12 @@ class EventCard extends StatelessWidget {
   }
 
   Widget background() {
-    return Image.asset(
+    return image==null?
+    Image.asset(
       '${image}',
       fit: BoxFit.fill,
       colorBlendMode: BlendMode.darken,
-    );
+    ):
+    Image.network(image);
   }
-
 }
