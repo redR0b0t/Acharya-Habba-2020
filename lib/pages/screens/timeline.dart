@@ -7,6 +7,7 @@ import 'package:flutter_flux/flutter_flux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habba20/utils/date_time_helper.dart';
 import 'package:habba20/widgets/empty_card.dart';
+import 'package:habba20/widgets/timeline_card.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:habba20/widgets/event_card.dart';
@@ -173,46 +174,38 @@ class _TimelineState extends State<Timeline>
 
 
   Widget _streamEvents0(){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Event List"),
-        backgroundColor: Colors.deepOrange,
-      ),
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFf45d27), Color(0xFFf5851f)],
+          ),
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90))),
+      child: StreamBuilder(
+          stream: Firestore.instance
+              .collection('events')
+              .snapshots(),
+          builder: (context, snap) {
+            if (snap.hasData) {
+              return snap.data.documents.length==0?
+              Column(
+                children: <Widget>[
+                  EmptyCard(type: "Events",)
+                ],
+              ): ListView.builder(
+                  itemCount: snap.data.documents.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot docSnap = snap.data.documents[index];
+                    return TimelineCard(docSnap: docSnap,);
+                  });
+            }
+            else{
+              return Text("");
+            }
+          }),
 
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xFFf45d27), Color(0xFFf5851f)],
-            ),
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90))),
-        child: StreamBuilder(
-            stream: Firestore.instance
-                .collection('events')
-
-                .snapshots(),
-            builder: (context, snap) {
-              if (snap.hasData) {
-                return snap.data.documents.length==0?
-                Text("no events to show"): ListView.builder(
-                    itemCount: snap.data.documents.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot docSnap = snap.data.documents[index];
-                      return EventCard(
-                        image: docSnap['img'],
-                        title: docSnap['name'],
-
-                      );
-                    });
-              }
-              else{
-                return Text("");
-              }
-            }),
-
-        // color: Colors.deepOrange,
-      ),
+      // color: Colors.deepOrange,
     );
   }
 
@@ -234,7 +227,7 @@ class _TimelineState extends State<Timeline>
               .where('event_date', isGreaterThan: d2).where('event_date',isLessThan: d3).orderBy('event_date')
               .snapshots():Firestore.instance
               .collection('events')
-              .where('event_date', isGreaterThan: d1).orderBy('event_date')
+              .where('event_date', isGreaterThan: d3).orderBy('event_date')
               .snapshots(),
 //            stream: d==1? Firestore.instance
 //                .collection('events')
@@ -251,11 +244,7 @@ class _TimelineState extends State<Timeline>
                   itemCount: snap.data.documents.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot docSnap = snap.data.documents[index];
-                    return EventCard(
-                      image: docSnap['img'],
-                      title: docSnap['name'],
-
-                    );
+                    return TimelineCard(docSnap: docSnap,);
                   });
             }
             else{
