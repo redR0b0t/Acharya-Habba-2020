@@ -233,13 +233,13 @@ class _TimelineState extends State<Timeline>
         child: StreamBuilder(
           stream: d==1? Firestore.instance
                .collection('events')
-                .where('event_date', isGreaterThan: d1).where('event_date',isLessThan: d2)
+                .where('event_date', isGreaterThan: d1).where('event_date',isLessThan: d2).orderBy('event_date')
                 .snapshots():d==2?Firestore.instance
               .collection('events')
-              .where('event_date', isGreaterThan: d2).where('event_date',isLessThan: d3)
+              .where('event_date', isGreaterThan: d2).where('event_date',isLessThan: d3).orderBy('event_date')
               .snapshots():Firestore.instance
               .collection('events')
-              .where('event_date', isGreaterThan: d1)
+              .where('event_date', isGreaterThan: d1).orderBy('event_date')
               .snapshots(),
 //            stream: d==1? Firestore.instance
 //                .collection('events')
