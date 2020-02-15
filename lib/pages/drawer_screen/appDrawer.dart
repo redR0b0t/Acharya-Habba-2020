@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/user_registration/login_screen.dart';
 import 'package:habba20/utils/app_theme.dart';
-import 'package:habba20/services/google_sigin_in.dart';
-import 'package:habba20/pages/drawer_screen/navigation.dart';
-
 
 class MyDrawer extends StatefulWidget {
   final AnimationController iconAnimationController;
@@ -24,7 +22,6 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   List<DrawerList> drawerList;
-
 
   @override
   void initState() {
@@ -48,6 +45,11 @@ class _MyDrawerState extends State<MyDrawer> {
         index: DrawerIndex.Timeline,
         labelName: 'Timeline',
         icon: new Icon(Icons.timeline),
+      ),
+      DrawerList(
+        index: DrawerIndex.MyEventList,
+        labelName: 'My Events',
+        icon: new Icon(Icons.person_pin),
       ),
       DrawerList(
         index: DrawerIndex.Instagram,
@@ -102,11 +104,12 @@ class _MyDrawerState extends State<MyDrawer> {
                                 BoxShadow(
                                     color: AppTheme.grey.withOpacity(0.6),
                                     offset: Offset(2.0, 4.0),
-                                    blurRadius: 8),
+                                    blurRadius: 8
+                                ),
                               ],
                             ),
                             child: CircleAvatar(
-                             // backgroundImage: NetworkImage(imageUrl),
+                              // backgroundImage: NetworkImage(imageUrl),
                               backgroundColor: Colors.transparent,
                             ),
                           ),
@@ -164,6 +167,27 @@ class _MyDrawerState extends State<MyDrawer> {
           Column(
             children: <Widget>[
               ListTile(
+                trailing: Icon(
+                  Icons.code,
+                  color: Colors.green,
+                ),
+                title: new Text(
+                  "Developers",
+                  style: new TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                    color: AppTheme.darkText,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+                onTap: () {
+                  // _launchUrlDeveloper();
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).padding.bottom,
+              ),
+              ListTile(
                 title: new Text(
                   "Sign Out",
                   style: new TextStyle(
@@ -179,29 +203,9 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
                 onTap: () {
                   signOutGoogle();
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                   //Navigator.of(context).pop();
-                },
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).padding.bottom,
-              ),
-              ListTile(
-                trailing: Icon(
-                  Icons.code,
-                  color: Colors.green,
-                ),
-                title: new Text(
-                  "Developers",
-                  style: new TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                    color: AppTheme.darkText,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-                onTap: () {
-                 // _launchUrlDeveloper();
                 },
               ),
               SizedBox(
@@ -325,6 +329,7 @@ enum DrawerIndex {
   HOME,
   EventList,
   Timeline,
+  MyEventList,
   Instagram,
   Share,
   About,

@@ -33,7 +33,7 @@ class _EventListState extends State<EventList> {
                         color: Colors.white,
                         fontSize: 16.0,
                       )),
-                  background: CachedNetworkImage(imageUrl: widget.img, fit: BoxFit.fill,)),
+                  background: CachedNetworkImage(imageUrl: widget.img, fit: BoxFit.cover,)),
             ),
           ];
         },

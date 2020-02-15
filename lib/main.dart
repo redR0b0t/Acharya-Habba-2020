@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
             ),
             home: SplashScreen(
-                seconds: 3,
-                image: Image.asset('assets/splash.gif'),
+                seconds: 8,
+                image: Image.asset('assets/splash.gif', fit: BoxFit.cover,),
                 backgroundColor: Colors.black,
                 photoSize: 300,
-                navigateAfterSeconds: RootScreen()
+                navigateAfterSeconds: Navigation()
 //                   ? Navigation()
 //                    : LoginScreen() //HomePage()//MyHomePage(title: "Events list",)
             ),

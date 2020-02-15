@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flux/flutter_flux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habba20/utils/date_time_helper.dart';
+import 'package:habba20/widgets/empty_card.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:habba20/widgets/event_card.dart';
@@ -216,25 +217,19 @@ class _TimelineState extends State<Timeline>
   }
 
   Widget _streamEvents(int d){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Event List"),
-        backgroundColor: Colors.deepOrange,
-      ),
-
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xFFf45d27), Color(0xFFf5851f)],
-            ),
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90))),
-        child: StreamBuilder(
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFf45d27), Color(0xFFf5851f)],
+          ),
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90))),
+      child: StreamBuilder(
           stream: d==1? Firestore.instance
-               .collection('events')
-                .where('event_date', isGreaterThan: d1).where('event_date',isLessThan: d2).orderBy('event_date')
-                .snapshots():d==2?Firestore.instance
+              .collection('events')
+              .where('event_date', isGreaterThan: d1).where('event_date',isLessThan: d2).orderBy('event_date')
+              .snapshots():d==2?Firestore.instance
               .collection('events')
               .where('event_date', isGreaterThan: d2).where('event_date',isLessThan: d3).orderBy('event_date')
               .snapshots():Firestore.instance
@@ -245,27 +240,30 @@ class _TimelineState extends State<Timeline>
 //                .collection('events')
 //                .where('event_date', isGreaterThan: d1).where('event_date',isLessThan: (d as Timestamp).toDate().add(new Duration(days:1)))
 //                .snapshots(),
-            builder: (context, snap) {
-              if (snap.hasData) {
-                return snap.data.documents.length==0?
-                Text("no events to show"): ListView.builder(
-                    itemCount: snap.data.documents.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot docSnap = snap.data.documents[index];
-                      return EventCard(
-                        image: docSnap['img'],
-                        title: docSnap['name'],
+          builder: (context, snap) {
+            if (snap.hasData) {
+              return snap.data.documents.length==0?
+              Column(
+                children: <Widget>[
+                  EmptyCard(type: "Events",)
+                ],
+              ): ListView.builder(
+                  itemCount: snap.data.documents.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot docSnap = snap.data.documents[index];
+                    return EventCard(
+                      image: docSnap['img'],
+                      title: docSnap['name'],
 
-                      );
-                    });
-              }
-              else{
-                return Text("");
-              }
-            }),
+                    );
+                  });
+            }
+            else{
+              return Text("");
+            }
+          }),
 
-        // color: Colors.deepOrange,
-      ),
+      // color: Colors.deepOrange,
     );
   }
 

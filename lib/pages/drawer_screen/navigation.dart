@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/about_habba.dart';
 import 'package:habba20/pages/screens/event_catagory_list.dart';
 import 'package:habba20/pages/screens/insta_screen.dart';
+import 'package:habba20/pages/screens/my_event_list.dart';
 import 'package:habba20/pages/screens/timeline.dart';
 import 'package:habba20/pages/screens/welcome.dart';
 import 'package:habba20/utils/app_theme.dart';
-import 'drawerUserController.dart';
+
 import 'appDrawer.dart';
-import 'package:habba20/services/google_sigin_in.dart';
+import 'drawerUserController.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _NavigationState extends State<Navigation> {
   Widget screenView;
   DrawerIndex drawerIndex;
   AnimationController sliderAnimationController;
+
 /*
 
   _launchUrlWebsite() async {
@@ -122,17 +124,22 @@ class _NavigationState extends State<Navigation> {
         setState(() {
           screenView = EventCatagoryList();
         });
-      }
-      else if (drawerIndex == DrawerIndex.Timeline) {
+      } else if (drawerIndex == DrawerIndex.Timeline) {
         setState(() {
           screenView = Timeline();
         });
-      }else if (drawerIndex == DrawerIndex.Instagram
-      ) {
+      }      else if (drawerIndex == DrawerIndex.MyEventList) {
+        setState(() {
+          screenView = MyEventList();
+        });
+      }
+
+
+      else if (drawerIndex == DrawerIndex.Instagram) {
         setState(() {
           screenView = InstaScreen();
-        });}
-      else if (drawerIndex == DrawerIndex.About) {
+        });
+      } else if (drawerIndex == DrawerIndex.About) {
         setState(() {
           screenView = AboutHabba();
         });

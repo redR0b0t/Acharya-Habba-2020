@@ -77,7 +77,7 @@ class EventCatagoryCard extends StatelessWidget {
                   color: Colors.black,
                 ),
                 Center(
-                    child: oldbg(context)//background(),
+                    child: background(context)//background(),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height,
@@ -114,14 +114,7 @@ class EventCatagoryCard extends StatelessWidget {
     );
   }
 
-  Widget background() {
-    return CachedNetworkImage(
-      imageUrl: img,
-      fit: BoxFit.contain,
-    );
-  }
-
-  Widget oldbg(BuildContext context){
+  Widget background(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -131,4 +124,5 @@ class EventCatagoryCard extends StatelessWidget {
       ),
     );
   }
+
 }
