@@ -37,7 +37,7 @@ class TimelineCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => EventCard(docSnap: docSnap,guest:guest)));
+              builder: (context) => Event (docSnap: docSnap,guest:guest)));
 
         },
         child: ClipRRect(

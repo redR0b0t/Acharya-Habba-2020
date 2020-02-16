@@ -1,16 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:habba20/models/event_cat_model.dart';
-import 'package:habba20/utils/style_guide.dart';
-import 'package:habba20/widgets/event_card.dart';
+import 'package:habba20/widgets/timeline_card.dart';
 
 class EventList extends StatefulWidget {
-
   String name;
   String img;
+
   //CallbackAction call;
 
-  EventList({this.name='',  this.img = ''});
+  EventList({this.name = '', this.img = ''});
+
   @override
   _EventListState createState() => _EventListState();
 }
@@ -33,11 +32,22 @@ class _EventListState extends State<EventList> {
                         color: Colors.white,
                         fontSize: 16.0,
                       )),
-                  background: CachedNetworkImage(imageUrl: widget.img, fit: BoxFit.cover,)),
+                  background: CachedNetworkImage(
+                    imageUrl: widget.img,
+                    fit: BoxFit.cover,
+                  )),
             ),
           ];
         },
-        body: Container(height: 200, color: Colors.purpleAccent,),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          color: Colors.red,
+          child: ListView(
+            children: <Widget>[
+              TimelineCard(),
+            ],
+          ),
+        ),
       ),
     );
   }
