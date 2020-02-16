@@ -11,7 +11,7 @@ class TransparentChip extends StatelessWidget {
       padding:
       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.40),
+        color: Colors.black.withOpacity(0.5),
         borderRadius: BorderRadius.all(
           Radius.circular(20.0),
         ),

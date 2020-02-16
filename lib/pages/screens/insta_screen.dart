@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habba20/models/insta_model.dart';
+import 'package:habba20/widgets/background.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:convert';
@@ -51,17 +52,7 @@ class _InstaScreenState extends State<InstaScreen>
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Image.asset(
-            'assets/logo.png',
-            fit: BoxFit.cover,
-          ),
-        ),
+         Background(),
         _buildActual(context)
       ],
     );
