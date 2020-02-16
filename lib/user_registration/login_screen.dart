@@ -12,6 +12,7 @@ import 'package:habba20/pages/drawer_screen/navigation.dart';
 import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/widgets/social_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:habba20/pages/screens/timeline.dart';
 
 import '../auth_store.dart';
 
@@ -174,7 +175,8 @@ class _LoginScreenState extends State<LoginScreen>
                         borderSide: BorderSide(color: Colors.blue, width: 2),
                         shape: StadiumBorder(),
                         onPressed: () {
-                          AuthStoreActions.guestLogin.call(true);
+                          //AuthStoreActions.guestLogin.call(true);
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Timeline(guest: true,)));
                         },
                         child: Text(
                           "Continue as guests",

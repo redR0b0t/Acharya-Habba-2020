@@ -7,8 +7,9 @@ import 'package:habba20/pages/screens/event.dart';
 
 class TimelineCard extends StatelessWidget {
   DocumentSnapshot docSnap;
+  bool guest=false;
 
-  TimelineCard({this.docSnap});
+  TimelineCard({this.docSnap,this.guest});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class TimelineCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => EventCard(docSnap: docSnap,)));
+              builder: (context) => EventCard(docSnap: docSnap,guest:guest)));
 
         },
         child: ClipRRect(

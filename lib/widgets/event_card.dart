@@ -7,13 +7,15 @@ import 'package:habba20/utils/app_theme.dart';
 import 'package:flutter_flux/flutter_flux.dart';
 import 'package:habba20/utils/date_time_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class EventCard extends StatelessWidget {
   DocumentSnapshot docSnap;
+  bool guest=false;
   Gradient gradient;
 
   //CallbackAction call;
 
-  EventCard({this.docSnap});
+  EventCard({this.docSnap,this.guest});
 
   String t_image = "assets/catagory/cyborg.png";
 
@@ -130,8 +132,19 @@ class EventCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 color: Colors.deepPurple,
                 onPressed: () {
-
-                  _regUser();
+                  if(guest) {
+                    Fluttertoast.showToast(
+                        msg: "You need to be registered for registering in the events",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
+                  else {
+                    _regUser();
+                  }
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),

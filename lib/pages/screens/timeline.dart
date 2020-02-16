@@ -17,6 +17,8 @@ class ScaffoldKeyChain {
 }
 
 class Timeline extends StatefulWidget {
+  bool guest=false;
+  Timeline({this.guest});
   @override
   _TimelineState createState() => _TimelineState();
 }
@@ -158,6 +160,7 @@ class _TimelineState extends State<Timeline>
                       DocumentSnapshot docSnap = snap.data.documents[index];
                       return TimelineCard(
                         docSnap: docSnap,
+                        guest: widget.guest,
                       );
                     });
           } else {

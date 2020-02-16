@@ -126,7 +126,7 @@ class _NavigationState extends State<Navigation> {
         });
       } else if (drawerIndex == DrawerIndex.Timeline) {
         setState(() {
-          screenView = Timeline();
+          screenView = Timeline(guest: false);
         });
       }      else if (drawerIndex == DrawerIndex.MyEventList) {
         setState(() {

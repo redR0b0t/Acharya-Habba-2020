@@ -126,7 +126,8 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                             child: CircleAvatar(
-                               backgroundImage: NetworkImage(_user.photoUrl),
+
+                               backgroundImage: NetworkImage(_user.photoUrl!=null?_user.photoUrl:'https://blog.hubspot.com/hubfs/image8-2.jpg'),
                               backgroundColor: Colors.transparent,
                             ),
                           ),
