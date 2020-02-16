@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/event.dart';
 import 'package:habba20/utils/app_theme.dart';
+import 'package:flutter_flux/flutter_flux.dart';
+import 'package:habba20/utils/date_time_helper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 class EventCard extends StatelessWidget {
   DocumentSnapshot docSnap;
   Gradient gradient;
@@ -30,61 +33,153 @@ class EventCard extends StatelessWidget {
     Firestore.instance.runTransaction((transaction) async {
       await transaction.update(documentReference, {
 
-        'events_reg': docSnap.documentID
+        'events_reg': FieldValue.arrayUnion([docSnap.documentID])
 
       });
+
+      documentReference = Firestore.instance
+          .collection('events')
+          .document(eid);
+
+
+      Firestore.instance.runTransaction((transaction) async {
+        await transaction.update(documentReference, {
+
+          'users_reg': FieldValue.arrayUnion([eid])
+        });
+      });
+
+
 
 
     });
   }
   @override
   Widget build(BuildContext context) {
-    final textStyle = new TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.w700,
-      fontSize: 18.0,
+
+    return Container(
+      // height: MediaQuery.of(context).size.height * 0.6,
+      child: Card(
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+        elevation: 12,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 35),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+             child: background(),
+              ),
+//              Icon(
+//                Image.network(src),
+//                size: 80,
+//                color: Colors.green,
+//              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "name:${docSnap['name']}",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "description:${docSnap['description']}",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "fee:${docSnap['fee']}",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Event Date:${(docSnap["event_date"] as Timestamp).toDate().day}-${DatetimeHelper(timestamp: (docSnap['event_date'] as Timestamp).millisecondsSinceEpoch).getMonthName()}',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "closing time:${DatetimeHelper(timestamp:(docSnap['closing_date'] as Timestamp).millisecondsSinceEpoch).getTime()}",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              docSnap['status']==0? new Text("status:${DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inDays} days to start"):
+      docSnap['status']==1?new Text("event started"):new Text("Event ended"),
+              SizedBox(
+                height: 15,
+              ),
+              RaisedButton(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                color: Colors.deepPurple,
+                onPressed: () {
+
+                  _regUser();
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: Center(
+                  child: Text(
+                    'Register for event',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
-    return new Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height * .2,
-      margin: const EdgeInsets.only(right: 10.0, left: 10.0, top: 15),
-      // width: 150.0,
-      decoration: new BoxDecoration(
-        //color: color,
-          shape: BoxShape.rectangle,
-          borderRadius: new BorderRadius.circular(10.0),
-          boxShadow: <BoxShadow>[
-            new BoxShadow(
-                color: Colors.black38,
-                blurRadius: 2.0,
-                spreadRadius: 1.0,
-                offset: new Offset(0.0, 1.0)),
-          ],
-          gradient: gradient),
-      child: InkWell(
-        onTap: () {
-          _regUser();
 
-//          Navigator.push(context, MaterialPageRoute(
-//              builder: (context) => Event(docSnap: docSnap,)));
-        },
-        child: Stack(
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  bottomRight: Radius.circular(10.0),
-                  bottomLeft: Radius.circular(10)),
-              child: background(),
-            ),
-            new Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
 
-              child: new Text(docSnap['name']),
+
+//   return new Container(
+//
+//       child:Column(
+//    children: <Widget>[
+//
+//      new Text("name:$docSnap['name']"),
+//      new Text("description:$docSnap['description']"),
+//      new Text("fee:$docSnap['fee']"),
+//      new Text("event date:$docSnap['event_date']"),
+//      new Text("closing time:$docSnap['close_date']"),
+//      docSnap['status']==0? new Text("status:${DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate())} to start"):
+//      docSnap['status']==1?new Text("event started"):new Text("Event ended"),
+//
+//      new Text("\n\n\n\n\n\nRegister for event"),
+//    new MaterialButton(
+//                child: Text("Register"),
+//    onPressed:_regUser
+//            ),
+//
+//
+//
+//  ]
+//       )
+//);
+
+
 //              Card(
 //                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
 //                elevation: 15,
@@ -113,20 +208,18 @@ class EventCard extends StatelessWidget {
 //                  ),
 //                ),
 //              ),
-            )
-          ],
+
+  }
+
+  Widget background() {
+    return CachedNetworkImage(
+      imageUrl: docSnap['img'],
+      placeholder: (context, url) => Center(
+        child: Image(
+          image: AssetImage("assets/logo.png"),height: 130,
         ),
       ),
     );
   }
 
-  Widget background() {
-    return docSnap['image']==null?
-    Image.asset(
-      '${docSnap['image']}',
-      fit: BoxFit.fill,
-      colorBlendMode: BlendMode.darken,
-    ):
-    Image.network(docSnap['image']);
-  }
 }

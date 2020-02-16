@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
   String Name;
@@ -7,6 +8,7 @@ class UserModel {
   String WhatsApp;
   String img;
   String College;
+  List events_reg;
 
 
   ///type specifies account type
@@ -22,6 +24,8 @@ class UserModel {
         this.WhatsApp='',
         this.img='',
         this.College = 'Acharya Institute of technology',
+        this.events_reg=null,
+
       });
 
   factory UserModel.fromFirestore(DocumentSnapshot data) {
@@ -32,7 +36,9 @@ class UserModel {
         Mail: data['mail'],
         type: data['type'],
         College: data['college'] ?? 'college',
-        img: data['img'] ?? 'img'
+        img: data['img'] ?? 'img',
+        events_reg: data['events_reg'] ?? null,
+
     );
 
   }
@@ -51,11 +57,22 @@ class UserModel {
       'name': Name,
       'mail': Mail,
       'wapp': WhatsApp,
-
+      'events_reg': null,
       'college': College,
       'img': img,
       'type': type,
 
     };
   }
+}
+Future<FirebaseUser>  _fetchUser() async{
+  FirebaseUser _user = await FirebaseAuth.instance.currentUser();
+  print("User: ${_user ?? "None"}");
+  String eid=_user.email;
+  print(eid);
+  if(eid!=null)
+    //fetched=true;
+    return _user;
+
+
 }

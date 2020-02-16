@@ -18,20 +18,21 @@ class _EventState extends State<Event> {
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            SliverAppBar(
-              expandedHeight: 200.0,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: Text("${widget.docSnap['name']}",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      )),
-                //  background: Image.network(widget.docSnap['image'])
-              ),
-            ),
+//            SliverAppBar(
+//              expandedHeight: 200.0,
+//              floating: false,
+//              pinned: true,
+//              flexibleSpace: FlexibleSpaceBar(
+//                  centerTitle: true,
+//                  title: Text("${widget.docSnap['name']}",
+//                      style: TextStyle(
+//                        color: Colors.white,
+//                        fontSize: 16.0,
+//                      )),
+//                //  background: Image.network(widget.docSnap['image'])
+//              ),
+//            ),
+
             Card(
               margin: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
               elevation: 15,

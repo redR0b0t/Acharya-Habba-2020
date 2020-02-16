@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/user_registration/login_screen.dart';
 import 'package:habba20/utils/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyDrawer extends StatefulWidget {
   final AnimationController iconAnimationController;
@@ -22,12 +23,27 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   List<DrawerList> drawerList;
-
+  bool fetched=false;
+  FirebaseUser _user;
   @override
   void initState() {
     setdDrawerListArray();
     super.initState();
+    _fetchUser();
+
   }
+  void  _fetchUser() async{
+    _user = await FirebaseAuth.instance.currentUser();
+    print("User: ${_user ?? "None"}");
+    String eid=_user.email;
+    print(eid);
+    if(eid!=null)
+    fetched=true;
+  //  return _user;
+
+
+  }
+
 
   void setdDrawerListArray() {
     drawerList = [
@@ -66,7 +82,8 @@ class _MyDrawerState extends State<MyDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return fetched?
+    Scaffold(
       backgroundColor: AppTheme.notWhite.withOpacity(0.5),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -109,7 +126,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                             child: CircleAvatar(
-                              // backgroundImage: NetworkImage(imageUrl),
+                               backgroundImage: NetworkImage(_user.photoUrl),
                               backgroundColor: Colors.transparent,
                             ),
                           ),
@@ -120,7 +137,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 12, left: 4),
                     child: Text(
-                      'lool',
+                      _user.displayName,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: AppTheme.grey,
@@ -131,7 +148,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 4, left: 4),
                     child: Text(
-                      'lool',
+                      _user.email,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: AppTheme.grey,
@@ -215,7 +232,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
         ],
       ),
-    );
+    ):Text("Loading");
   }
 
   Widget inkwell(DrawerList listData) {

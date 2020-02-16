@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                 image: Image.asset('assets/splash.gif', fit: BoxFit.cover,),
                 backgroundColor: Colors.black,
                 photoSize: 300,
-                navigateAfterSeconds: Navigation()
+                navigateAfterSeconds: RootScreen()
 //                   ? Navigation()
 //                    : LoginScreen() //HomePage()//MyHomePage(title: "Events list",)
             ),

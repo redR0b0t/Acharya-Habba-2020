@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:habba20/widgets/event_card.dart';
 import 'package:habba20/widgets/transparent_chip.dart';
+import 'package:habba20/pages/screens/event.dart';
 
 class TimelineCard extends StatelessWidget {
   DocumentSnapshot docSnap;
@@ -33,9 +35,9 @@ class TimelineCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          /*Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Event(image: image, title: title,)));
-        */
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => EventCard(docSnap: docSnap,)));
+
         },
         child: ClipRRect(
           borderRadius: BorderRadius.only(
@@ -74,7 +76,8 @@ class TimelineCard extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: TransparentChip(label: 'Timing : 13:45', size: 16,),
+                child: TransparentChip(label: docSnap['status']==0? "status:${DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inDays} days to start":
+                docSnap['status']==1?"event started":"Event ended",size: 16,),
               )
             ],
           ),
