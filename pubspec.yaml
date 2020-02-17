@@ -52,6 +52,9 @@ dependencies:
   flutter_screenutil: ^1.0.2
   timeline_list: ^0.0.5
   bubble_tab_indicator:
+  animated_text_kit: ^2.0.0
+  animated_widgets: ^1.0.3
+  sliding_up_panel: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -74,11 +77,19 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/bg/web.gif
+    - assets/bg/plexus.gif
+    - assets/bg/diamonds.gif
+    - assets/galaxy_comp.gif
+    - assets/bg/blue_cut.jpg
+    - assets/bg/cubes.jpg
+    - assets/bg/blue_gr.jpg
     - assets/spiral.gif
     - assets/splash.gif
     - assets/xpaw.png
     - assets/google_logo.png
     - assets/logo.png
+
 
   fonts:
     - family: OpenSans

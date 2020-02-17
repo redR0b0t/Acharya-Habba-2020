@@ -1,17 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/event_list.dart';
 import 'package:habba20/utils/app_theme.dart';
 
 class EventCatagoryCard extends StatelessWidget {
   //EventCatagory cat;
-
+  DocumentSnapshot docSnap;
   String name;
   String img;
 
   //CallbackAction call;
 
-  EventCatagoryCard({this.name = '', this.img = ''});
+  EventCatagoryCard({this.name = '', this.img = '',this.docSnap});
 
   String image = "assets/catagory/cyborg.png";
 
@@ -45,8 +46,7 @@ class EventCatagoryCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => EventList(
-                        name: name,
-                        img: img,
+                        cat_name: name
                       )));
         },
         child: DecoratedBox(

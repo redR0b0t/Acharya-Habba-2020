@@ -10,6 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:habba20/models/user_main.dart';
 import 'package:habba20/pages/drawer_screen/navigation.dart';
 import 'package:habba20/services/google_sigin_in.dart';
+import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/social_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:habba20/pages/screens/timeline.dart';
@@ -87,6 +88,7 @@ class _LoginScreenState extends State<LoginScreen>
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
+          Background(imgUrl: "assets/galaxy_comp.gif",),
           SingleChildScrollView(
               child: Padding(
                   padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 25.0),

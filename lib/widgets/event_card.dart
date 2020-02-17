@@ -8,6 +8,7 @@ import 'package:flutter_flux/flutter_flux.dart';
 import 'package:habba20/utils/date_time_helper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:habba20/data/data.dart';
 class EventCard extends StatelessWidget {
   DocumentSnapshot docSnap;
   bool guest=false;
@@ -132,7 +133,7 @@ class EventCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 color: Colors.deepPurple,
                 onPressed: () {
-                  if(guest) {
+                  if(isGuest) {
                     Fluttertoast.showToast(
                         msg: "You need to be registered for registering in the events",
                         toastLength: Toast.LENGTH_LONG,

@@ -51,7 +51,7 @@ class _EventCatagoryListState extends State<EventCatagoryList> {
                         itemBuilder: (BuildContext context, int index) {
                           DocumentSnapshot docSnap = snap.data.documents[index];
 
-                          return EventCatagoryCard(name:docSnap['name'] , img:docSnap['img'] ,);
+                          return EventCatagoryCard(name:docSnap['name'] , img:docSnap['img'] ,docSnap:docSnap);
                         },
                         //control: new SwiperControl(),
                       ): Center(
