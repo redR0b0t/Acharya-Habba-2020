@@ -681,15 +681,24 @@ class _EventState extends State<Event> {
   String t_image = "assets/catagory/cyborg.png";
   //int days=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays;
   String time_rem(){
-    int days=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays.toInt();
-    int hrs=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inHours.toInt();
-    int min=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inMinutes.toInt();
-    int sec=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inSeconds.toInt();
+    int days=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays.toInt();
+    int hrs=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inHours.toInt();
+    int min=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inMinutes.toInt();
+    int sec=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inSeconds.toInt();
    // int cDays=DateTime.now().add;
     //return "$days Days:$hrs Hours:$min Minutes:$sec Seconds remaining";
    // return days>=1?"$days Days ":hrs>1?"$hrs Hours" :min>1?"$min Minutes":sec>60?"$sec Seconds ":"Starting soon";
-    return "$days days";
-
+   // return "$days days";
+    if(days>1)
+      return "$days Days";
+    else if(hrs>1)
+      return "$hrs Hours";
+    else if(min>1)
+      return "$min Minutes";
+    else if(sec>1)
+      return "$sec Seconds";
+    else
+      return "0";
   }
 
   Future _regUser() async {
@@ -780,7 +789,7 @@ class _EventState extends State<Event> {
               Chip(
                 label: widget.docSnap['status'] == 0
                     ? new Text(
-                        "status:${time_rem()} to start")
+                        "status:${time_rem()=="0"?"Starting soon":" ${time_rem()} to start"}")
                     : widget.docSnap['status'] == 1
                         ? new Text("event started")
                         : new Text("Event ended"),

@@ -10,7 +10,26 @@ class TimelineCard extends StatelessWidget {
   bool guest=false;
 
   TimelineCard({this.docSnap,this.guest});
-
+  String time_rem(){
+    int days=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inDays.toInt();
+    int hrs=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inHours.toInt();
+    int min=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inMinutes.toInt();
+    int sec=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inSeconds.toInt();
+    // int cDays=DateTime.now().add;
+    //return "$days Days:$hrs Hours:$min Minutes:$sec Seconds remaining";
+    // return days>=1?"$days Days ":hrs>1?"$hrs Hours" :min>1?"$min Minutes":sec>60?"$sec Seconds ":"Starting soon";
+    // return "$days days";
+    if(days>1)
+      return "$days Days";
+    else if(hrs>1)
+      return "$hrs Hours";
+    else if(min>1)
+      return "$min Minutes";
+    else if(sec>1)
+      return "$sec Seconds";
+    else
+      return "0";
+  }
   @override
   Widget build(BuildContext context) {
     final textStyle = new TextStyle(
@@ -77,7 +96,7 @@ class TimelineCard extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: TransparentChip(label: docSnap['status']==0? "status:${DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inDays} days to start":
+                child: TransparentChip(label: docSnap['status']==0? "status:${time_rem()=="0"?"Starting soon":" ${time_rem()} to start"}":
                 docSnap['status']==1?"event started":"Event ended",size: 16,),
               )
             ],
