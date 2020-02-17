@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:habba20/data/data.dart';
 import 'package:habba20/models/user_main.dart';
 import 'package:habba20/utils/app_theme.dart';
 import 'package:habba20/widgets/background.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habba20/widgets/timeline_card.dart';
-
+import 'package:habba20/widgets/empty_card.dart';
 class MyEventList extends StatefulWidget {
   @override
   _MyEventListState createState() => _MyEventListState();
@@ -61,6 +62,9 @@ class _MyEventListState extends State<MyEventList> {
   @override
   Widget build(BuildContext context) {
     return// fetched?
+      isGuest? EmptyCard(
+        type: "Events",
+      ):
     Scaffold(
       appBar: AppBar(
         title: Text("My Events", style: TextStyle(color: Colors.black),),
@@ -68,7 +72,9 @@ class _MyEventListState extends State<MyEventList> {
         elevation: 0,
         backgroundColor: Colors.transparent.withOpacity(0.02),
       ),
-      body: //reg_events!=null?
+      body: reg_events==null? EmptyCard(
+        type: "Events",
+      ):
 
       ListView.builder(
 

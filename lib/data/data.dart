@@ -1,3 +1,4 @@
+bool isGuest=false;
 String imgURL = '';
 
 List<String> collegeList = [

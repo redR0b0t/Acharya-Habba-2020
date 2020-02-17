@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:habba20/data/data.dart';
 import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/user_registration/login_screen.dart';
 import 'package:habba20/utils/app_theme.dart';
@@ -29,6 +30,11 @@ class _MyDrawerState extends State<MyDrawer> {
   void initState() {
     setdDrawerListArray();
     super.initState();
+    fetched=isGuest;
+    setState(() {
+
+    });
+    if(!isGuest)
     _fetchUser();
 
   }
@@ -66,7 +72,9 @@ class _MyDrawerState extends State<MyDrawer> {
         index: DrawerIndex.MyEventList,
         labelName: 'My Events',
         icon: new Icon(Icons.person_pin),
+
       ),
+
       DrawerList(
         index: DrawerIndex.Instagram,
         labelName: 'Instagram',
@@ -127,7 +135,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             ),
                             child: CircleAvatar(
 
-                               backgroundImage: NetworkImage(_user.photoUrl!=null?_user.photoUrl:'https://blog.hubspot.com/hubfs/image8-2.jpg'),
+                               backgroundImage: NetworkImage(isGuest?'https://blog.hubspot.com/hubfs/image8-2.jpg':_user.photoUrl!=null?_user.photoUrl:'https://blog.hubspot.com/hubfs/image8-2.jpg'),
                               backgroundColor: Colors.transparent,
                             ),
                           ),
@@ -138,7 +146,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 12, left: 4),
                     child: Text(
-                      _user.displayName,
+                      isGuest?"Guest":_user.displayName,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: AppTheme.grey,
@@ -149,7 +157,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 4, left: 4),
                     child: Text(
-                      _user.email,
+                      isGuest?"Guest":_user.email,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: AppTheme.grey,
