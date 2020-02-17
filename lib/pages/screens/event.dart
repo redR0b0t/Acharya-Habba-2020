@@ -679,6 +679,18 @@ class Event extends StatefulWidget {
 
 class _EventState extends State<Event> {
   String t_image = "assets/catagory/cyborg.png";
+  //int days=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays;
+  String time_rem(){
+    int days=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays.toInt();
+    int hrs=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inHours.toInt();
+    int min=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inMinutes.toInt();
+    int sec=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inSeconds.toInt();
+   // int cDays=DateTime.now().add;
+    //return "$days Days:$hrs Hours:$min Minutes:$sec Seconds remaining";
+   // return days>=1?"$days Days ":hrs>1?"$hrs Hours" :min>1?"$min Minutes":sec>60?"$sec Seconds ":"Starting soon";
+    return "$days days";
+
+  }
 
   Future _regUser() async {
     FirebaseUser _user = await FirebaseAuth.instance.currentUser();
@@ -730,7 +742,7 @@ class _EventState extends State<Event> {
           child: ListView(
             children: <Widget>[
               decriptionCard('Description', '${widget.docSnap['description']}'),
-              decriptionCard('Rules', '${widget.docSnap['description']}'),
+              decriptionCard('Rules', '${widget.docSnap['rules']}'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -746,7 +758,7 @@ class _EventState extends State<Event> {
                   Chip(
                       backgroundColor: Colors.green,
                       label: Text(
-                        "Reward : ₹${widget.docSnap['fee']}",
+                        "Reward : ₹${widget.docSnap['rewards']}",
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       )),
                 ],
@@ -768,7 +780,7 @@ class _EventState extends State<Event> {
               Chip(
                 label: widget.docSnap['status'] == 0
                     ? new Text(
-                        "status:${DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays} days to start")
+                        "status:${time_rem()} to start")
                     : widget.docSnap['status'] == 1
                         ? new Text("event started")
                         : new Text("Event ended"),
