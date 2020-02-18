@@ -1,42 +1,54 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:habba20/widgets/event_card.dart';
-import 'package:habba20/widgets/transparent_chip.dart';
 import 'package:habba20/pages/screens/event.dart';
+import 'package:habba20/widgets/transparent_chip.dart';
 
 class TimelineCard extends StatelessWidget {
   DocumentSnapshot docSnap;
-  bool guest=false;
+  bool guest = false;
 
-  TimelineCard({this.docSnap,this.guest});
-  String time_rem(){
-    int days=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inDays.toInt();
-    int hrs=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inHours.toInt();
-    int min=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inMinutes.toInt();
-    int sec=-1*DateTime.now().difference((docSnap['event_date'] as Timestamp).toDate()).inSeconds.toInt();
+  TimelineCard({this.docSnap, this.guest});
+
+  String time_rem() {
+    int days = -1 *
+        DateTime.now()
+            .difference((docSnap['event_date'] as Timestamp).toDate())
+            .inDays
+            .toInt();
+    int hrs = -1 *
+        DateTime.now()
+            .difference((docSnap['event_date'] as Timestamp).toDate())
+            .inHours
+            .toInt();
+    int min = -1 *
+        DateTime.now()
+            .difference((docSnap['event_date'] as Timestamp).toDate())
+            .inMinutes
+            .toInt();
+    int sec = -1 *
+        DateTime.now()
+            .difference((docSnap['event_date'] as Timestamp).toDate())
+            .inSeconds
+            .toInt();
     // int cDays=DateTime.now().add;
     //return "$days Days:$hrs Hours:$min Minutes:$sec Seconds remaining";
     // return days>=1?"$days Days ":hrs>1?"$hrs Hours" :min>1?"$min Minutes":sec>60?"$sec Seconds ":"Starting soon";
     // return "$days days";
-    if(days>1)
+    if (days > 1)
       return "$days Days";
-    else if(hrs>1)
+    else if (hrs > 1)
       return "$hrs Hours";
-    else if(min>1)
+    else if (min > 1)
       return "$min Minutes";
-    else if(sec>1)
+    else if (sec > 1)
       return "$sec Seconds";
     else
       return "0";
   }
+
   @override
   Widget build(BuildContext context) {
-    final textStyle = new TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.w700,
-      fontSize: 18.0,
-    );
     return new Container(
       height: MediaQuery.of(context).size.height * .3,
       margin: const EdgeInsets.only(right: 10.0, left: 10.0, top: 15),
@@ -55,9 +67,10 @@ class TimelineCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Event (docSnap: docSnap,guest:guest)));
-
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Event(docSnap: docSnap, guest: guest)));
         },
         child: ClipRRect(
           borderRadius: BorderRadius.only(
@@ -96,8 +109,14 @@ class TimelineCard extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: TransparentChip(label: docSnap['status']==0? "status:${time_rem()=="0"?"Starting soon":" ${time_rem()} to start"}":
-                docSnap['status']==1?"event started":"Event ended",size: 16,),
+                child: TransparentChip(
+                  label: docSnap['status'] == 0
+                      ? "status:${time_rem() == "0" ? "Starting soon" : " ${time_rem()} to start"}"
+                      : docSnap['status'] == 1
+                          ? "event started"
+                          : "Event ended",
+                  size: 16,
+                ),
               )
             ],
           ),

@@ -31,7 +31,7 @@ class _EventCatagoryListState extends State<EventCatagoryList> {
                 SizedBox(
                   height: 80,
                 ),
-                Text('  Event catagory' , style: AppTheme.headline,),
+                Text('  Event catagory' , style: title,),
                 SizedBox(height: 20,),
                 Container(
                   height: MediaQuery.of(context).size.height * .6,

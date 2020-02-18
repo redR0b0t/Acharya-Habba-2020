@@ -5,8 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:habba20/utils/date_time_helper.dart';
 import 'package:habba20/data/data.dart';
+import 'package:habba20/utils/date_time_helper.dart';
+import 'package:habba20/utils/style_guide.dart';
 
 /*
 
@@ -678,24 +679,40 @@ class Event extends StatefulWidget {
 }
 
 class _EventState extends State<Event> {
-  String t_image = "assets/catagory/cyborg.png";
+
   //int days=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays;
-  String time_rem(){
-    int days=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays.toInt();
-    int hrs=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inHours.toInt();
-    int min=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inMinutes.toInt();
-    int sec=-1*DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inSeconds.toInt();
-   // int cDays=DateTime.now().add;
+  String time_rem() {
+    int days = -1 *
+        DateTime.now()
+            .difference((widget.docSnap['event_date'] as Timestamp).toDate())
+            .inDays
+            .toInt();
+    int hrs = -1 *
+        DateTime.now()
+            .difference((widget.docSnap['event_date'] as Timestamp).toDate())
+            .inHours
+            .toInt();
+    int min = -1 *
+        DateTime.now()
+            .difference((widget.docSnap['event_date'] as Timestamp).toDate())
+            .inMinutes
+            .toInt();
+    int sec = -1 *
+        DateTime.now()
+            .difference((widget.docSnap['event_date'] as Timestamp).toDate())
+            .inSeconds
+            .toInt();
+    // int cDays=DateTime.now().add;
     //return "$days Days:$hrs Hours:$min Minutes:$sec Seconds remaining";
-   // return days>=1?"$days Days ":hrs>1?"$hrs Hours" :min>1?"$min Minutes":sec>60?"$sec Seconds ":"Starting soon";
-   // return "$days days";
-    if(days>1)
+    // return days>=1?"$days Days ":hrs>1?"$hrs Hours" :min>1?"$min Minutes":sec>60?"$sec Seconds ":"Starting soon";
+    // return "$days days";
+    if (days > 1)
       return "$days Days";
-    else if(hrs>1)
+    else if (hrs > 1)
       return "$hrs Hours";
-    else if(min>1)
+    else if (min > 1)
       return "$min Minutes";
-    else if(sec>1)
+    else if (sec > 1)
       return "$sec Seconds";
     else
       return "0";
@@ -752,49 +769,11 @@ class _EventState extends State<Event> {
             children: <Widget>[
               decriptionCard('Description', '${widget.docSnap['description']}'),
               decriptionCard('Rules', '${widget.docSnap['rules']}'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Chip(
-                      backgroundColor: Colors.green,
-                      label: Text(
-                        "fee : ₹${widget.docSnap['fee']}",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      )),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Chip(
-                      backgroundColor: Colors.green,
-                      label: Text(
-                        "Reward : ₹${widget.docSnap['rewards']}",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      )),
-                ],
+              rewardCard(),
+              timingCard(),
+              SizedBox(
+                height: 15,
               ),
-              Chip(
-                label: Text(
-                  'Event Date:${(widget.docSnap["event_date"] as Timestamp).toDate().day}-${DatetimeHelper(timestamp: (widget.docSnap['event_date'] as Timestamp).millisecondsSinceEpoch).getMonthName()}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Chip(
-                label: Text(
-                  "closing time:${DatetimeHelper(timestamp: (widget.docSnap['closing_date'] as Timestamp).millisecondsSinceEpoch).getTime()}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Chip(
-                label: widget.docSnap['status'] == 0
-                    ? new Text(
-                        "status:${time_rem()=="0"?"Starting soon":" ${time_rem()} to start"}")
-                    : widget.docSnap['status'] == 1
-                        ? new Text("event started")
-                        : new Text("Event ended"),
-              ),
-              SizedBox(height: 15,),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                 //width: MediaQuery.of(context).size.width * 0.5,
@@ -806,10 +785,10 @@ class _EventState extends State<Event> {
                       Fluttertoast.showToast(
                           msg:
                               "You need to be registered for registering in the events",
-                          toastLength: Toast.LENGTH_LONG,
+                          toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIos: 1,
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.black.withOpacity(0.56),
                           textColor: Colors.white,
                           fontSize: 16.0);
                     } else {
@@ -839,7 +818,7 @@ class _EventState extends State<Event> {
 
   Widget decriptionCard(String title, String desc) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       elevation: 15,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
@@ -849,15 +828,13 @@ class _EventState extends State<Event> {
             Align(
               alignment: Alignment.topLeft,
               child: Text(
-                '${title}:',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+                '${title} :',
+                style: subtitle,
               ),
             ),
             new Text(
               desc.replaceAll('\\n', '\n').trim(),
-              style: TextStyle(color: Colors.black, fontSize: 16),
+              style: description,
             )
           ],
         ),
@@ -865,12 +842,88 @@ class _EventState extends State<Event> {
     );
   }
 
+  Widget rewardCard() {
+    return Card(
+        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+        elevation: 15,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  ' Rewards & fees :',
+                  style: subtitle,
+                ),
+              ),
+              Chip(
+                  label: Text(
+                    "fee : ₹ ${widget.docSnap['fee']}",
+                    style: description,
+                  )),
+              Chip(
+                  label: Text(
+                    "Reward : ${widget.docSnap['rewards']}",
+                    style: description,
+                  )),
+            ],
+          ),
+        ));
+  }
+
+  Widget timingCard() {
+    return Card(
+        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+        elevation: 15,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  ' Timings :',
+                  style: subtitle,
+                ),
+              ),
+              Chip(
+                label: Text(
+                  'Event Date: ${(widget.docSnap["event_date"] as Timestamp).toDate().day}-${DatetimeHelper(timestamp: (widget.docSnap['event_date'] as Timestamp).millisecondsSinceEpoch).getMonthName()}',
+                  style: description,
+                  textAlign: TextAlign.center,
+                ),
+              ), Chip(
+                label: Text(
+                  "Closing time: ${DatetimeHelper(timestamp: (widget.docSnap['closing_date'] as Timestamp).millisecondsSinceEpoch).getTime()}",
+                  style: description,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Chip(
+                label: widget.docSnap['status'] == 0
+                    ? new Text(
+                    "Status: ${time_rem() == "0" ? "Starting soon" : " ${time_rem()} to start"}", style: description,)
+                    : widget.docSnap['status'] == 1
+                    ? new Text("event started", style: description)
+                    : new Text("Event ended", style: description),
+              ),
+
+            ],
+          ),
+        ));
+  }
+
+
   Widget background() {
     return CachedNetworkImage(
       imageUrl: widget.docSnap['img'],
+      fit: BoxFit.cover,
       placeholder: (context, url) => Center(
         child: Image(
-          image: AssetImage("assets/logo.png"),
+          image: AssetImage("assets/logo.png" ),
           height: 130,
         ),
       ),

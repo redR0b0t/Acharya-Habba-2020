@@ -157,7 +157,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 4, left: 4),
                     child: Text(
-                      isGuest?"Guest":_user.email,
+                      isGuest?"guest@gmail.com":_user.email,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: AppTheme.grey,

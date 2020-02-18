@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/event_list.dart';
-import 'package:habba20/utils/app_theme.dart';
+import 'package:habba20/widgets/transparent_chip.dart';
 
 class EventCatagoryCard extends StatelessWidget {
   //EventCatagory cat;
@@ -12,17 +12,12 @@ class EventCatagoryCard extends StatelessWidget {
 
   //CallbackAction call;
 
-  EventCatagoryCard({this.name = '', this.img = '',this.docSnap});
+  EventCatagoryCard({this.name = '', this.img = '', this.docSnap});
 
   String image = "assets/catagory/cyborg.png";
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = new TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.w700,
-      fontSize: 18.0,
-    );
     return new Container(
       margin: const EdgeInsets.only(right: 10.0, left: 10.0, top: 8),
       // width: 150.0,
@@ -45,9 +40,7 @@ class EventCatagoryCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => EventList(
-                        cat_name: name
-                      )));
+                  builder: (context) => EventList(cat_name: name)));
         },
         child: DecoratedBox(
           decoration: BoxDecoration(
@@ -76,15 +69,15 @@ class EventCatagoryCard extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   color: Colors.black,
                 ),
-                Center(
-                    child: background(context)//background(),
-                ),
+                Center(child: background(context) //background(),
+                    ),
                 Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
+                        Colors.black54,
                         Colors.black87,
                         Colors.black54,
                         Colors.transparent
@@ -97,13 +90,9 @@ class EventCatagoryCard extends StatelessWidget {
                 new Container(
                   alignment: Alignment.center,
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: new Text(
-                    name.replaceAll('\\n', '\n').trim(),
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.white.withOpacity(0.9),
-                    ),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  child: TransparentChip(
+                    label: name.replaceAll('\\n', '\n').trim(),
                   ),
                 )
               ],
@@ -124,5 +113,4 @@ class EventCatagoryCard extends StatelessWidget {
       ),
     );
   }
-
 }

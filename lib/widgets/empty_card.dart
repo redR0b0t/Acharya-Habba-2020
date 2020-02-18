@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habba20/utils/style_guide.dart';
 
 class EmptyCard extends StatelessWidget {
   String type;
@@ -17,7 +18,7 @@ class EmptyCard extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border(
                       left: BorderSide(
-                          color: Colors.deepPurple,
+                          color: primaryColor ,
                           style: BorderStyle.solid,
                           width: 4.0))),
               child: Padding(

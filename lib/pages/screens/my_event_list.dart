@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:habba20/data/data.dart';
-import 'package:habba20/models/user_main.dart';
-import 'package:habba20/utils/app_theme.dart';
-
+import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/background.dart';
-import 'package:habba20/widgets/timeline_card.dart';
 import 'package:habba20/widgets/empty_card.dart';
+import 'package:habba20/widgets/timeline_card.dart';
 
 class MyEventList extends StatefulWidget {
   @override
@@ -64,32 +61,36 @@ class _MyEventListState extends State<MyEventList> {
     return // fetched?
         Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Text(
                 "My Events",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: primaryColor),
               ),
               centerTitle: true,
               elevation: 0,
-              backgroundColor: Colors.transparent.withOpacity(0.02),
             ),
             body: //reg_events!=null?
-                isGuest?EmptyCard(type: "Events",):
-                Stack(
-              children: <Widget>[
-                Background(),
-                ListView.builder(
-                    itemCount: reg_events == null ? 0 : reg_events.length,
-                    itemBuilder: (context, index) {
-                      _fetchEvent(index);
+                isGuest
+                    ? EmptyCard(
+                        type: "Events",
+                      )
+                    : Stack(
+                        children: <Widget>[
+                          Background(),
+                          ListView.builder(
+                              itemCount:
+                                  reg_events == null ? 0 : reg_events.length,
+                              itemBuilder: (context, index) {
+                                _fetchEvent(index);
 
-                      return eventSnap == null
-                          ? Text("")
-                          : TimelineCard(
-                              docSnap: eventSnap,
-                            );
-                    })
-              ],
-            ) //:Text("Loading")
+                                return eventSnap == null
+                                    ? Text("")
+                                    : TimelineCard(
+                                        docSnap: eventSnap,
+                                      );
+                              })
+                        ],
+                      ) //:Text("Loading")
             );
   }
 

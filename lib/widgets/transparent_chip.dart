@@ -21,6 +21,7 @@ class TransparentChip extends StatelessWidget {
         style: TextStyle(
             fontSize: size, color: Colors.white
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }

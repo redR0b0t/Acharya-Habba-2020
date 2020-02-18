@@ -101,8 +101,10 @@ class _TimelineState extends State<Timeline>
 
   Widget _buildActual(BuildContext context) {
     return Scaffold(
+
       backgroundColor: Colors.transparent,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
         title: Text(titleString),

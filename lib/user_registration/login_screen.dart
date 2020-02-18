@@ -7,14 +7,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:habba20/data/data.dart';
 import 'package:habba20/models/user_main.dart';
 import 'package:habba20/pages/drawer_screen/navigation.dart';
 import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/social_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:habba20/pages/screens/timeline.dart';
-import 'package:habba20/data/data.dart';
 
 import '../auth_store.dart';
 
@@ -88,7 +87,9 @@ class _LoginScreenState extends State<LoginScreen>
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Background(imgUrl: "assets/galaxy_comp.gif",),
+          Background(
+            imgUrl: "assets/galaxy_comp.gif",
+          ),
           SingleChildScrollView(
               child: Padding(
                   padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 25.0),
@@ -106,70 +107,38 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                         height: ScreenUtil().setHeight(35),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          InkWell(
-                            child: Container(
-                                width: ScreenUtil().setWidth(300),
-                                height: ScreenUtil().setHeight(100),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    Color(0xFFff4f38),
-                                    Color(0xFFff355d),
-                                  ]),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xFF6078ea).withOpacity(.3),
-                                      offset: Offset(0.0, 8.0),
-                                      blurRadius: 8.0,
-                                    )
-                                  ],
-                                ),
-                                child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                        onTap: () {},
-                                        child: Center(
-                                            child: Text('Register',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontFamily: 'Poppins-Bold',
-                                                    fontSize: 18.0,
-                                                    letterSpacing: 1.0)))))),
-                          ),
-                          InkWell(
-                            child: Container(
-                                width: ScreenUtil().setWidth(300),
-                                height: ScreenUtil().setHeight(100),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    Color(0xFF17ead9),
-                                    Color(0xFF6078ea)
-                                  ]),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xFF6078ea).withOpacity(.3),
-                                      offset: Offset(0.0, 8.0),
-                                      blurRadius: 8.0,
-                                    )
-                                  ],
-                                ),
-                                child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                        onTap: _handleLogin,
-                                        child: Center(
-                                            child: Text('Signin',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontFamily: 'Poppins-Bold',
-                                                    fontSize: 18.0,
-                                                    letterSpacing: 1.0)))))),
-                          )
-                        ],
+                      Align(
+                        alignment: Alignment.center,
+                        child: InkWell(
+                          child: Container(
+                              width: ScreenUtil().setWidth(300),
+                              height: ScreenUtil().setHeight(100),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(colors: [
+                                  Color(0xFF17ead9),
+                                  Color(0xFF6078ea)
+                                ]),
+                                borderRadius: BorderRadius.circular(30.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(.3),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0,
+                                  )
+                                ],
+                              ),
+                              child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                      onTap: _handleLogin,
+                                      child: Center(
+                                          child: Text('Signin',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'Poppins-Bold',
+                                                  fontSize: 18.0,
+                                                  letterSpacing: 1.0)))))),
+                        ),
                       ),
                       SizedBox(
                         height: ScreenUtil().setHeight(40),
@@ -178,9 +147,12 @@ class _LoginScreenState extends State<LoginScreen>
                         borderSide: BorderSide(color: Colors.blue, width: 2),
                         shape: StadiumBorder(),
                         onPressed: () {
-                          isGuest=true;
+                          isGuest = true;
                           //AuthStoreActions.guestLogin.call(true);
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Navigation()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Navigation()));
                         },
                         child: Text(
                           "Continue as guests",
@@ -195,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen>
                         children: <Widget>[
                           Text(
                             'Connect with us',
-                            style: TextStyle(fontSize: 15, color: Colors.red),
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
                           )
                         ],
                       ),
@@ -298,7 +270,6 @@ class _LoginScreenState extends State<LoginScreen>
       duration: Duration(seconds: 3),
     ));
   }
-
 
   Widget _buildForm() {
     return Container(

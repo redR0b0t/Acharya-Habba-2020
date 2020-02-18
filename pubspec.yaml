@@ -55,6 +55,7 @@ dependencies:
   animated_text_kit: ^2.0.0
   animated_widgets: ^1.0.3
   sliding_up_panel: ^1.0.0
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:
@@ -77,25 +78,29 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/svgs/
     - assets/bg/web.gif
-    - assets/bg/plexus.gif
     - assets/bg/diamonds.gif
     - assets/galaxy_comp.gif
-    - assets/bg/blue_cut.jpg
-    - assets/bg/cubes.jpg
-    - assets/bg/blue_gr.jpg
-    - assets/spiral.gif
     - assets/splash.gif
-    - assets/xpaw.png
     - assets/google_logo.png
     - assets/logo.png
+    - assets/icon.png
 
 
   fonts:
     - family: OpenSans
       fonts:
         - asset: assets/fonts/open-sans.ttf
-
+    - family: RobotoMedium
+      fonts:
+          - asset: assets/fonts/Roboto-Medium.ttf
+    - family: RobotoRegular
+      fonts:
+          - asset: assets/fonts/Roboto-Regular.ttf
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Medium.ttf
 
 
   # To add assets to your application, add an assets section, like this:
