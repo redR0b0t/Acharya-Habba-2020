@@ -895,7 +895,14 @@ class _EventState extends State<Event> {
                   style: description,
                   textAlign: TextAlign.center,
                 ),
-              ), Chip(
+              ),
+              Chip(
+                label: Text(
+                  "Starting time: ${DatetimeHelper(timestamp: (widget.docSnap['event_date'] as Timestamp).millisecondsSinceEpoch).getTime()}",
+                  style: description,
+                  textAlign: TextAlign.center,
+                ),
+              ),Chip(
                 label: Text(
                   "Closing time: ${DatetimeHelper(timestamp: (widget.docSnap['closing_date'] as Timestamp).millisecondsSinceEpoch).getTime()}",
                   style: description,

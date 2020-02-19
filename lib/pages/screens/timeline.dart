@@ -38,7 +38,7 @@ class _TimelineState extends State<Timeline>
     super.initState();
     fetch_day();
     print("from initstate");
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() async {
       QuerySnapshot transactions =
           await Firestore.instance.collection('days').getDocuments();
@@ -125,18 +125,18 @@ class _TimelineState extends State<Timeline>
             Tab(
               text: 'Day 2',
             ),
-            Tab(
-              text: 'Day 3',
-            ),
+//            Tab(
+//              text: 'Day 3',
+//            ),
           ],
         ),
       ),
       body: TabBarView(
         children: [
-          _streamEvents0(),
+          _streamEvents(0),
           _streamEvents(1),
           _streamEvents(2),
-          _streamEvents(3),
+         // _streamEvents(3),
         ],
         controller: tabController,
       ),
@@ -189,7 +189,7 @@ class _TimelineState extends State<Timeline>
                     .snapshots()
                 : Firestore.instance
                     .collection('events')
-                    .where('event_date', isGreaterThan: d3)
+                    .where('event_date', isLessThan: d3)
                     .orderBy('event_date')
                     .snapshots(),
 //            stream: d==1? Firestore.instance
