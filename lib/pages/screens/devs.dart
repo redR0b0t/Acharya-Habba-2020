@@ -101,12 +101,10 @@ class DevDetails extends StatelessWidget {
 
         backgroundColor: Colors.transparent,
         body: Container(
-          decoration: BoxDecoration(
-            color: Colors.white
-          ),
-          height: 800,
-          width: 600,
-          child: Stack(
+
+          child: ListView(
+
+
 
             children: <Widget>[
               Text("\n\n\n"),
@@ -116,19 +114,24 @@ class DevDetails extends StatelessWidget {
 
               Chip(label:Text("About: ${docSnap['about']}")),
               Text("Skills"),
-              Container(
-                
-                child:
-              ListView.builder(
-                  itemCount: docSnap['skills'].length,
-                  itemBuilder:(context, index) {
+//              Container(
+//
+//                child:
+//              ListView.builder(
+//                  itemCount: docSnap['skills'].length,
+//                  itemBuilder:(context, index) {
+//
+//
+//                return Text(docSnap['skills'][index]);
+//
+//              }
 
-
-                return Text(docSnap['skills'][index]);
-
-              }
-
-        ),),
+ //       ),),
+              Chip(label:Text("Skills")),
+            Card(child:Text(docSnap['skills'][0],textAlign: TextAlign.center,),),
+              Card(child:Text(docSnap['skills'][1],textAlign: TextAlign.center,),),
+              Card(child:Text(docSnap['skills'][2],textAlign: TextAlign.center,),),
+              Card(child:Text(docSnap['skills'][3],textAlign: TextAlign.center,),),
              Chip(label:Text("Whats app: ${docSnap['wapp']}")),
               Chip(label:Text("linkedin: ${docSnap['linkedin']}"),
               onDeleted: () async {
@@ -154,11 +157,13 @@ class DevDetails extends StatelessWidget {
 
 
             ],
-          ),
-        ),
 
-
+    ),)
     );
+
+
+
+
 
 
 
