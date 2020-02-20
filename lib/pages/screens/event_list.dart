@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/timeline_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habba20/data/data.dart';
@@ -25,6 +28,7 @@ class _EventListState extends State<EventList> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              backgroundColor: Colors.blue,
               expandedHeight: 200.0,
               floating: false,
               pinned: true,
@@ -33,7 +37,8 @@ class _EventListState extends State<EventList> {
                   title: Text("${widget.cat_name}",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: 20.0,
+                        fontFamily: "RobotoRegular"
                       )),
                   background: CachedNetworkImage(
                     imageUrl: widget.img,
@@ -42,10 +47,14 @@ class _EventListState extends State<EventList> {
             ),
           ];
         },
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          color: Colors.red,
-          child: _streamEvents()
+        body: Stack(
+          children: <Widget>[
+            Background(),
+            Container(
+                height: MediaQuery.of(context).size.height,
+                child: _streamEvents(),
+            )
+          ],
         ),
       ),
     );

@@ -14,7 +14,6 @@ class EventCatagoryCard extends StatelessWidget {
 
   EventCatagoryCard({this.name = '', this.img = '', this.docSnap});
 
-  String image = "assets/catagory/cyborg.png";
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class EventCatagoryCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => EventList(cat_name: name)));
+                  builder: (context) => EventList(cat_name: name, img: img,)));
         },
         child: DecoratedBox(
           decoration: BoxDecoration(
@@ -71,22 +70,6 @@ class EventCatagoryCard extends StatelessWidget {
                 ),
                 Center(child: background(context) //background(),
                     ),
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black54,
-                        Colors.black87,
-                        Colors.black54,
-                        Colors.transparent
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                    ),
-                  ),
-                ),
                 new Container(
                   alignment: Alignment.center,
                   padding:

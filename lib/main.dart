@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'services/db_services.dart';
 import 'splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:habba20/pages/drawer_screen/navigation.dart';
 import 'user_registration/root_screen.dart';
 
 void main() {
@@ -22,13 +21,14 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Habba 2020',
+            color: Colors.black,
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
             home: SplashScreen(
-                seconds: 8,
+                seconds: 4,
                 image: Image.asset('assets/splash.gif', fit: BoxFit.cover,),
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.white,
                 photoSize: 300,
                 navigateAfterSeconds: RootScreen()
 //                   ? Navigation()

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/about_habba.dart';
+import 'package:habba20/pages/screens/devs.dart';
 import 'package:habba20/pages/screens/event_catagory_list.dart';
 import 'package:habba20/pages/screens/insta_screen.dart';
 import 'package:habba20/pages/screens/my_event_list.dart';
@@ -20,17 +21,6 @@ class _NavigationState extends State<Navigation> {
   DrawerIndex drawerIndex;
   AnimationController sliderAnimationController;
 
-/*
-
-  _launchUrlWebsite() async {
-    const url = 'https://oriontiet.co';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-*/
 
   @override
   void initState() {
@@ -128,16 +118,17 @@ class _NavigationState extends State<Navigation> {
         setState(() {
           screenView = Timeline(guest: false);
         });
-      }      else if (drawerIndex == DrawerIndex.MyEventList) {
+      } else if (drawerIndex == DrawerIndex.MyEventList) {
         setState(() {
           screenView = MyEventList();
         });
-      }
-
-
-      else if (drawerIndex == DrawerIndex.Instagram) {
+      } else if (drawerIndex == DrawerIndex.Instagram) {
         setState(() {
           screenView = InstaScreen();
+        });
+      } else if (drawerIndex == DrawerIndex.Devs) {
+        setState(() {
+          screenView = Devs();
         });
       } else if (drawerIndex == DrawerIndex.About) {
         setState(() {

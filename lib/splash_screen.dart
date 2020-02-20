@@ -76,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 image: widget.imageBackground == null
                     ? null
                     : new DecorationImage(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         image: widget.imageBackground,
                       ),
                 gradient: widget.gradientBackground,

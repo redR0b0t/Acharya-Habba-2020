@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:habba20/data/data.dart';
 import 'package:habba20/utils/date_time_helper.dart';
 import 'package:habba20/utils/style_guide.dart';
+import 'package:habba20/widgets/background.dart';
 
 /*
 
@@ -755,62 +756,69 @@ class _EventState extends State<Event> {
                   centerTitle: true,
                   title: Text("${widget.docSnap['name']}",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontFamily: "RobotoRegular"
                       )),
                   background: background()),
             ),
           ];
         },
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          color: Colors.red,
-          child: ListView(
-            children: <Widget>[
-              decriptionCard('Description', '${widget.docSnap['description']}'),
-              decriptionCard('Rules', '${widget.docSnap['rules']}'),
-              rewardCard(),
-              timingCard(),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                //width: MediaQuery.of(context).size.width * 0.5,
-                child: RaisedButton(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  color: Colors.deepPurple,
-                  onPressed: () {
-                    if (isGuest) {
-                      Fluttertoast.showToast(
-                          msg:
+        body: Stack(
+          children: <Widget>[
+            Background(),
+            Container(
+              height: MediaQuery.of(context).size.height,
+              //color: Colors.red,
+              child: ListView(
+                children: <Widget>[
+                  decriptionCard('Description', '${widget.docSnap['description']}'),
+                  decriptionCard('Rules', '${widget.docSnap['rules']}'),
+                  rewardCard(),
+                  timingCard(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    //width: MediaQuery.of(context).size.width * 0.5,
+                    child: RaisedButton(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      color: Colors.blue.shade800,
+                      onPressed: () {
+                        if (isGuest) {
+                          Fluttertoast.showToast(
+                              msg:
                               "You need to be registered for registering in the events",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIos: 1,
-                          backgroundColor: Colors.black.withOpacity(0.56),
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    } else {
-                      _regUser();
-                    }
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  child: Center(
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIos: 1,
+                              backgroundColor: Colors.black.withOpacity(0.75),
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        } else {
+                          _regUser();
+                        }
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                      child: Center(
+                        child: Text(
+                          'Register',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              // fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontFamily: 'RobotoMedium'
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              )
-            ],
-          ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -818,6 +826,7 @@ class _EventState extends State<Event> {
 
   Widget decriptionCard(String title, String desc) {
     return Card(
+      color: Colors.white.withOpacity(0.9),
       margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       elevation: 15,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -844,6 +853,7 @@ class _EventState extends State<Event> {
 
   Widget rewardCard() {
     return Card(
+        color: Colors.white.withOpacity(0.9),
         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
         elevation: 15,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -875,6 +885,7 @@ class _EventState extends State<Event> {
 
   Widget timingCard() {
     return Card(
+      color: Colors.white.withOpacity(0.9),
         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
         elevation: 15,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

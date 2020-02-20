@@ -26,6 +26,7 @@ TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'Quicksand');
 TextStyle title = TextStyle(
   // h5 -> headline
   fontWeight: FontWeight.bold,
+  fontFamily: 'RobotoRegular',
   fontSize: 24,
   color: Colors.white,
   letterSpacing: 0.27,

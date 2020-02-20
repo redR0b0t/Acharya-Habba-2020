@@ -1,6 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:habba20/utils/app_theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/glow_avatar.dart';
@@ -27,40 +27,59 @@ class _WelcomeState extends State<Welcome> {
                   SizedBox(
                     height: 30,
                   ),
-                  GlowAvatar(avatarUrl: "assets/icon.png",),
-                  Text(
-                    ' Welcome to Acharya Habba 2020',
-                    style: title,
-                    textAlign: TextAlign.center,
+                  GlowAvatar(
+                    avatarUrl: "assets/icon.png",
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(0.45),
+                      borderRadius: BorderRadius.circular(10.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, 15.0),
+                          blurRadius: 15.0,
+                        ),
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, -10.0),
+                          blurRadius: 10.0,
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      ' Welcome to Acharya Habba 2020',
+                      style: title,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   Card(
                     margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    color: Colors.white.withOpacity(0.88),
                     elevation: 15,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         SizedBox(width: 20.0, height: 100.0),
                         Text(
-                          "Be",
-                          style: TextStyle(fontSize: 40.0),
+                          "We",
+                          style: TextStyle(fontSize: ScreenUtil().setSp(62), fontFamily: "RobotoMedium"),
                         ),
                         SizedBox(width: 20.0, height: 100.0),
                         RotateAnimatedTextKit(
+                          totalRepeatCount: 35,
                             onTap: () {
                               print("Tap Event");
                             },
-                            text: ["AWESOME", "OPTIMISTIC", "DIFFERENT"],
-                            textStyle:
-                            TextStyle(fontSize: 36.0, fontFamily: "Horizon"),
+                            text: ["ARE ACHARYANS"," ❤ HABBA", "ARE GEN-Z"],
+                            textStyle: TextStyle(fontSize: ScreenUtil().setSp(67)
+                                , fontFamily: "Horizon" , color: Colors.deepOrange),
                             textAlign: TextAlign.start,
-                            alignment: AlignmentDirectional
-                                .topStart // or Alignment.topLeft
+                            alignment: AlignmentDirectional.topStart // or Alignment.topLeft
                         ),
-                        SizedBox(width: 20.0, height: 100.0)
                       ],
                     ),
                   )

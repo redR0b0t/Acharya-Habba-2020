@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habba20/data/data.dart';
+import 'package:habba20/pages/screens/devs.dart';
 import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/user_registration/login_screen.dart';
 import 'package:habba20/utils/app_theme.dart';
@@ -85,6 +86,12 @@ class _MyDrawerState extends State<MyDrawer> {
         labelName: 'About Habba',
         icon: new Icon(FontAwesomeIcons.infoCircle),
       ),
+      DrawerList(
+        index: DrawerIndex.Devs,
+        labelName: 'Devs',
+        icon: new Icon(FontAwesomeIcons.code),
+      ),
+
     ];
   }
 
@@ -192,24 +199,6 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           Column(
             children: <Widget>[
-              ListTile(
-                trailing: Icon(
-                  Icons.code,
-                  color: Colors.green,
-                ),
-                title: new Text(
-                  "Developers",
-                  style: new TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                    color: AppTheme.darkText,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-                onTap: () {
-                  // _launchUrlDeveloper();
-                },
-              ),
               SizedBox(
                 height: MediaQuery.of(context).padding.bottom,
               ),
@@ -359,6 +348,7 @@ enum DrawerIndex {
   Instagram,
   Share,
   About,
+  Devs
 }
 
 class DrawerList {

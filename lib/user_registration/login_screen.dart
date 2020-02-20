@@ -11,6 +11,7 @@ import 'package:habba20/data/data.dart';
 import 'package:habba20/models/user_main.dart';
 import 'package:habba20/pages/drawer_screen/navigation.dart';
 import 'package:habba20/services/google_sigin_in.dart';
+import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/social_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -143,9 +144,13 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                         height: ScreenUtil().setHeight(40),
                       ),
-                      OutlineButton(
-                        borderSide: BorderSide(color: Colors.blue, width: 2),
-                        shape: StadiumBorder(),
+                      RaisedButton(
+                        color: Colors.transparent.withOpacity(0.5),
+                        //borderSide: BorderSide(color: Colors.blue, width: 2),
+                        shape:  RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.blue, width: 2)
+                        ),
                         onPressed: () {
                           isGuest = true;
                           //AuthStoreActions.guestLogin.call(true);
@@ -156,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen>
                         },
                         child: Text(
                           "Continue as guests",
-                          style: TextStyle(fontSize: 18, color: Colors.blue),
+                          style: TextStyle(fontSize: 18, color: Colors.blue ,fontFamily: 'Quicksand'),
                         ),
                       ),
                       SizedBox(
@@ -299,12 +304,12 @@ class _LoginScreenState extends State<LoginScreen>
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Login',
+                  'LOGIN',
                   style: TextStyle(
-                    fontSize: ScreenUtil().setSp(45),
-                    fontFamily: 'Poppins-Bold',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: .6,
+                    fontSize: ScreenUtil().setSp(60),
+                    fontFamily: 'Horizon',
+                   // color: primaryColor,
+                    letterSpacing: 1.2,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -324,7 +329,7 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                     ),
                     filled: true,
-                    hintText: 'EMail',
+                    hintText: 'Email',
                     prefixIcon: Icon(
                       FontAwesomeIcons.solidEnvelope,
                     ),
@@ -394,7 +399,7 @@ class _LoginScreenState extends State<LoginScreen>
               loginCollegeNameController.value = TextEditingValue(text: '');
             },
           ),
-          Text('AIT'),
+          Text('Acharyans', style: description,),
           Radio(
             activeColor: Theme.of(context).primaryColor,
             value: _otherStudent,
@@ -407,7 +412,7 @@ class _LoginScreenState extends State<LoginScreen>
               });
             },
           ),
-          Text('Other'),
+          Text('Others',style: description,),
         ],
       ),
     );

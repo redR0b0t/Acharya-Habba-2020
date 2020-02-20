@@ -9,7 +9,7 @@ String aboutUs =
     "before them. Battle of the Bands, Fashion Show, and detailed dance styles along with themes keeps one glued "
     "till the end of the fest. It’s the most gala time of the year to welcome the best of moments and creation of "
     "memories. Habba draws in a crowd of 25,000 or more people, with 12,000 in-house attending Habba every year, "
-    "with students streaming in from all over the country";
+    "with students streaming in from all over the country.";
 
 List<String> collegeList = [
   "Choose your college",

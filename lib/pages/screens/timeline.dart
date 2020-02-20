@@ -107,6 +107,7 @@ class _TimelineState extends State<Timeline>
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
+        backgroundColor: Colors.blue,
         title: Text(titleString),
         bottom: TabBar(
           isScrollable: true,

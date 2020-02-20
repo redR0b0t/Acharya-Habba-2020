@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
   String imgUrl;
-  Background({this.imgUrl = 'assets/bg/web.gif'});
+  Background({this.imgUrl = 'assets/galaxy_comp.gif'});
   @override
   Widget build(BuildContext context) {
     return Container(

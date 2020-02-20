@@ -79,8 +79,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/svgs/
-    - assets/bg/web.gif
-    - assets/bg/diamonds.gif
     - assets/galaxy_comp.gif
     - assets/splash.gif
     - assets/google_logo.png
@@ -101,6 +99,9 @@ flutter:
     - family: Quicksand
       fonts:
         - asset: assets/fonts/Quicksand-Medium.ttf
+    - family: Horizon
+      fonts:
+        - asset: assets/fonts/Horizon.otf
 
 
   # To add assets to your application, add an assets section, like this:
