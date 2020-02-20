@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen>
                                   child: InkWell(
                                       onTap: _handleLogin,
                                       child: Center(
-                                          child: Text('Signin',
+                                          child: Text('Sign in',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontFamily: 'Poppins-Bold',

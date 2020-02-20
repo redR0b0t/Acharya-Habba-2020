@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:habba20/utils/style_guide.dart';
@@ -116,20 +118,19 @@ class _DevsState extends State<Devs> {
                         Divider(
                           color: Colors.white60,
                         ),
-                        Container(height: MediaQuery.of(context).size.height,)
+                        Container(
+                          height: MediaQuery.of(context).size.height,
+                        )
                       ],
                     ),
                   ),
                 ],
               ),
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
+              ListView(
                 children: <Widget>[
                   DevCard(),
                   DevCard(),
                 ],
-
               )
             ],
           ),
@@ -142,7 +143,81 @@ class _DevsState extends State<Devs> {
 class DevDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            hexToColor('#EC9F05'),
+            hexToColor('#FF4E00'),
+          ],
+        ),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("About Dev"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        backgroundColor: Colors.transparent,
+        body: ListView(
+          children: <Widget>[
+            Stack(
+                alignment: AlignmentDirectional.topCenter,
+                children: <Widget>[
+                  Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+                      color: Colors.green,
+                      elevation: 12.0,
+                      margin: EdgeInsets.only(
+                          top: 82.0, bottom: 20.0, left: 20, right: 20),
+                      child: Padding(
+                          padding: EdgeInsets.all(18.0),
+                          child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                    padding:
+                                    EdgeInsets.only(
+                                        top: 80.0,
+                                        bottom: 6.0),
+                                    child: Text(
+                                      "Name",
+                                      textAlign:
+                                      TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 32.0),
+                                    )),
+                                Text(
+                                  "Something",
+                                  style: TextStyle(
+                                      color:
+                                      Theme.of(context)
+                                          .textTheme
+                                          .caption
+                                          .color),
+                                ),
+                                Padding(
+                                    padding:
+                                    EdgeInsets.only(
+                                        top: 10.0,
+                                        bottom: 10.0,
+                                        left: 30.0,
+                                        right: 30.0),
+                                    child: Divider(
+                                      indent: 10.0,
+                                    )),
+                              ]                )
+                      )),
+                  CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(""),
+                    maxRadius: 80.0,
+                  ),
+                ])
+          ],
+        ),
+      ),
+    );
     /*showDialog(
         context: context,
         builder: (BuildContext context) {

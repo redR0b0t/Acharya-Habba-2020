@@ -34,12 +34,39 @@ class _EventListState extends State<EventList> {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
-                  title: Text("${widget.cat_name}",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontFamily: "RobotoRegular"
-                      )),
+                  title: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(0.45),
+                      borderRadius: BorderRadius.circular(10.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, 15.0),
+                          blurRadius: 15.0,
+                        ),
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, -10.0),
+                          blurRadius: 10.0,
+                        ),
+                      ],
+                    ),
+
+                    child: Text("${widget.cat_name}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 10.0,
+                                color: Colors.black,
+                                offset: Offset(5.0, 5.0),
+                              ),
+                            ],
+                            fontFamily: "RobotoRegular"
+                        )),
+                  ),
                   background: CachedNetworkImage(
                     imageUrl: widget.img,
                     fit: BoxFit.cover,

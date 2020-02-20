@@ -5,10 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habba20/data/data.dart';
 import 'package:habba20/utils/date_time_helper.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/background.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /*
 
@@ -680,7 +682,6 @@ class Event extends StatefulWidget {
 }
 
 class _EventState extends State<Event> {
-
   //int days=DateTime.now().difference((widget.docSnap['event_date'] as Timestamp).toDate()).inDays;
   String time_rem() {
     int days = -1 *
@@ -754,12 +755,30 @@ class _EventState extends State<Event> {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
-                  title: Text("${widget.docSnap['name']}",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontFamily: "RobotoRegular"
-                      )),
+                  title: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(0.45),
+                      borderRadius: BorderRadius.circular(10.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, 15.0),
+                          blurRadius: 15.0,
+                        ),
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, -10.0),
+                          blurRadius: 10.0,
+                        ),
+                      ],
+                    ),
+                    child: Text("${widget.docSnap['name']}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontFamily: "RobotoRegular")),
+                  ),
                   background: background()),
             ),
           ];
@@ -772,10 +791,12 @@ class _EventState extends State<Event> {
               //color: Colors.red,
               child: ListView(
                 children: <Widget>[
-                  decriptionCard('Description', '${widget.docSnap['description']}'),
+                  decriptionCard(
+                      'Description', '${widget.docSnap['description']}'),
                   decriptionCard('Rules', '${widget.docSnap['rules']}'),
                   rewardCard(),
                   timingCard(),
+                  contactCard(),
                   SizedBox(
                     height: 15,
                   ),
@@ -783,13 +804,14 @@ class _EventState extends State<Event> {
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                     //width: MediaQuery.of(context).size.width * 0.5,
                     child: RaisedButton(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                       color: Colors.blue.shade800,
                       onPressed: () {
                         if (isGuest) {
                           Fluttertoast.showToast(
                               msg:
-                              "You need to be registered for registering in the events",
+                                  "You need to be registered for registering in the events",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIos: 1,
@@ -809,8 +831,7 @@ class _EventState extends State<Event> {
                               fontSize: 20.0,
                               // fontWeight: FontWeight.bold,
                               color: Colors.white,
-                              fontFamily: 'RobotoMedium'
-                          ),
+                              fontFamily: 'RobotoMedium'),
                         ),
                       ),
                     ),
@@ -870,14 +891,14 @@ class _EventState extends State<Event> {
               ),
               Chip(
                   label: Text(
-                    "fee : ₹ ${widget.docSnap['fee']}",
-                    style: description,
-                  )),
+                "fee : ₹ ${widget.docSnap['fee']}",
+                style: description,
+              )),
               Chip(
                   label: Text(
-                    "Reward : ${widget.docSnap['rewards']}",
-                    style: description,
-                  )),
+                "Reward : ${widget.docSnap['rewards']}",
+                style: description,
+              )),
             ],
           ),
         ));
@@ -885,7 +906,7 @@ class _EventState extends State<Event> {
 
   Widget timingCard() {
     return Card(
-      color: Colors.white.withOpacity(0.9),
+        color: Colors.white.withOpacity(0.9),
         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
         elevation: 15,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -913,7 +934,8 @@ class _EventState extends State<Event> {
                   style: description,
                   textAlign: TextAlign.center,
                 ),
-              ),Chip(
+              ),
+              Chip(
                 label: Text(
                   "Closing time: ${DatetimeHelper(timestamp: (widget.docSnap['closing_date'] as Timestamp).millisecondsSinceEpoch).getTime()}",
                   style: description,
@@ -923,17 +945,62 @@ class _EventState extends State<Event> {
               Chip(
                 label: widget.docSnap['status'] == 0
                     ? new Text(
-                    "Status: ${time_rem() == "0" ? "Starting soon" : " ${time_rem()} to start"}", style: description,)
+                        "Status: ${time_rem() == "0" ? "Starting soon" : " ${time_rem()} to start"}",
+                        style: description,
+                      )
                     : widget.docSnap['status'] == 1
-                    ? new Text("event started", style: description)
-                    : new Text("Event ended", style: description),
+                        ? new Text("event started", style: description)
+                        : new Text("Event ended", style: description),
               ),
-
             ],
           ),
         ));
   }
 
+  Widget contactCard() {
+    return Card(
+        color: Colors.white.withOpacity(0.9),
+        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+        elevation: 15,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  ' Contact us :',
+                  style: subtitle,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Chip(
+                    label: Text(
+                      'Call @ : ${(widget.docSnap["wapp"])}',
+                      style: description,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.phone),
+                    iconSize: 30,
+                    color: Colors.black,
+                    onPressed: () {
+                      _launchCaller();
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
+        ));
+  }
 
   Widget background() {
     return CachedNetworkImage(
@@ -941,10 +1008,19 @@ class _EventState extends State<Event> {
       fit: BoxFit.cover,
       placeholder: (context, url) => Center(
         child: Image(
-          image: AssetImage("assets/logo.png" ),
+          image: AssetImage("assets/logo.png"),
           height: 130,
         ),
       ),
     );
+  }
+
+  _launchCaller() async {
+    String url = "tel:${widget.docSnap['wapp']}";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
