@@ -82,11 +82,6 @@ class _MyDrawerState extends State<MyDrawer> {
         icon: new Icon(FontAwesomeIcons.instagram),
       ),
       DrawerList(
-        index: DrawerIndex.About,
-        labelName: 'About Habba',
-        icon: new Icon(FontAwesomeIcons.infoCircle),
-      ),
-      DrawerList(
         index: DrawerIndex.Devs,
         labelName: 'Devs',
         icon: new Icon(FontAwesomeIcons.code),

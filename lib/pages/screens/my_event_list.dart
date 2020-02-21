@@ -71,31 +71,27 @@ class _MyEventListState extends State<MyEventList> {
               elevation: 0,
             ),
             body: //reg_events!=null?
-                DelayedAnimation(
-              child: isGuest
-                  ? EmptyCard(
-                      type: "Events",
-                    )
-                  : Stack(
-                      children: <Widget>[
-                        Background(),
-                        ListView.builder(
-                            itemCount:
-                                reg_events == null ? 0 : reg_events.length,
-                            itemBuilder: (context, index) {
-                              _fetchEvent(index);
-
-                              return eventSnap == null
-                                  ? Text("")
-                                  : TimelineCard(
-                                      docSnap: eventSnap,
-                                    );
-                            })
-                      ],
-                    ),
-                  delay: delayedAmount,
+            isGuest
+                ? EmptyCard(
+              type: "Events",
             )
-        );
+                : Stack(
+              children: <Widget>[
+                Background(),
+                ListView.builder(
+                    itemCount:
+                    reg_events == null ? 0 : reg_events.length,
+                    itemBuilder: (context, index) {
+                      _fetchEvent(index);
+
+                      return eventSnap == null
+                          ? Text("")
+                          : TimelineCard(
+                        docSnap: eventSnap,
+                      );
+                    })
+              ],
+            )        );
   }
 
   void _fetchEvent(int index) async {

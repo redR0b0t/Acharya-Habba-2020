@@ -2,18 +2,24 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habba20/data/data.dart';
+import 'package:habba20/pages/delayed_animation.dart';
+import 'package:habba20/pages/screens/about_habba.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/glow_avatar.dart';
-
-import '../delayed_animation.dart';
 
 class Welcome extends StatefulWidget {
   @override
   _WelcomeState createState() => _WelcomeState();
 }
 
-class _WelcomeState extends State<Welcome> {
+class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +40,7 @@ class _WelcomeState extends State<Welcome> {
                     avatarUrl: "assets/icon.png",
                   ),
                   DelayedAnimation(
+                    delay: delayedAmount,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 5),
                       decoration: BoxDecoration(
@@ -58,9 +65,9 @@ class _WelcomeState extends State<Welcome> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    delay: delayedAmount,
                   ),
                   DelayedAnimation(
+                    delay: delayedAmount + 300,
                     child: Card(
                       margin:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -81,8 +88,7 @@ class _WelcomeState extends State<Welcome> {
                           SizedBox(width: 20.0, height: 100.0),
                           RotateAnimatedTextKit(
                               totalRepeatCount: 35,
-                              onTap: () {
-                              },
+                              onTap: () {},
                               text: ["ARE ACHARYANS", "❤ HABBA", "ARE GEN-Z"],
                               textStyle: TextStyle(
                                   fontSize: ScreenUtil().setSp(67),
@@ -95,8 +101,31 @@ class _WelcomeState extends State<Welcome> {
                         ],
                       ),
                     ),
-                    delay: delayedAmount +  300,
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  DelayedAnimation(
+                    delay: delayedAmount + 600,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                          side: BorderSide(color: Colors.blue, width: 2)),
+                      color: Colors.deepOrange,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AboutHabba()));
+                      },
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                      child: Text(
+                        "Know more about habba",
+                        style: subtitleWhite,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )

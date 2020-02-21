@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:habba20/pages/screens/devs.dart';
+import 'package:habba20/pages/screens/dev_details.dart';
 import 'package:habba20/utils/style_guide.dart';
 
 class DevCard extends StatelessWidget {
@@ -9,6 +9,7 @@ class DevCard extends StatelessWidget {
   DevCard({this.docSnap});
   @override
   Widget build(BuildContext context) {
+    print("Deve card<><><><><>");
     return InkWell(
         onTap: () {
           Navigator.push(
@@ -62,9 +63,12 @@ class DevCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 35),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(docSnap['img']),
-                      maxRadius: 50.0,
+                    child: Hero(
+                      tag: "${docSnap['name']}",
+                      child: CircleAvatar(
+                        backgroundImage: CachedNetworkImageProvider(docSnap['img'] ),
+                        maxRadius: 50.0,
+                      ),
                     ),
                   ),
                 ),

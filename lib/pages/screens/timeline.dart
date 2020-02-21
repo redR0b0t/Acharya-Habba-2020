@@ -147,7 +147,7 @@ class _TimelineState extends State<Timeline>
   }
 
   Widget _streamEvents0() {
-    return DelayedAnimation(child: StreamBuilder(
+    return StreamBuilder(
         stream: Firestore.instance.collection('events').snapshots(),
         builder: (context, snap) {
           if (snap.hasData) {
@@ -171,56 +171,53 @@ class _TimelineState extends State<Timeline>
           } else {
             return Text("");
           }
-        }), delay: 200,);
+        });
   }
 
   Widget _streamEvents(int d) {
-    return DelayedAnimation(
-      child: StreamBuilder(
-          stream: d == 1
-              ? Firestore.instance
-              .collection('events')
-              .where('event_date', isGreaterThan: d1)
-              .where('event_date', isLessThan: d2)
-              .orderBy('event_date')
-              .snapshots()
-              : d == 2
-              ? Firestore.instance
-              .collection('events')
-              .where('event_date', isGreaterThan: d2)
-              .where('event_date', isLessThan: d3)
-              .orderBy('event_date')
-              .snapshots()
-              : Firestore.instance
-              .collection('events')
-              .where('event_date', isLessThan: d3)
-              .orderBy('event_date')
-              .snapshots(),
+    return StreamBuilder(
+        stream: d == 1
+            ? Firestore.instance
+            .collection('events')
+            .where('event_date', isGreaterThan: d1)
+            .where('event_date', isLessThan: d2)
+            .orderBy('event_date')
+            .snapshots()
+            : d == 2
+            ? Firestore.instance
+            .collection('events')
+            .where('event_date', isGreaterThan: d2)
+            .where('event_date', isLessThan: d3)
+            .orderBy('event_date')
+            .snapshots()
+            : Firestore.instance
+            .collection('events')
+            .where('event_date', isLessThan: d3)
+            .orderBy('event_date')
+            .snapshots(),
 //            stream: d==1? Firestore.instance
 //                .collection('events')
 //                .where('event_date', isGreaterThan: d1).where('event_date',isLessThan: (d as Timestamp).toDate().add(new Duration(days:1)))
 //                .snapshots(),
-          builder: (context, snap) {
-            if (snap.hasData) {
-              return snap.data.documents.length == 0
-                  ? Column(
-                children: <Widget>[
-                  EmptyCard(
-                    type: "Events",
-                  )
-                ],
-              )
-                  : ListView.builder(
-                  itemCount: snap.data.documents.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot docSnap = snap.data.documents[index];
-                    return TimelineCard(docSnap: docSnap);
-                  });
-            } else {
-              return Text("");
-            }
-          }),
-      delay: 200,
-    );
+        builder: (context, snap) {
+          if (snap.hasData) {
+            return snap.data.documents.length == 0
+                ? Column(
+              children: <Widget>[
+                EmptyCard(
+                  type: "Events",
+                )
+              ],
+            )
+                : ListView.builder(
+                itemCount: snap.data.documents.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot docSnap = snap.data.documents[index];
+                  return TimelineCard(docSnap: docSnap);
+                });
+          } else {
+            return Text("");
+          }
+        });
   }
 }

@@ -111,9 +111,9 @@ class TimelineCard extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: TransparentChip(
                   label: docSnap['status'] == 0
-                      ? "Status:${time_rem() == "0" ? "Starting soon" : " ${time_rem()} to start"}"
+                      ? "Status:${time_rem() == "0" ? "Starting soon" : " ${time_rem()} to go"}"
                       : docSnap['status'] == 1
-                          ? "event started"
+                          ? "Event started"
                           : "Event ended",
                   size: 16,
                 ),

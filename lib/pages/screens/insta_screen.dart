@@ -126,7 +126,7 @@ class _InstaScreenState extends State<InstaScreen>
                   padding:
                       const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(

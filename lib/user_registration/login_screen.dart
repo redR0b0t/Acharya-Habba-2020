@@ -44,6 +44,9 @@ class _LoginScreenState extends State<LoginScreen>
   TextEditingController loginEmailController = new TextEditingController();
   TextEditingController loginPasswordController = new TextEditingController();
 
+  AnimationController _controller;
+
+
   bool _obscureTextLogin = true;
   bool _obscureTextSignup = true;
   bool _obscureTextSignupConfirm = true;
@@ -270,6 +273,18 @@ class _LoginScreenState extends State<LoginScreen>
     myFocusNodeEmail.dispose();
     myFocusNodeName.dispose();
     _pageController?.dispose();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 200,
+      ),
+      lowerBound: 0.0,
+      upperBound: 0.1,
+    )..addListener(() {
+      setState(() {});
+    });
+    _controller.dispose();
+
     super.dispose();
   }
 
