@@ -107,7 +107,9 @@ class _InstaScreenState extends State<InstaScreen>
 //    }
 
     return isLoading
-        ? CircularProgressIndicator()
+        ? Center(
+      child: RefreshProgressIndicator(),
+    )
         : Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(

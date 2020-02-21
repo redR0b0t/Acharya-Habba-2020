@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:habba20/data/data.dart';
 import 'package:habba20/models/user_main.dart';
+import 'package:habba20/pages/delayed_animation.dart';
 import 'package:habba20/pages/drawer_screen/navigation.dart';
 import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/utils/style_guide.dart';
@@ -96,137 +97,162 @@ class _LoginScreenState extends State<LoginScreen>
                   padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 25.0),
                   child: Column(
                     children: <Widget>[
-                      Image.asset(
-                        'assets/logo.png',
-                        //swidth: ScreenUtil().setWidth(550),
-                        height: ScreenUtil().setHeight(550),
+                      DelayedAnimation(
+                        child: Image.asset(
+                          'assets/logo.png',
+                          //swidth: ScreenUtil().setWidth(550),
+                          height: ScreenUtil().setHeight(550),
+                        ),
+                        delay: delayedAmount - 100,
                       ),
 
                       /// FORM>>>>>
-                      _buildForm(),
+                      DelayedAnimation(
+                        child: _buildForm(),
+                        delay: delayedAmount + 400,
+                      ),
 
                       SizedBox(
                         height: ScreenUtil().setHeight(35),
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: InkWell(
-                          child: Container(
-                              width: ScreenUtil().setWidth(300),
-                              height: ScreenUtil().setHeight(100),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  Color(0xFF17ead9),
-                                  Color(0xFF6078ea)
-                                ]),
-                                borderRadius: BorderRadius.circular(30.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFF6078ea).withOpacity(.3),
-                                    offset: Offset(0.0, 8.0),
-                                    blurRadius: 8.0,
-                                  )
-                                ],
-                              ),
-                              child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                      onTap: _handleLogin,
-                                      child: Center(
-                                          child: Text('Sign in',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: 'Poppins-Bold',
-                                                  fontSize: 18.0,
-                                                  letterSpacing: 1.0)))))),
+                      DelayedAnimation(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: InkWell(
+                            child: Container(
+                                width: ScreenUtil().setWidth(300),
+                                height: ScreenUtil().setHeight(100),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Color(0xFF17ead9),
+                                    Color(0xFF6078ea)
+                                  ]),
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xFF6078ea).withOpacity(.3),
+                                      offset: Offset(0.0, 8.0),
+                                      blurRadius: 8.0,
+                                    )
+                                  ],
+                                ),
+                                child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                        onTap: _handleLogin,
+                                        child: Center(
+                                            child: Text('Sign in',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'Poppins-Bold',
+                                                    fontSize: 18.0,
+                                                    letterSpacing: 1.0)))))),
+                          ),
                         ),
+                        delay: delayedAmount + 800,
                       ),
                       SizedBox(
                         height: ScreenUtil().setHeight(40),
                       ),
-                      RaisedButton(
-                        color: Colors.transparent.withOpacity(0.5),
-                        //borderSide: BorderSide(color: Colors.blue, width: 2),
-                        shape:  RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.blue, width: 2)
+                      DelayedAnimation(
+                        child: RaisedButton(
+                          color: Colors.transparent.withOpacity(0.5),
+                          //borderSide: BorderSide(color: Colors.blue, width: 2),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(18.0),
+                              side: BorderSide(color: Colors.blue, width: 2)),
+                          onPressed: () {
+                            isGuest = true;
+                            //AuthStoreActions.guestLogin.call(true);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Navigation()));
+                          },
+                          child: Text(
+                            "Continue as guests",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.blue,
+                                fontFamily: 'Quicksand'),
+                          ),
                         ),
-                        onPressed: () {
-                          isGuest = true;
-                          //AuthStoreActions.guestLogin.call(true);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Navigation()));
-                        },
-                        child: Text(
-                          "Continue as guests",
-                          style: TextStyle(fontSize: 18, color: Colors.blue ,fontFamily: 'Quicksand'),
-                        ),
+                        delay: delayedAmount + 1200,
                       ),
                       SizedBox(
                         height: ScreenUtil().setHeight(20),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Connect with us',
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
-                          )
-                        ],
+                      DelayedAnimation(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Connect with us',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Quicksand",
+                                  color: Colors.white),
+                            )
+                          ],
+                        ),
+                        delay: delayedAmount + 1600,
                       ),
                       SizedBox(
                         height: ScreenUtil().setHeight(20),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SocialIcon(
-                            colors: [
-                              Color(0xFFff4f38),
-                              Color(0xFFff355d),
-                            ],
-                            icondata: FontAwesomeIcons.instagram,
-                            onPressed: () async {
-                              await launch(
-                                  'https://www.instagram.com/acharyahabba');
-                            },
-                          ),
-                          SocialIcon(
-                            colors: [
-                              Color(0xFFffDD00),
-                              Color(0xFBffB034),
-                            ],
-                            icondata: FontAwesomeIcons.snapchat,
-                            onPressed: () async {
-                              await launch(
-                                  'https://www.snapchat.com/add/acharya_habba');
-                            },
-                          ),
-                          SocialIcon(
-                            colors: [
-                              Color(0xFF102397),
-                              Color(0xFF187adf),
-                              Color(0xFF00eaf8),
-                            ],
-                            icondata: FontAwesomeIcons.facebook,
-                            onPressed: () async {
-                              await launch(
-                                  'https://www.facebook.com/habbaacharya');
-                            },
-                          ),
-                          SocialIcon(
-                            colors: [
-                              Color(0xFF17ead9),
-                              Color(0xFF6078ea),
-                            ],
-                            icondata: FontAwesomeIcons.twitter,
-                            onPressed: () async {
-                              await launch('https://twitter.com/acharyahabba');
-                            },
-                          ),
-                        ],
+                      DelayedAnimation(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SocialIcon(
+                              colors: [
+                                Color(0xFFff4f38),
+                                Color(0xFFff355d),
+                              ],
+                              icondata: FontAwesomeIcons.instagram,
+                              onPressed: () async {
+                                await launch(
+                                    'https://www.instagram.com/acharyahabba');
+                              },
+                            ),
+                            SocialIcon(
+                              colors: [
+                                Color(0xFFffDD00),
+                                Color(0xFBffB034),
+                              ],
+                              icondata: FontAwesomeIcons.snapchat,
+                              onPressed: () async {
+                                await launch(
+                                    'https://www.snapchat.com/add/acharya_habba');
+                              },
+                            ),
+                            SocialIcon(
+                              colors: [
+                                Color(0xFF102397),
+                                Color(0xFF187adf),
+                                Color(0xFF00eaf8),
+                              ],
+                              icondata: FontAwesomeIcons.facebook,
+                              onPressed: () async {
+                                await launch(
+                                    'https://www.facebook.com/habbaacharya');
+                              },
+                            ),
+                            SocialIcon(
+                              colors: [
+                                Color(0xFF17ead9),
+                                Color(0xFF6078ea),
+                              ],
+                              icondata: FontAwesomeIcons.twitter,
+                              onPressed: () async {
+                                await launch(
+                                    'https://twitter.com/acharyahabba');
+                              },
+                            ),
+                          ],
+                        ),
+                        delay: delayedAmount + 1600,
                       ),
                       SizedBox(
                         height: ScreenUtil().setHeight(30),
@@ -308,7 +334,7 @@ class _LoginScreenState extends State<LoginScreen>
                   style: TextStyle(
                     fontSize: ScreenUtil().setSp(60),
                     fontFamily: 'Horizon',
-                   // color: primaryColor,
+                    // color: primaryColor,
                     letterSpacing: 1.2,
                   ),
                   textAlign: TextAlign.center,
@@ -399,7 +425,10 @@ class _LoginScreenState extends State<LoginScreen>
               loginCollegeNameController.value = TextEditingValue(text: '');
             },
           ),
-          Text('Acharyans', style: description,),
+          Text(
+            'Acharyans',
+            style: description,
+          ),
           Radio(
             activeColor: Theme.of(context).primaryColor,
             value: _otherStudent,
@@ -412,7 +441,10 @@ class _LoginScreenState extends State<LoginScreen>
               });
             },
           ),
-          Text('Others',style: description,),
+          Text(
+            'Others',
+            style: description,
+          ),
         ],
       ),
     );

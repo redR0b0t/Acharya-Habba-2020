@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/data/data.dart';
+import 'package:habba20/pages/delayed_animation.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/empty_card.dart';
@@ -64,34 +65,37 @@ class _MyEventListState extends State<MyEventList> {
               automaticallyImplyLeading: false,
               title: Text(
                 "My Events",
-                style: TextStyle(color: primaryColor),
+                style: TextStyle(color: Colors.white),
               ),
               centerTitle: true,
               elevation: 0,
             ),
             body: //reg_events!=null?
-                isGuest
-                    ? EmptyCard(
-                        type: "Events",
-                      )
-                    : Stack(
-                        children: <Widget>[
-                          Background(),
-                          ListView.builder(
-                              itemCount:
-                                  reg_events == null ? 0 : reg_events.length,
-                              itemBuilder: (context, index) {
-                                _fetchEvent(index);
+                DelayedAnimation(
+              child: isGuest
+                  ? EmptyCard(
+                      type: "Events",
+                    )
+                  : Stack(
+                      children: <Widget>[
+                        Background(),
+                        ListView.builder(
+                            itemCount:
+                                reg_events == null ? 0 : reg_events.length,
+                            itemBuilder: (context, index) {
+                              _fetchEvent(index);
 
-                                return eventSnap == null
-                                    ? Text("")
-                                    : TimelineCard(
-                                        docSnap: eventSnap,
-                                      );
-                              })
-                        ],
-                      ) //:Text("Loading")
-            );
+                              return eventSnap == null
+                                  ? Text("")
+                                  : TimelineCard(
+                                      docSnap: eventSnap,
+                                    );
+                            })
+                      ],
+                    ),
+                  delay: delayedAmount,
+            )
+        );
   }
 
   void _fetchEvent(int index) async {

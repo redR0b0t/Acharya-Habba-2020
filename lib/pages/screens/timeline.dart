@@ -2,6 +2,8 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flux/flutter_flux.dart';
+import 'package:habba20/data/data.dart';
+import 'package:habba20/pages/delayed_animation.dart';
 import 'package:habba20/utils/date_time_helper.dart';
 import 'package:habba20/widgets/background.dart';
 import 'package:habba20/widgets/empty_card.dart';
@@ -145,77 +147,80 @@ class _TimelineState extends State<Timeline>
   }
 
   Widget _streamEvents0() {
-    return StreamBuilder(
+    return DelayedAnimation(child: StreamBuilder(
         stream: Firestore.instance.collection('events').snapshots(),
         builder: (context, snap) {
           if (snap.hasData) {
             return snap.data.documents.length == 0
                 ? Column(
-                    children: <Widget>[
-                      EmptyCard(
-                        type: "Events",
-                      )
-                    ],
-                  )
+              children: <Widget>[
+                EmptyCard(
+                  type: "Events",
+                )
+              ],
+            )
                 : ListView.builder(
-                    itemCount: snap.data.documents.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot docSnap = snap.data.documents[index];
-                      return TimelineCard(
-                        docSnap: docSnap,
-                        guest: widget.guest,
-                      );
-                    });
+                itemCount: snap.data.documents.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot docSnap = snap.data.documents[index];
+                  return TimelineCard(
+                    docSnap: docSnap,
+                    guest: widget.guest,
+                  );
+                });
           } else {
             return Text("");
           }
-        });
+        }), delay: 200,);
   }
 
   Widget _streamEvents(int d) {
-    return StreamBuilder(
-        stream: d == 1
-            ? Firestore.instance
-                .collection('events')
-                .where('event_date', isGreaterThan: d1)
-                .where('event_date', isLessThan: d2)
-                .orderBy('event_date')
-                .snapshots()
-            : d == 2
-                ? Firestore.instance
-                    .collection('events')
-                    .where('event_date', isGreaterThan: d2)
-                    .where('event_date', isLessThan: d3)
-                    .orderBy('event_date')
-                    .snapshots()
-                : Firestore.instance
-                    .collection('events')
-                    .where('event_date', isLessThan: d3)
-                    .orderBy('event_date')
-                    .snapshots(),
+    return DelayedAnimation(
+      child: StreamBuilder(
+          stream: d == 1
+              ? Firestore.instance
+              .collection('events')
+              .where('event_date', isGreaterThan: d1)
+              .where('event_date', isLessThan: d2)
+              .orderBy('event_date')
+              .snapshots()
+              : d == 2
+              ? Firestore.instance
+              .collection('events')
+              .where('event_date', isGreaterThan: d2)
+              .where('event_date', isLessThan: d3)
+              .orderBy('event_date')
+              .snapshots()
+              : Firestore.instance
+              .collection('events')
+              .where('event_date', isLessThan: d3)
+              .orderBy('event_date')
+              .snapshots(),
 //            stream: d==1? Firestore.instance
 //                .collection('events')
 //                .where('event_date', isGreaterThan: d1).where('event_date',isLessThan: (d as Timestamp).toDate().add(new Duration(days:1)))
 //                .snapshots(),
-        builder: (context, snap) {
-          if (snap.hasData) {
-            return snap.data.documents.length == 0
-                ? Column(
-                    children: <Widget>[
-                      EmptyCard(
-                        type: "Events",
-                      )
-                    ],
+          builder: (context, snap) {
+            if (snap.hasData) {
+              return snap.data.documents.length == 0
+                  ? Column(
+                children: <Widget>[
+                  EmptyCard(
+                    type: "Events",
                   )
-                : ListView.builder(
-                    itemCount: snap.data.documents.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot docSnap = snap.data.documents[index];
-                      return TimelineCard(docSnap: docSnap);
-                    });
-          } else {
-            return Text("");
-          }
-        });
+                ],
+              )
+                  : ListView.builder(
+                  itemCount: snap.data.documents.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot docSnap = snap.data.documents[index];
+                    return TimelineCard(docSnap: docSnap);
+                  });
+            } else {
+              return Text("");
+            }
+          }),
+      delay: 200,
+    );
   }
 }

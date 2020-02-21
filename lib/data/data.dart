@@ -1,5 +1,7 @@
 bool isGuest = false;
 String imgURL = '';
+/// animation delay
+final int delayedAmount = 500;
 
 String aboutUs =
     "Acharya Habba is a Kaleidoscope of talent, expressed through a spectrum of performances which involves music,"

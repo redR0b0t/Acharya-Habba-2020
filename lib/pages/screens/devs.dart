@@ -195,7 +195,6 @@ class DevDetails extends StatelessWidget {
                 children: <Widget>[
                   Card(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-                      color: Colors.green,
                       elevation: 12.0,
                       margin: EdgeInsets.only(
                           top: 82.0, bottom: 20.0, left: 20, right: 20),
@@ -215,7 +214,7 @@ class DevDetails extends StatelessWidget {
                                       textAlign:
                                       TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 32.0),
+                                          fontSize: 32.0, fontFamily: "Quicksand", fontWeight: FontWeight.w600),
                                     )),
                                 Text(
                                   docSnap['about'],
@@ -224,13 +223,20 @@ class DevDetails extends StatelessWidget {
                                       Theme.of(context)
                                           .textTheme
                                           .caption
-                                          .color),
+                                          .color,
+                                    fontSize: 20,
+                                    fontFamily: "Quicksand"
+                                  ),
                                 ),
                                 Chip(label:Text("Skills")),
-                                Card(child:Text(docSnap['skills'][0],textAlign: TextAlign.center,),),
-                                Card(child:Text(docSnap['skills'][1],textAlign: TextAlign.center,),),
-                                Card(child:Text(docSnap['skills'][2],textAlign: TextAlign.center,),),
-                                Card(child:Text(docSnap['skills'][3],textAlign: TextAlign.center,),),
+                               Wrap(
+                                 children: <Widget>[
+                                   Card(child:Text(docSnap['skills'][0],textAlign: TextAlign.center,),),
+                                   Card(child:Text(docSnap['skills'][1],textAlign: TextAlign.center,),),
+                                   Card(child:Text(docSnap['skills'][2],textAlign: TextAlign.center,),),
+                                   Card(child:Text(docSnap['skills'][3],textAlign: TextAlign.center,),),
+                                 ],
+                               ),
                                 Chip(label:Text("Whats app: ${docSnap['wapp']}")),
                                 Chip(label:Text("linkedin: ${docSnap['linkedin']}"),
                                   onDeleted: () async {
@@ -274,116 +280,5 @@ class DevDetails extends StatelessWidget {
         ),
       ),
     );
-    /*showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            title: Text(
-              dev.name,
-              textAlign: TextAlign.center,
-            ),
-            children: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0),
-                  child: Text(
-                    dev.role,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.email),
-                      onPressed: () async {
-                        String url = "mailto:${dev.email}";
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Cannot open mail'),
-                            ),
-                          );
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(FontAwesomeIcons.whatsapp),
-                      onPressed: () async {
-                        String phoneNumber =
-                            '91' + dev.phoneNumber;
-                        String url =
-                            "https://api.whatsapp.com/send?phone=$phoneNumber&text=Hey_dev";
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                              Text('Cannot open whatsapp'),
-                            ),
-                          );
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.phone),
-                      onPressed: () async {
-                        String phoneNumber =
-                            '91' + dev.phoneNumber;
-                        String url = "tel:$phoneNumber";
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else
-                          Scaffold.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      'Cannot open dialer')));
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 8.0),
-                child: RichText(
-                  text: TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: 'Technologies: ',
-                        style: TextStyle(color: Colors.black)),
-                    TextSpan(
-                      text: dev.technologies,
-                      style: TextStyle(
-                          color: Colors.black54, fontSize: 12),
-                    )
-                  ]),
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 8.0),
-                child: RichText(
-                  text: TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: 'Insights: ',
-                        style: TextStyle(color: Colors.black)),
-                    TextSpan(
-                      text: dev.about,
-                      style: TextStyle(
-                          color: Colors.black54, fontSize: 12),
-                    )
-                  ]),
-                ),
-              )
-            ],
-          );
-        });*/
   }
 }
