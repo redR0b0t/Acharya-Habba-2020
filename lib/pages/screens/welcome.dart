@@ -87,7 +87,7 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                           ),
                           SizedBox(width: 20.0, height: 100.0),
                           RotateAnimatedTextKit(
-                              totalRepeatCount: 35,
+                              totalRepeatCount: 60,
                               onTap: () {},
                               text: ["ARE ACHARYANS", "❤ HABBA", "ARE GEN-Z"],
                               textStyle: TextStyle(
