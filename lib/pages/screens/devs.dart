@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/dev_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'about_habba.dart';
 
@@ -126,12 +128,37 @@ class _DevsState extends State<Devs> {
                   ),
                 ],
               ),
-              ListView(
-                children: <Widget>[
-                  DevCard(),
-                  DevCard(),
-                ],
-              )
+
+              StreamBuilder(
+                  stream: Firestore.instance
+                      .collection('devs')
+                      .snapshots(),
+                  builder: (context, snap) {
+                    if (snap.hasData) {
+                      return ListView.builder(
+
+                        //scrollDirection: Axis.horizontal,
+                          itemCount: snap.data.documents.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot docSnap = snap.data
+                                .documents[index];
+                            return DevCard(docSnap: docSnap);
+                          });
+
+                    }else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
+
+
+//              ListView(
+//                children: <Widget>[
+//                  DevCard(),
+//                  DevCard(),
+//                ],
+//              )
             ],
           ),
         ),
@@ -141,6 +168,8 @@ class _DevsState extends State<Devs> {
 }
 
 class DevDetails extends StatelessWidget {
+  DocumentSnapshot docSnap;
+  DevDetails({this.docSnap});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -182,20 +211,47 @@ class DevDetails extends StatelessWidget {
                                         top: 80.0,
                                         bottom: 6.0),
                                     child: Text(
-                                      "Name",
+                                      docSnap['name'],
                                       textAlign:
                                       TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 32.0),
                                     )),
                                 Text(
-                                  "Something",
+                                  docSnap['about'],
                                   style: TextStyle(
                                       color:
                                       Theme.of(context)
                                           .textTheme
                                           .caption
                                           .color),
+                                ),
+                                Chip(label:Text("Skills")),
+                                Card(child:Text(docSnap['skills'][0],textAlign: TextAlign.center,),),
+                                Card(child:Text(docSnap['skills'][1],textAlign: TextAlign.center,),),
+                                Card(child:Text(docSnap['skills'][2],textAlign: TextAlign.center,),),
+                                Card(child:Text(docSnap['skills'][3],textAlign: TextAlign.center,),),
+                                Chip(label:Text("Whats app: ${docSnap['wapp']}")),
+                                Chip(label:Text("linkedin: ${docSnap['linkedin']}"),
+                                  onDeleted: () async {
+                                    await launch(
+                                        docSnap['linkedin']);
+                                  },),
+                                Visibility(
+                                  visible: docSnap['fb']!='',
+                                  child: Chip(label:Text("Facebook: ${docSnap['fb']}"),
+                                    onDeleted: () async {
+                                      await launch(
+                                          docSnap['fb']);
+                                    },),
+                                ),
+                                Visibility(
+                                  visible: docSnap['insta']!='',
+                                  child: Chip(label:Text("instagram: ${docSnap['insta']}"),
+                                    onDeleted: () async {
+                                      await launch(
+                                          docSnap['insta']);
+                                    },),
                                 ),
                                 Padding(
                                     padding:
@@ -210,7 +266,7 @@ class DevDetails extends StatelessWidget {
                               ]                )
                       )),
                   CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(""),
+                    backgroundImage: CachedNetworkImageProvider(docSnap['img']),
                     maxRadius: 80.0,
                   ),
                 ])

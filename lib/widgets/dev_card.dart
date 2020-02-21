@@ -1,15 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/devs.dart';
 import 'package:habba20/utils/style_guide.dart';
 
 class DevCard extends StatelessWidget {
+  DocumentSnapshot docSnap;
+  DevCard({this.docSnap});
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => DevDetails()));
+              context, MaterialPageRoute(builder: (context) => DevDetails(docSnap: docSnap,)));
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -30,12 +33,12 @@ class DevCard extends StatelessWidget {
                                 padding:
                                     EdgeInsets.only(top: 10.0, bottom: 6.0),
                                 child: Text(
-                                  "Name",
+                                  docSnap['name'],
                                   textAlign: TextAlign.center,
                                   style: TextStyle(fontSize: 25.0, fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
                                 )),
                             Text(
-                              "About",
+                              docSnap['about'],
                               style: TextStyle(fontSize: 16.0, fontFamily: 'Quicksand', fontWeight: FontWeight.bold, color: Theme.of(context)
                                   .textTheme
                                   .caption
@@ -60,7 +63,7 @@ class DevCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(""),
+                      backgroundImage: CachedNetworkImageProvider(docSnap['img']),
                       maxRadius: 50.0,
                     ),
                   ),
