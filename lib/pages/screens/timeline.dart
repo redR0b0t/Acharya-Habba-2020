@@ -33,7 +33,8 @@ class _TimelineState extends State<Timeline>
   bool isRegistering = false;
 
   String titleString = 'Acharya Habba';
-  Timestamp d1, d2, d3;
+  Timestamp d1, d2,dd, d3;
+  bool isLoading=false;
 
   @override
   void initState() {
@@ -81,8 +82,12 @@ class _TimelineState extends State<Timeline>
     DocumentSnapshot docSnap = transactions.documents[0];
     d1 = docSnap['day1'] as Timestamp;
     d2 = docSnap['day2'] as Timestamp;
+    dd=(docSnap['day2'] as Timestamp).toDate().add(Duration(days:1)) as Timestamp;
     d3 = docSnap['day3'] as Timestamp;
     print({d1, d2, d3});
+    setState(() {
+      isLoading=false;
+    });
   }
 
   TabController tabController;
@@ -136,7 +141,7 @@ class _TimelineState extends State<Timeline>
       ),
       body: TabBarView(
         children: [
-          _streamEvents(0),
+          isLoading?Text(""):_streamEvents(0),
           _streamEvents(1),
           _streamEvents(2),
          // _streamEvents(3),
@@ -188,7 +193,7 @@ class _TimelineState extends State<Timeline>
               ? Firestore.instance
               .collection('events')
               .where('event_date', isGreaterThan: d2)
-              .where('event_date', isLessThan: d3)
+              .where('event_date', isLessThan: dd)
               .orderBy('event_date')
               .snapshots()
               : Firestore.instance
