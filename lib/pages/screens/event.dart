@@ -820,6 +820,15 @@ class _EventState extends State<Event> {
                               fontSize: 16.0);
                         } else {
                           _regUser();
+                          Fluttertoast.showToast(
+                              msg:
+                              "You are registered successfully to ${widget.docSnap['name']}",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIos: 1,
+                              backgroundColor: Colors.black.withOpacity(0.75),
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                         }
                       },
                       shape: RoundedRectangleBorder(

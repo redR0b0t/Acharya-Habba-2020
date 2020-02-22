@@ -488,7 +488,8 @@ class _LoginScreenState extends State<LoginScreen>
     print("data saved to firebase");
     FirebaseUser fUser = await regUser(account);
     print("firebase user=$fUser");
-    Navigator.push(
+    isGuest=false;
+    Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Navigation()));
 
 //      if (res['success']) {

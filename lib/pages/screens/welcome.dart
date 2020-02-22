@@ -82,7 +82,8 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                           Text(
                             "We",
                             style: TextStyle(
-                                fontSize: ScreenUtil().setSp(62),
+                                //fontSize: ScreenUtil().setSp(62),
+                                fontSize: 30,
                                 fontFamily: "RobotoMedium"),
                           ),
                           SizedBox(width: 20.0, height: 100.0),
@@ -91,7 +92,8 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                               onTap: () {},
                               text: ["ARE ACHARYANS", "❤ HABBA", "ARE GEN-Z"],
                               textStyle: TextStyle(
-                                  fontSize: ScreenUtil().setSp(67),
+                                 // fontSize: ScreenUtil().setSp(67),
+                                fontSize: 30,
                                   fontFamily: "Horizon",
                                   color: Colors.deepOrange),
                               textAlign: TextAlign.start,

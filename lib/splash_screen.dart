@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
             // named route component
             Navigator.of(context).pushReplacementNamed(widget.navigateAfterSeconds);
           } else if (widget.navigateAfterSeconds is Widget) {
-            Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => widget.navigateAfterSeconds));
+            Navigator.pushReplacement(context,MaterialPageRoute(builder: ( context) => widget.navigateAfterSeconds));
           } else {
             throw new ArgumentError(
                 'widget.navigateAfterSeconds must either be a String or Widget'
