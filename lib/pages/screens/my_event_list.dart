@@ -79,8 +79,8 @@ class _MyEventListState extends State<MyEventList> {
               children: <Widget>[
                 Background(),
                 ListView.builder(
-                    itemCount:
-                    reg_events == null ? 0 : reg_events.length,
+                    itemCount: reg_events == null ? 0 :
+                    reg_events.length,
                     itemBuilder: (context, index) {
                       _fetchEvent(index);
 
@@ -97,7 +97,7 @@ class _MyEventListState extends State<MyEventList> {
   void _fetchEvent(int index) async {
     QuerySnapshot transactions = await Firestore.instance
         .collection('events')
-        .where('Id', isEqualTo: reg_events[index])
+        .where('Id', isEqualTo: reg_events[index].toString().trim())
         //.where('cat', isEqualTo: widget.event_cat).where('name',isEqualTo: widget.eKey)
         .getDocuments();
     print(transactions.documents.length);

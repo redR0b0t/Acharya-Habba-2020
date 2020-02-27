@@ -732,8 +732,9 @@ class _EventState extends State<Event> {
       await transaction.update(documentReference, {
         'events_reg': FieldValue.arrayUnion([widget.docSnap.documentID])
       });
+      //eid=widget.docSnap.documentID;
 
-      documentReference = Firestore.instance.collection('events').document(eid);
+      documentReference = Firestore.instance.collection('events').document(widget.docSnap.documentID);
 
       Firestore.instance.runTransaction((transaction) async {
         await transaction.update(documentReference, {
