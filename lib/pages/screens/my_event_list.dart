@@ -15,7 +15,7 @@ class MyEventList extends StatefulWidget {
 
 class _MyEventListState extends State<MyEventList> {
   FirebaseUser _user;
-  DocumentSnapshot eventSnap;
+  List<DocumentSnapshot> eventSnap= new List();
   List reg_events;
 
   //UserModel userLoc;
@@ -49,10 +49,14 @@ class _MyEventListState extends State<MyEventList> {
       print(docSnap['events_reg']);
       print(reg_events.length);
 
-      if (reg_events != null)
+      if (reg_events != null) {
+        for(int i=0;i<reg_events.length;i++){
+          _fetchEvent(i);
+        }
         setState(() {
           fetched = true;
         });
+      }
     }
     //  return _user;
   }
@@ -71,7 +75,7 @@ class _MyEventListState extends State<MyEventList> {
               elevation: 0,
             ),
             body: //reg_events!=null?
-            isGuest || reg_events==null
+            isGuest || reg_events==null || eventSnap.length==0
                 ? EmptyCard(
               type: "Events",
             )
@@ -82,12 +86,12 @@ class _MyEventListState extends State<MyEventList> {
                     itemCount: reg_events == null ? 0 :
                     reg_events.length,
                     itemBuilder: (context, index) {
-                      _fetchEvent(index);
+                      //_fetchEvent(index);
 
                       return eventSnap == null
                           ? Text("")
                           : TimelineCard(
-                        docSnap: eventSnap,
+                        docSnap: eventSnap[index],
                       );
                     })
               ],
@@ -102,7 +106,7 @@ class _MyEventListState extends State<MyEventList> {
         .getDocuments();
     print(transactions.documents.length);
     setState(() {
-      eventSnap = transactions.documents[0];
+      eventSnap.add(transactions.documents[0]);
     });
 
     print(reg_events);
