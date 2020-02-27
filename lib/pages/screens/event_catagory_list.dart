@@ -48,7 +48,7 @@ class _EventCatagoryListState extends State<EventCatagoryList> {
                     ],
                   ),
                   child: Text(
-                    '  Event catagory',
+                    '  Event Category',
                     style: title,
                     textAlign: TextAlign.left,
                   ),

@@ -61,7 +61,7 @@ class _MyDrawerState extends State<MyDrawer> {
       ),
       DrawerList(
         index: DrawerIndex.EventList,
-        labelName: 'Event Catagories',
+        labelName: 'Event Categories',
         icon: new Icon(FontAwesomeIcons.connectdevelop),
       ),
       DrawerList(
