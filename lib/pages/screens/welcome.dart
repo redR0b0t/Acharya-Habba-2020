@@ -111,9 +111,8 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                     delay: delayedAmount + 600,
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0),
-                          side: BorderSide(color: Colors.blue, width: 2)),
-                      color: Colors.deepOrange,
+                          borderRadius: new BorderRadius.circular(30.0),),
+                   color: Colors.deepOrange,
                       onPressed: () {
                         Navigator.push(
                             context,
