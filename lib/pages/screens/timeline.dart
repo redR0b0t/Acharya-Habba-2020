@@ -225,7 +225,7 @@ class _TimelineState extends State<Timeline>
               return Text("");
             }
           }),
-      delay: 200,
+      delay: 1000,
     );
   }
 }

@@ -126,13 +126,15 @@ class TimelineCard extends StatelessWidget {
   }
 
   Widget background() {
-    return CachedNetworkImage(
+    return Center(
+        child:CachedNetworkImage(
       imageUrl: docSnap['img'],
+
       placeholder: (context, url) => Center(
         child: Image(
           image: AssetImage("assets/logo.png"),
         ),
       ),
-    );
+    ));
   }
 }

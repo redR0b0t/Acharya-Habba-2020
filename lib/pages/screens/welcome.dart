@@ -39,9 +39,12 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                   GlowAvatar(
                     avatarUrl: "assets/icon.png",
                   ),
-                  DelayedAnimation(
-                    delay: delayedAmount,
-                    child: Container(
+//                  DelayedAnimation(
+//
+//                    delay: delayedAmount,
+//
+//                    child:
+                    Container(
                       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 5),
                       decoration: BoxDecoration(
                         color: Colors.transparent.withOpacity(0.45),
@@ -65,10 +68,11 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                  DelayedAnimation(
-                    delay: delayedAmount + 300,
-                    child: Card(
+
+//                  DelayedAnimation(
+//                    delay: delayedAmount + 300,
+//                    child:
+                    Card(
                       margin:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       color: Colors.white.withOpacity(0.88),
@@ -102,14 +106,15 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                               ),
                         ],
                       ),
-                    ),
+
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  DelayedAnimation(
-                    delay: delayedAmount + 600,
-                    child: RaisedButton(
+//                  DelayedAnimation(
+//                    delay: delayedAmount + 600,
+//                    child:
+                    RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0),),
                    color: Colors.deepOrange,
@@ -126,7 +131,7 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                         style: subtitleWhite,
                       ),
                     ),
-                  ),
+
                 ],
               ),
             )

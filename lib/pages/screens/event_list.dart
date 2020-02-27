@@ -21,6 +21,12 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
+  void initState(){
+    super.initState();
+  }
+  void dispose(){
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

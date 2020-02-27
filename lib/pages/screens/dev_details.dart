@@ -16,6 +16,12 @@ class DevDetails extends StatefulWidget {
 }
 
 class _DevDetailsState extends State<DevDetails> {
+  void initSate(){
+    super.initState();
+  }
+  void dispose(){
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     print("Dev Details");

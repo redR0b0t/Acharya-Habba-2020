@@ -24,9 +24,11 @@ class _NavigationState extends State<Navigation> {
 
   @override
   void initState() {
+    super.initState();
     drawerIndex = DrawerIndex.HOME;
     screenView = Welcome();
-    super.initState();
+    //screenView= Timeline();
+
   }
 
   Future<bool> _onBackPressed() {

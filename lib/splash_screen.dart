@@ -2,6 +2,10 @@ library splashscreen;
 import 'dart:core';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:habba20/pages/drawer_screen/navigation.dart';
+import 'package:habba20/user_registration/login_screen.dart';
+
 
 class SplashScreen extends StatefulWidget {
   final int seconds;
@@ -43,9 +47,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  FirebaseUser user;
   @override
   void initState() {
     super.initState();
+
+
+    // This widget is the root of your application.
+
+      getCurrentUser();
+      print(user);
+      //print(user);
+
     Timer(
         Duration(seconds: widget.seconds),
             () {
@@ -54,7 +67,8 @@ class _SplashScreenState extends State<SplashScreen> {
             // named route component
             Navigator.of(context).pushReplacementNamed(widget.navigateAfterSeconds);
           } else if (widget.navigateAfterSeconds is Widget) {
-            Navigator.pushReplacement(context,MaterialPageRoute(builder: ( context) => widget.navigateAfterSeconds));
+            Navigator.pushReplacement(context,MaterialPageRoute(builder: ( context) => user!=null?Navigation():LoginScreen()));
+            //widget.navigateAfterSeconds));
           } else {
             throw new ArgumentError(
                 'widget.navigateAfterSeconds must either be a String or Widget'
@@ -113,4 +127,18 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+  void getCurrentUser() async {
+//    if (await FirebaseAuth.instance.currentUser() != null) {
+//      return true;// signed in
+//    } else {
+//      return false;
+//    }
+//
+//    }
+
+    user = await FirebaseAuth.instance.currentUser();
+
+  }
 }
+
+

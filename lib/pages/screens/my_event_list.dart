@@ -71,7 +71,7 @@ class _MyEventListState extends State<MyEventList> {
               elevation: 0,
             ),
             body: //reg_events!=null?
-            isGuest
+            isGuest || reg_events==null
                 ? EmptyCard(
               type: "Events",
             )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:habba20/user_registration/login_screen.dart';
 import 'package:habba20/pages/drawer_screen/navigation.dart';
+import 'package:habba20/user_registration/logged_in.dart';
 
 class RootScreen extends StatefulWidget {
   @override
@@ -22,9 +23,7 @@ class _RootScreenState extends State<RootScreen> {
           if (snapshot.hasData) {
             print(snapshot.data);
 //user is logged in
-            return Navigation(
-             // firebaseUser: snapshot.data,
-            );
+            return LoggedIn();
           } else {
 //user not logged in
             return LoginScreen();

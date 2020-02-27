@@ -904,6 +904,15 @@ class _EventState extends State<Event> {
                 "fee : ₹ ${widget.docSnap['fee']}",
                 style: description,
               )),
+              widget.docSnap['rewards'].toString().length>20?
+              Container(
+                  decoration: BoxDecoration(
+                    //color: Colors.white,
+
+                  ),
+                  child:
+                  Text('${widget.docSnap['rewards']}',style: description,),
+                  ):
               Chip(
                   label: Text(
                 "Reward : ${widget.docSnap['rewards']}",
