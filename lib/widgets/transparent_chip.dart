@@ -21,7 +21,7 @@ class TransparentChip extends StatelessWidget {
         label.trim(),
         style: TextStyle(
             fontSize: size, color: Colors.white,
-            fontFamily: "RobotoRegular"
+            fontFamily: "Quicksand"
         ),
         textAlign: TextAlign.center,
       ),

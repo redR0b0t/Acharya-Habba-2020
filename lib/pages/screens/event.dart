@@ -899,25 +899,26 @@ class _EventState extends State<Event> {
                   style: subtitle,
                 ),
               ),
-              Chip(
-                  label: Text(
-                "fee : ₹ ${widget.docSnap['fee']}",
-                style: description,
-              )),
-              widget.docSnap['rewards'].toString().length>20?
+              SizedBox(height: 10,),
               Container(
-                  decoration: BoxDecoration(
-                    //color: Colors.white,
+                padding: EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                  //color: Colors.white,
 
-                  ),
-                  child:
-                  Text('${widget.docSnap['rewards']}',style: description,),
-                  ):
-              Chip(
-                  label: Text(
-                "Reward : ${widget.docSnap['rewards']}",
-                style: description,
-              )),
+                ),
+                child:
+                Text('fee : ${widget.docSnap['fee']}',style: description,),
+              ),
+              SizedBox(height: 10,),
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                  //color: Colors.white,
+
+                ),
+                child:
+                Text('Reward : ${widget.docSnap['rewards']}',style: description,),
+              ),
             ],
           ),
         ));

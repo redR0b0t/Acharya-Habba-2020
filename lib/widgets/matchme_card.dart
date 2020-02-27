@@ -2,28 +2,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habba20/pages/screens/dev_details.dart';
+import 'package:habba20/utils/style_guide.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class DevCard extends StatelessWidget {
+class MatchMeCard extends StatelessWidget {
   DocumentSnapshot docSnap;
 
-  DevCard({this.docSnap});
+  MatchMeCard({this.docSnap});
 
   @override
   Widget build(BuildContext context) {
     print("Deve card<><><><><>");
     return InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DevDetails(
-                        docSnap: docSnap,
-                      )));
+        onTap: () async {
+      await launch(
+          '${docSnap['link']}');
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Stack(
-              //alignment: AlignmentDirectional.topCenter,
+            //alignment: AlignmentDirectional.topCenter,
               children: <Widget>[
                 Card(
                     shape: RoundedRectangleBorder(
@@ -37,7 +35,7 @@ class DevCard extends StatelessWidget {
                           children: <Widget>[
                             Container(
                                 padding:
-                                    EdgeInsets.only(top: 10.0, bottom: 6.0),
+                                EdgeInsets.only(top: 10.0, bottom: 6.0),
                                 child: Text(
                                   docSnap['name'],
                                   textAlign: TextAlign.center,
@@ -83,8 +81,9 @@ class DevCard extends StatelessWidget {
                     child: Hero(
                       tag: "${docSnap['name']}",
                       child: CircleAvatar(
+                        backgroundColor: notWhite,
                         backgroundImage:
-                            CachedNetworkImageProvider(docSnap['img']),
+                        CachedNetworkImageProvider(docSnap['img']),
                         maxRadius: 50.0,
                       ),
                     ),

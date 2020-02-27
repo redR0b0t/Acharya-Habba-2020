@@ -1,12 +1,11 @@
 import 'package:animated_widgets/widgets/translation_animated.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:habba20/utils/style_guide.dart';
 import 'package:habba20/widgets/dev_card.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:habba20/widgets/matchme_card.dart';
 
 import 'about_habba.dart';
 
@@ -117,18 +116,15 @@ class _DevsState extends State<Devs> {
             ),
 
             StreamBuilder(
-                stream: Firestore.instance
-                    .collection('devs')
-                    .snapshots(),
+                stream: Firestore.instance.collection('devs').snapshots(),
                 builder: (context, snap) {
                   if (snap.hasData) {
                     return ListView.builder(
 
-                      //scrollDirection: Axis.horizontal,
+                        //scrollDirection: Axis.horizontal,
                         itemCount: snap.data.documents.length,
                         itemBuilder: (context, index) {
-                          DocumentSnapshot docSnap = snap.data
-                              .documents[index];
+                          DocumentSnapshot docSnap = snap.data.documents[index];
                           return TranslationAnimatedWidget(
                             //enabled: viewState.buttonVisible, //will forward/reverse the animation
                             curve: Curves.easeIn,
@@ -138,18 +134,21 @@ class _DevsState extends State<Devs> {
                               Offset(0, -50),
                               Offset(0, 0),
                             ],
-                            child: DevCard(docSnap: docSnap,
-                            ),
+                            child: index != 2
+                                ? DevCard(
+                                    docSnap: docSnap,
+                                  )
+                                : docSnap['is_shown']==1?MatchMeCard(
+                              docSnap: docSnap,
+                            ):Container(),
                           );
                         });
-
-                  }else {
+                  } else {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
                 }),
-
 
 //              ListView(
 //                children: <Widget>[
@@ -161,7 +160,5 @@ class _DevsState extends State<Devs> {
         ),
       ),
     );
-
   }
 }
-

@@ -35,7 +35,7 @@ class _MyEventListState extends State<MyEventList> {
       QuerySnapshot transactions = await Firestore.instance
           .collection('users')
           .where('mail', isEqualTo: _user.email)
-          //.where('cat', isEqualTo: widget.event_cat).where('name',isEqualTo: widget.eKey)
+      //.where('cat', isEqualTo: widget.event_cat).where('name',isEqualTo: widget.eKey)
           .getDocuments();
       print(transactions.documents.length);
       DocumentSnapshot docSnap = transactions.documents[0];
@@ -64,45 +64,45 @@ class _MyEventListState extends State<MyEventList> {
   @override
   Widget build(BuildContext context) {
     return // fetched?
-        Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: Text(
-                "My Events",
-                style: TextStyle(color: Colors.white),
-              ),
-              centerTitle: true,
-              elevation: 0,
+      Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(
+              "My Events",
+              style: TextStyle(color: Colors.white),
             ),
-            body: //reg_events!=null?
-            isGuest || reg_events==null || eventSnap.length==0
-                ? EmptyCard(
-              type: "Events",
-            )
-                : Stack(
-              children: <Widget>[
-                Background(),
-                ListView.builder(
-                    itemCount: reg_events == null ? 0 :
-                    reg_events.length,
-                    itemBuilder: (context, index) {
-                      //_fetchEvent(index);
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: //reg_events!=null?
+          isGuest || reg_events==null || eventSnap.length==0
+              ? EmptyCard(
+            type: "Events",
+          )
+              : Stack(
+            children: <Widget>[
+              Background(),
+              ListView.builder(
+                  itemCount: reg_events == null ? 0 :
+                  reg_events.length,
+                  itemBuilder: (context, index) {
+                    //_fetchEvent(index);
 
-                      return eventSnap == null
-                          ? Text("")
-                          : TimelineCard(
-                        docSnap: eventSnap[index],
-                      );
-                    })
-              ],
-            )        );
+                    return eventSnap == null
+                        ? CircularProgressIndicator()
+                        : TimelineCard(
+                      docSnap: eventSnap[index],
+                    );
+                  })
+            ],
+          )        );
   }
 
   void _fetchEvent(int index) async {
     QuerySnapshot transactions = await Firestore.instance
         .collection('events')
         .where('Id', isEqualTo: reg_events[index].toString().trim())
-        //.where('cat', isEqualTo: widget.event_cat).where('name',isEqualTo: widget.eKey)
+    //.where('cat', isEqualTo: widget.event_cat).where('name',isEqualTo: widget.eKey)
         .getDocuments();
     print(transactions.documents.length);
     setState(() {

@@ -34,7 +34,7 @@ class _AboutHabbaState extends State<AboutHabba> {
           automaticallyImplyLeading: false,
           elevation: 0,
           title: Text(
-            'About us',
+            'About Habba',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
@@ -120,7 +120,7 @@ class _AboutHabbaState extends State<AboutHabba> {
                           padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
                           children: <Widget>[
                             Text(
-                              "About us",
+                              "About Habba",
                               style: title,
                             ),
                             Text(
