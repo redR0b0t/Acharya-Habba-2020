@@ -92,9 +92,9 @@ class _NavigationState extends State<Navigation> {
             DrawerUserController(
               screenIndex: drawerIndex,
               drawerWidth: MediaQuery.of(context).size.width * 0.75,
-              animationController: (AnimationController animationController) {
+              /*animationController: (AnimationController animationController) {
                 sliderAnimationController = animationController;
-              },
+              },*/
               onDrawerCall: (DrawerIndex drawerIndexdata) {
                 changeIndex(drawerIndexdata);
               },

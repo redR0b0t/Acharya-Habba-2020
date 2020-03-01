@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="habba20"
+        android:label="Habba 20"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

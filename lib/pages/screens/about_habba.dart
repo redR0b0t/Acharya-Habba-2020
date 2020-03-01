@@ -18,6 +18,7 @@ class _AboutHabbaState extends State<AboutHabba> {
 
   @override
   Widget build(BuildContext context) {
+    print("About habba ");
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

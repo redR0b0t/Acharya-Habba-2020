@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => DatabaseService()),
+        ChangeNotifierProvider(create: (_) => DatabaseService()),
       ],
       child: Builder(
         builder: (context) {
