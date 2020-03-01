@@ -53,7 +53,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
         if (scrollController.offset <= 0) {
           if (scrolloffset != 1.0) {
             setState(() {
-              scrolloffset = 1.0;
+              scrolloffset = 0.0;
               try {
                 widget.drawerIsOpen(true);
               } catch (e) {}
@@ -82,6 +82,9 @@ class _DrawerUserControllerState extends State<DrawerUserController>
       });
     getInitState();
     super.initState();
+  }
+  void dispose(){
+    super.dispose();
   }
 
   Future<bool> getInitState() async {
@@ -135,7 +138,9 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                               onDrawerClick();
                               try {
                                 widget.onDrawerCall(indexType);
-                              } catch (e) {}
+                              } catch (e) {
+                                print(e);
+                              }
                             },
                           ),
                         ),
@@ -157,21 +162,23 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                     ),
                     child: Stack(
                       children: <Widget>[
-                        IgnorePointer(
-                          ignoring: scrolloffset == 1 ? true : false,
-                          child: widget.screenView == null
-                              ? Container(
-                                  color: Colors.white,
-                                )
-                              : widget.screenView,
-                        ),
+
                         scrolloffset == 1.0
                             ? InkWell(
                                 onTap: () {
-                                  onDrawerClick();
+                                 // onDrawerClick();
+                                  print("pressed");
                                 },
                               )
                             : SizedBox(),
+                        IgnorePointer(
+                          ignoring:  false,
+                          child: widget.screenView == null
+                              ? Container(
+                            color: Colors.white,
+                          )
+                              : widget.screenView,
+                        ),
                         Padding(
                           padding: EdgeInsets.only(
                               top: MediaQuery.of(context).padding.top + 8,
@@ -195,14 +202,16 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                                           progress: iconAnimationController),
                                 ),
                                 onTap: () {
-                                  FocusScope.of(context)
-                                      .requestFocus(FocusNode());
+//                                  FocusScope.of(context)
+//                                      .requestFocus(FocusNode());
                                   onDrawerClick();
+                                  print("inkwell pressed");
                                 },
                               ),
                             ),
                           ),
                         ),
+
                       ],
                     ),
                   ),

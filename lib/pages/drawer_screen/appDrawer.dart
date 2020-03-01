@@ -39,6 +39,9 @@ class _MyDrawerState extends State<MyDrawer> {
     _fetchUser();
 
   }
+  void dispose(){
+    super.dispose();
+  }
   void  _fetchUser() async{
     _user = await FirebaseAuth.instance.currentUser();
     print("User: ${_user ?? "None"}");
