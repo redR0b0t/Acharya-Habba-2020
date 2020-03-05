@@ -6,6 +6,7 @@ import 'package:habba20/services/google_sigin_in.dart';
 import 'package:habba20/user_registration/login_screen.dart';
 import 'package:habba20/utils/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MyDrawer extends StatefulWidget {
   final AnimationController iconAnimationController;
@@ -140,7 +141,9 @@ class _MyDrawerState extends State<MyDrawer> {
                             ),
                             child: CircleAvatar(
 
-                               backgroundImage: NetworkImage(isGuest?'https://blog.hubspot.com/hubfs/image8-2.jpg':_user.photoUrl!=null?_user.photoUrl:'https://blog.hubspot.com/hubfs/image8-2.jpg'),
+                               backgroundImage: CachedNetworkImageProvider(isGuest?'https://blog.hubspot.com/hubfs/image8-2.jpg':_user.photoUrl!=null?_user.photoUrl:'https://blog.hubspot.com/hubfs/image8-2.jpg'),
+
+                               //NetworkImage(isGuest?'https://blog.hubspot.com/hubfs/image8-2.jpg':_user.photoUrl!=null?_user.photoUrl:'https://blog.hubspot.com/hubfs/image8-2.jpg'),
                               backgroundColor: Colors.transparent,
                             ),
                           ),
